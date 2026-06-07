@@ -86,12 +86,8 @@ export function HomeShowcase() {
             loop
             playsInline
             preload="metadata"
-            poster="https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=1600&q=80"
           >
-            <source
-              src="https://cdn.prod.website-files.com/679d8b01c23ed7847fc5108f%2F681a5d6a393040f8a64f2175_topaz_hero-transcode.mp4"
-              type="video/mp4"
-            />
+            <source src="/videos/hero-soft-blue.mp4" type="video/mp4" />
           </video>
           <div className="hero-video-overlay" />
           <div className="hero-video-glow" />

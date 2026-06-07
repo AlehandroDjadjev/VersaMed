@@ -4,6 +4,7 @@ from django.contrib.auth import get_user_model
 from django.test import TestCase
 from django.urls import reverse
 from rest_framework import status
+from rest_framework.test import APIClient
 
 from apps.medical.models import AIRun, Diagnosis, DiagnosisProblemLink, Patient, Problem
 
@@ -73,6 +74,7 @@ def model_output_no_problem():
 
 class AnalyzeDiagnosisTests(TestCase):
     def setUp(self):
+        self.client = APIClient()
         self.user = get_user_model().objects.create_user(
             username="tester",
             email="tester@example.com",
@@ -112,7 +114,7 @@ class AnalyzeDiagnosisTests(TestCase):
                 "title": "Blood test",
                 "raw_text": "Hemoglobin 10.2 low. Ferritin 8 low.",
             },
-            content_type="application/json",
+            format="json",
         )
 
         self.assertEqual(response.status_code, 201)
@@ -133,7 +135,7 @@ class AnalyzeDiagnosisTests(TestCase):
                 "title": "General note",
                 "raw_text": "Patient feels fine. No symptoms reported.",
             },
-            content_type="application/json",
+            format="json",
         )
 
         self.assertEqual(response.status_code, 201)
@@ -155,7 +157,7 @@ class AnalyzeDiagnosisTests(TestCase):
                 "title": "General note",
                 "raw_text": "Patient feels fine.",
             },
-            content_type="application/json",
+            format="json",
         )
 
         self.assertEqual(response.status_code, status.HTTP_500_INTERNAL_SERVER_ERROR)

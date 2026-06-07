@@ -8,15 +8,16 @@ from django.http import FileResponse
 from django.shortcuts import get_object_or_404
 from django.db.models import Q
 from django.db import IntegrityError
+from rest_framework import serializers, status
 from rest_framework.exceptions import ValidationError
 from rest_framework.authtoken.models import Token
 from rest_framework.parsers import FormParser, JSONParser, MultiPartParser
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
-from rest_framework import serializers, status
 from rest_framework.views import APIView
 
 from apps.core.models import DoctorProfile, LaboratoryResultAttachment, PatientProfile
+from apps.core.email_notifications import send_email_notification
 from apps.core.services import sync_user_from_mock_hospital
 from apps.medical.models import Diagnosis, Patient as MedicalPatient
 from apps.medical.serializers import DiagnosisProblemLinkSerializer, DiagnosisSerializer
@@ -25,11 +26,15 @@ from his_mock.client import MockHospitalAPIClient
 from .ai_vision_service import analyze_scan_with_ai
 from .scan_service import ScanNotFoundError, get_scan, scan_image_path
 from .laboratory import (
+    LaboratoryFileUploadSerializer,
     LaboratoryResultInputSerializer,
     create_laboratory_result,
+    default_laboratory_result_payload,
     laboratory_result_data,
     validate_attachments,
 )
+from .notifications import CanSendEmailNotification, EmailNotificationSerializer
+
 
 logger = logging.getLogger(__name__)
 
@@ -188,6 +193,10 @@ class DashboardView(APIView):
                     for item in profile.immunizations.select_related("medical_institution")
                 ],
                 "hospitalizations": hospitalizations,
+                "laboratory_results": [
+                    laboratory_result_data(item)
+                    for item in profile.laboratory_results.prefetch_related("attachments")
+                ],
             },
         })
 
@@ -375,15 +384,25 @@ class LaboratoryResultCreateView(APIView):
     parser_classes = [MultiPartParser, FormParser, JSONParser]
 
     def post(self, request):
-        serializer = LaboratoryResultInputSerializer(data=request.data)
+        serializer = LaboratoryResultInputSerializer(
+            data=request.data,
+            context={"request": request},
+        )
         serializer.is_valid(raise_exception=True)
-        uploads = request.FILES.getlist("attachments[]") or request.FILES.getlist("attachments")
+        uploads = (
+            request.FILES.getlist("attachments[]")
+            or request.FILES.getlist("attachments")
+            or request.FILES.getlist("file")
+        )
         attachments = validate_attachments(uploads)
-        if not serializer.validated_data["test_results"] and not attachments:
-            raise ValidationError(
-                {"detail": "At least one structured test result or attachment is required."}
-            )
-        result = create_laboratory_result(serializer.validated_data, attachments, request.user)
+        if not attachments:
+            raise ValidationError({"file": "Upload at least one file."})
+        result = create_laboratory_result(
+            default_laboratory_result_payload(serializer.target_patient_profile),
+            attachments,
+            request.user,
+            patient=serializer.target_patient_profile,
+        )
         return Response(laboratory_result_data(result), status=status.HTTP_201_CREATED)
 
 
@@ -393,13 +412,38 @@ class LaboratoryResultAttachmentDownloadView(APIView):
     def get(self, request, attachment_id):
         attachments = LaboratoryResultAttachment.objects.all()
         if not request.user.is_staff:
-            attachments = attachments.filter(laboratory_result__created_by=request.user)
+            allowed = Q(laboratory_result__created_by=request.user) | Q(
+                laboratory_result__patient__user=request.user
+            )
+            if request.user.role == "doctor" and hasattr(request.user, "doctor_profile"):
+                allowed |= Q(
+                    laboratory_result__patient__doctor_assignments__doctor=request.user.doctor_profile
+                )
+            attachments = attachments.filter(allowed).distinct()
         attachment = get_object_or_404(attachments, id=attachment_id)
         return FileResponse(
             attachment.file.open("rb"),
             as_attachment=True,
             filename=attachment.title,
         )
+
+
+class EmailNotificationCreateView(APIView):
+    permission_classes = [IsAuthenticated, CanSendEmailNotification]
+
+    def post(self, request):
+        serializer = EmailNotificationSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        result = send_email_notification(
+            user=request.user,
+            **serializer.validated_data,
+        )
+        if not result["success"]:
+            return Response(
+                {"success": False, "message": "Failed to send email."},
+                status=status.HTTP_502_BAD_GATEWAY,
+            )
+        return Response({"success": True, "message": "Email sent successfully."})
 
 
 def doctor_dashboard(user):
@@ -441,6 +485,7 @@ class AnalyzeScanView(APIView):
         modality = serializers.CharField(max_length=64, required=False, allow_blank=True)
         body_part = serializers.CharField(max_length=128, required=False, allow_blank=True)
         user_complaint = serializers.CharField(required=False, allow_blank=True)
+        patient_symptoms = serializers.CharField(required=False, allow_blank=True)
         clinical_context = serializers.CharField(required=False, allow_blank=True)
         focus_hint = serializers.CharField(required=False, allow_blank=True)
         happened_at = serializers.DateField(required=False, allow_null=True)
@@ -498,6 +543,7 @@ class AnalyzeScanView(APIView):
             patient.id,
         )
         image_upload = payload.get("image")
+        patient_symptoms = payload.get("patient_symptoms", "").strip()
 
         if scan_id:
             try:
@@ -512,11 +558,20 @@ class AnalyzeScanView(APIView):
                 image_path.read_bytes(),
                 content_type="image/png",
             )
+            if not patient_symptoms:
+                raise ValidationError(
+                    {"patient_symptoms": ["This field is required for scan-id analysis."]}
+                )
         else:
             if not image_upload:
                 raise ValidationError({"image": ["This field is required."]})
             if not payload.get("title"):
                 raise ValidationError({"title": ["This field is required."]})
+            if not patient_symptoms:
+                patient_symptoms = (
+                    payload.get("user_complaint", "").strip()
+                    or ", ".join(self._parse_symptoms(payload.get("symptoms", "")))
+                )
             scan = {
                 "id": "",
                 "title": payload["title"],
@@ -535,7 +590,11 @@ class AnalyzeScanView(APIView):
                 getattr(request.user, "id", None),
                 patient.id,
             )
-            result = analyze_scan_with_ai(scan, image_upload)
+            result = analyze_scan_with_ai(
+                scan,
+                image_upload,
+                patient_symptoms=patient_symptoms,
+            )
             logger.warning(
                 "scan_pipeline.vision.done user_id=%s patient_id=%s elapsed_ms=%d",
                 getattr(request.user, "id", None),

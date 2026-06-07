@@ -76,7 +76,7 @@ WSGI_APPLICATION = "config.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
-        "NAME": os.getenv("DATABASE_NAME", BASE_DIR / "db.sqlite3"),
+        "NAME": os.getenv("DATABASE_NAME") or BASE_DIR / "db.sqlite3",
     }
 }
 
@@ -166,10 +166,21 @@ TEXT_RESEARCH_OUT_DIR = os.getenv(
     str(BASE_DIR / "AgentResearch" / "text_research_runs"),
 )
 EMAIL_BACKEND = os.getenv(
-    "DJANGO_EMAIL_BACKEND",
-    "django.core.mail.backends.console.EmailBackend" if DEBUG else "django.core.mail.backends.smtp.EmailBackend",
+    "EMAIL_BACKEND",
+    os.getenv(
+        "DJANGO_EMAIL_BACKEND",
+        "django.core.mail.backends.console.EmailBackend" if DEBUG else "django.core.mail.backends.smtp.EmailBackend",
+    ),
 )
-DEFAULT_FROM_EMAIL = os.getenv("DJANGO_DEFAULT_FROM_EMAIL", "no-reply@versamed.local")
+EMAIL_HOST = os.getenv("EMAIL_HOST", "smtp.gmail.com")
+EMAIL_PORT = int(os.getenv("EMAIL_PORT", "587"))
+EMAIL_USE_TLS = env_bool("EMAIL_USE_TLS", True)
+EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER", "")
+EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD", "")
+DEFAULT_FROM_EMAIL = os.getenv(
+    "DEFAULT_FROM_EMAIL",
+    os.getenv("DJANGO_DEFAULT_FROM_EMAIL", "VersaMed <versamedvm@gmail.com>"),
+)
 LOGIN_VERIFICATION_CODE_TTL_SECONDS = int(
     os.getenv("LOGIN_VERIFICATION_CODE_TTL_SECONDS", "600")
 )

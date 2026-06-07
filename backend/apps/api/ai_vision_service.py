@@ -64,7 +64,7 @@ def image_data_url_from_upload(upload):
     return f"data:{content_type};base64,{payload}"
 
 
-def analyze_scan_with_ai(scan, image_upload):
+def analyze_scan_with_ai(scan, image_upload, patient_symptoms=""):
     if not settings.OPENAI_API_KEY:
         raise RuntimeError("OPENAI_API_KEY is not configured.")
     client = OpenAI(api_key=settings.OPENAI_API_KEY)
@@ -98,8 +98,10 @@ def analyze_scan_with_ai(scan, image_upload):
                     "type": "input_text",
                     "text": (
                         f"Title: {scan['title']}\nModality: {scan['modality']}\nBody part: {scan['bodyPart']}\n"
-                        f"Symptoms: {', '.join(scan['symptoms']) or 'Not provided by TCIA/NBIA'}\n"
-                        f"Symptoms source: {scan.get('symptomsSource', '')}\nUser complaint: {scan.get('userComplaint', '')}\n"
+                        f"Patient-reported symptoms/complaint: {patient_symptoms}\n"
+                        f"Dataset symptoms: {', '.join(scan['symptoms']) or 'Not provided by TCIA/NBIA'}\n"
+                        f"Dataset symptoms source: {scan.get('symptomsSource', '')}\n"
+                        f"Dataset complaint/context note: {scan.get('userComplaint', '')}\n"
                         f"Collection context: {scan.get('clinicalContext', '')}\n"
                         f"Focus hint: {scan.get('focusHint', '')}"
                     ),

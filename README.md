@@ -39,7 +39,8 @@ Routes:
 - `GET /api/scans`
 - `GET /api/scans/<scan_id>`
 - `GET /api/scans/<scan_id>/image`
-- `POST /api/analyze-scan/<scan_id>`
+- `POST /api/analyze-scan/<scan_id>` with JSON body
+  `{"patient_symptoms":"Describe what the patient feels or reports"}`
 
 The provider-specific implementation is isolated in the AI vision service, so
 another model provider can replace it without changing the API routes.
@@ -166,6 +167,7 @@ private file attachments, or both:
 ```bash
 curl -X POST http://localhost:8000/api/laboratory/results/ \
   -H "Authorization: Token YOUR_TOKEN" \
+  -F "patient_id=1" \
   -F "laboratory_request=lab-request-123" \
   -F "laboratory_name=Example Laboratory" \
   -F "collected_at=2026-06-07T08:00:00Z" \
@@ -185,3 +187,40 @@ and staff can download an attachment through:
 ```text
 GET /api/laboratory/results/attachments/{attachment_id}/download/
 ```
+
+Every new laboratory result must include a `patient_id`. Patients may submit
+results for themselves, assigned doctors may submit results for their assigned
+patients, and admins or staff may submit results for any patient. The result,
+structured values, and attachment metadata are stored in the database. Uploaded
+file bytes remain in private file storage rather than inside the database.
+
+## Email notifications
+
+Doctors, admins, and Django staff can send an email notification through:
+
+```text
+POST /api/notifications/email/
+```
+
+Configure Gmail SMTP in `backend/.env`:
+
+```env
+EMAIL_BACKEND=django.core.mail.backends.smtp.EmailBackend
+EMAIL_HOST=smtp.gmail.com
+EMAIL_PORT=587
+EMAIL_USE_TLS=True
+EMAIL_HOST_USER=versamedvm@gmail.com
+EMAIL_HOST_PASSWORD=<google_app_password>
+DEFAULT_FROM_EMAIL=VersaMed <versamedvm@gmail.com>
+```
+
+Developer setup:
+
+1. Enable Google 2-Step Verification for `versamedvm@gmail.com`.
+2. Create a Google App Password.
+3. Place the App Password in `EMAIL_HOST_PASSWORD`.
+4. Restart the backend.
+
+SMTP credentials must never be committed. Notification delivery status and
+internal failures are stored in the database, while API failure responses remain
+generic.
