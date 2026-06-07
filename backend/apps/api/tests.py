@@ -39,7 +39,11 @@ class LaboratoryResultApiTests(APITestCase):
         super().tearDownClass()
 
     def setUp(self):
-        self.user = User.objects.create_user(username="lab-user", password="password123")
+        self.user = User.objects.create_user(
+            username="lab-user",
+            email="lab-user@example.com",
+            password="password123",
+        )
         self.client.force_authenticate(self.user)
 
     def upload(self, name="report.pdf", content=b"%PDF-1.4 mock", content_type="application/pdf"):
@@ -160,7 +164,7 @@ class LaboratoryResultApiTests(APITestCase):
         self.client.force_authenticate(self.user)
         authorized = self.client.get(download_path)
 
-        self.assertEqual(unauthorized.status_code, 401)
+        self.assertEqual(unauthorized.status_code, 403)
         self.assertEqual(authorized.status_code, 200)
         self.assertIn("attachment;", authorized.headers["Content-Disposition"])
 
@@ -171,7 +175,11 @@ class LaboratoryResultApiTests(APITestCase):
             format="multipart",
         )
         attachment_id = create_response.data["attachments"][0]["id"]
-        other_user = User.objects.create_user(username="other-user", password="password123")
+        other_user = User.objects.create_user(
+            username="other-user",
+            email="other-user@example.com",
+            password="password123",
+        )
         self.client.force_authenticate(other_user)
 
         response = self.client.get(f"{self.endpoint}attachments/{attachment_id}/download/")
@@ -187,4 +195,4 @@ class LaboratoryResultApiTests(APITestCase):
             format="json",
         )
 
-        self.assertEqual(response.status_code, 401)
+        self.assertEqual(response.status_code, 403)

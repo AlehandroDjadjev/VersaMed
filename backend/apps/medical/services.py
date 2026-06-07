@@ -5,6 +5,20 @@ from apps.medical.models import AIRun, Diagnosis, DiagnosisProblemLink, Patient,
 from apps.medical.prompts import build_diagnosis_analysis_prompt
 
 
+def ensure_medical_patient(user):
+    patient, created = Patient.objects.get_or_create(
+        user=user,
+        defaults={"name": user.get_full_name().strip() or user.username},
+    )
+
+    desired_name = user.get_full_name().strip() or user.username
+    if not created and patient.name != desired_name:
+        patient.name = desired_name
+        patient.save(update_fields=["name"])
+
+    return patient
+
+
 class DiagnosisAnalysisService:
     def analyze_and_save(
         self,

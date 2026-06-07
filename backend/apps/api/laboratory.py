@@ -1,11 +1,14 @@
 import json
+from datetime import timedelta
 from pathlib import Path
 
 from django.conf import settings
+from django.utils import timezone
 from django.db import transaction
 from rest_framework import serializers
 
-from apps.core.models import LaboratoryResult, LaboratoryResultAttachment
+from apps.core.models import LaboratoryResult, LaboratoryResultAttachment, PatientProfile
+from apps.users.models import DoctorPatientAssignment, User
 
 
 class LaboratoryResultInputSerializer(serializers.Serializer):
@@ -33,6 +36,55 @@ class LaboratoryResultInputSerializer(serializers.Serializer):
         return attrs
 
 
+class LaboratoryFileUploadSerializer(serializers.Serializer):
+    user_id = serializers.IntegerField()
+
+    def validate_user_id(self, value):
+        try:
+            user = User.objects.select_related("patient_profile", "doctor_profile").get(id=value)
+        except User.DoesNotExist as error:
+            raise serializers.ValidationError("Patient user not found.") from error
+
+        if user.role != User.Role.PATIENT:
+            raise serializers.ValidationError("The selected user is not a patient.")
+
+        try:
+            patient_profile = user.patient_profile
+        except PatientProfile.DoesNotExist as error:
+            raise serializers.ValidationError("The selected patient does not have a patient profile.") from error
+
+        self.context["target_user"] = user
+        self.context["target_patient_profile"] = patient_profile
+        return value
+
+    def validate(self, attrs):
+        request = self.context["request"]
+        target_user = self.context["target_user"]
+
+        if request.user.id == target_user.id:
+            return attrs
+
+        requester_doctor = getattr(request.user, "doctor_profile", None)
+        target_patient = self.context["target_patient_profile"]
+        if (
+            request.user.role == User.Role.DOCTOR
+            and requester_doctor
+            and DoctorPatientAssignment.objects.filter(
+                doctor=requester_doctor,
+                patient=target_patient,
+            ).exists()
+        ):
+            return attrs
+
+        raise serializers.ValidationError(
+            {"user_id": "You can only upload files for yourself or for patients assigned to you."}
+        )
+
+    @property
+    def target_patient_profile(self):
+        return self.context["target_patient_profile"]
+
+
 def attachment_type(upload):
     suffix = Path(upload.name).suffix.lower()
     if suffix == ".pdf":
@@ -58,9 +110,25 @@ def validate_attachments(attachments):
     return validated
 
 
+def default_laboratory_result_payload(patient_profile):
+    now = timezone.now()
+    collected_at = now - timedelta(minutes=5)
+    return {
+        "laboratory_request": f"upload-{now.strftime('%Y%m%d%H%M%S')}",
+        "laboratory_name": "VersaMed Upload Intake",
+        "collected_at": collected_at,
+        "reported_at": now,
+        "test_results": [],
+    }
+
+
 @transaction.atomic
-def create_laboratory_result(validated_data, attachments, user):
-    result = LaboratoryResult.objects.create(created_by=user, **validated_data)
+def create_laboratory_result(validated_data, attachments, user, patient=None):
+    result = LaboratoryResult.objects.create(
+        created_by=user,
+        patient=patient,
+        **validated_data,
+    )
     for upload, file_type in attachments:
         LaboratoryResultAttachment.objects.create(
             laboratory_result=result,
@@ -86,6 +154,7 @@ def laboratory_result_data(result):
     return {
         "id": str(result.id),
         "status": result.status,
+        "patient_egn": result.patient.personal_identifier if result.patient else None,
         "summary": (
             f"{value_count} structured value{'s' if value_count != 1 else ''} and "
             f"{attachment_count} attachment{'s' if attachment_count != 1 else ''} uploaded."

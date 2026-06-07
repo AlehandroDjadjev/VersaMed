@@ -77,6 +77,13 @@ class LaboratoryResult(TimestampedModel):
     reported_at = models.DateTimeField()
     status = models.CharField(max_length=16, choices=Status.choices, default=Status.COMPLETED)
     test_results = models.JSONField(default=list, blank=True)
+    patient = models.ForeignKey(
+        "core.PatientProfile",
+        null=True,
+        blank=True,
+        on_delete=models.CASCADE,
+        related_name="laboratory_results",
+    )
     created_by = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.PROTECT,

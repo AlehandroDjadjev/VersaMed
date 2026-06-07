@@ -3,6 +3,8 @@ from django.urls import re_path
 from .views import (
     CurrentUserView,
     DoctorPatientAssignmentView,
+    DoctorPatientWorkspaceSubmissionView,
+    DoctorPatientWorkspaceView,
     DoctorSignUpView,
     LoginView,
     LogoutView,
@@ -23,5 +25,15 @@ urlpatterns = [
         r"^doctor/patients/?$",
         DoctorPatientAssignmentView.as_view(),
         name="doctor-patients",
+    ),
+    re_path(
+        r"^doctor/patients/(?P<assignment_id>\d+)/?$",
+        DoctorPatientWorkspaceView.as_view(),
+        name="doctor-patient-workspace",
+    ),
+    re_path(
+        r"^doctor/patients/(?P<assignment_id>\d+)/submit/?$",
+        DoctorPatientWorkspaceSubmissionView.as_view(),
+        name="doctor-patient-submit",
     ),
 ]

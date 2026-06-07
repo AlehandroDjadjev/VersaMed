@@ -54,6 +54,21 @@ export type DoctorPatientAssignment = {
   patient: AssignedPatient;
 };
 
+export type LaboratoryAttachment = {
+  id: string;
+  file_type: string;
+  title: string;
+};
+
+export type LaboratoryResultSummary = {
+  id: string;
+  status: string;
+  patient_egn: string | null;
+  summary: string;
+  test_results: Array<Record<string, unknown>>;
+  attachments: LaboratoryAttachment[];
+};
+
 export type PatientDashboardData = {
   user: {
     id: number;
@@ -67,6 +82,7 @@ export type PatientDashboardData = {
     gender: string;
     blood_type: string;
     address: string;
+    egn?: string;
   };
   mock_hospital_api: {
     status: string;
@@ -96,6 +112,42 @@ export type PatientDashboardData = {
         recommendations: string;
       } | null;
     }>;
+    laboratory_results?: LaboratoryResultSummary[];
+  };
+};
+
+export type MedicalProblem = {
+  id: number;
+  title: string;
+  summary: string;
+  body_area: string;
+  keywords: string[];
+  created_at: string;
+  updated_at: string;
+};
+
+export type MedicalDiagnosis = {
+  id: number;
+  kind: string;
+  title: string;
+  raw_text: string;
+  raw_json: Record<string, unknown>;
+  happened_at: string | null;
+  summary: string;
+  description: string;
+  extracted_findings: Array<Record<string, unknown>>;
+  keywords: string[];
+  body_areas: string[];
+  created_at: string;
+};
+
+export type DoctorPatientWorkspace = {
+  assignment: DoctorPatientAssignment;
+  patient_dashboard: PatientDashboardData;
+  medical_workspace: {
+    patient_id: number;
+    problems: MedicalProblem[];
+    diagnoses: MedicalDiagnosis[];
   };
 };
 
@@ -161,6 +213,28 @@ export type DoctorPatientLookupPayload = {
   firstName: string;
   middleName: string;
   lastName: string;
+};
+
+export type DoctorPatientSubmissionPayload = {
+  assignmentId: number;
+  laboratoryRequest: string;
+  laboratoryName: string;
+  collectedAt: string;
+  reportedAt: string;
+  diagnosisKind: string;
+  title: string;
+  happenedAt?: string;
+  rawText?: string;
+  rawJson?: string;
+  testResults?: string;
+  attachments: File[];
+};
+
+export type DoctorPatientSubmissionResponse = {
+  laboratory_result: LaboratoryResultSummary;
+  diagnosis: MedicalDiagnosis;
+  patient_dashboard: PatientDashboardData;
+  medical_workspace: DoctorPatientWorkspace["medical_workspace"];
 };
 
 const SAFE_METHODS = new Set(["GET", "HEAD", "OPTIONS", "TRACE"]);
@@ -352,6 +426,10 @@ export async function fetchDoctorPatients() {
   return response.assignments;
 }
 
+export async function fetchDoctorPatientWorkspace(assignmentId: number) {
+  return request<DoctorPatientWorkspace>(`/auth/doctor/patients/${assignmentId}/`);
+}
+
 export async function fetchPatientDashboard() {
   return request<PatientDashboardData>("/api/dashboard/");
 }
@@ -375,6 +453,37 @@ export async function assignDoctorPatient(payload: DoctorPatientLookupPayload) {
       last_name: payload.lastName,
     }),
   });
+}
+
+export async function submitDoctorPatientWorkspace(
+  payload: DoctorPatientSubmissionPayload,
+) {
+  const formData = new FormData();
+  formData.set("laboratory_request", payload.laboratoryRequest);
+  formData.set("laboratory_name", payload.laboratoryName);
+  formData.set("collected_at", payload.collectedAt);
+  formData.set("reported_at", payload.reportedAt);
+  formData.set("diagnosis_kind", payload.diagnosisKind);
+  formData.set("title", payload.title);
+  formData.set("test_results", payload.testResults ?? "[]");
+  formData.set("raw_text", payload.rawText ?? "");
+  formData.set("raw_json", payload.rawJson ?? "{}");
+
+  if (payload.happenedAt) {
+    formData.set("happened_at", payload.happenedAt);
+  }
+
+  for (const attachment of payload.attachments) {
+    formData.append("attachments[]", attachment);
+  }
+
+  return request<DoctorPatientSubmissionResponse>(
+    `/auth/doctor/patients/${payload.assignmentId}/submit/`,
+    {
+      method: "POST",
+      body: formData,
+    },
+  );
 }
 
 export async function logoutUser() {

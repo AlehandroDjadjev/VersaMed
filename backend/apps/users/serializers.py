@@ -1,10 +1,14 @@
+import json
+
 from django.contrib.auth import authenticate, get_user_model
 from django.contrib.auth.password_validation import validate_password
 from django.core.exceptions import ValidationError as DjangoValidationError
 from django.db.models import Q
 from rest_framework import serializers
 
+from apps.api.laboratory import LaboratoryResultInputSerializer
 from apps.core.models import DoctorProfile, MedicalInstitution, PatientProfile
+from apps.medical.models import Diagnosis
 
 from .models import DoctorPatientAssignment
 from .login_verification import LoginVerificationError, verify_login_challenge
@@ -399,3 +403,21 @@ class DoctorPatientAssignmentSerializer(serializers.ModelSerializer):
         model = DoctorPatientAssignment
         fields = ("id", "assigned_at", "patient")
         read_only_fields = fields
+
+
+class DoctorPatientWorkspaceSubmissionSerializer(LaboratoryResultInputSerializer):
+    diagnosis_kind = serializers.ChoiceField(choices=Diagnosis.Kind.choices)
+    title = serializers.CharField(max_length=255)
+    happened_at = serializers.DateField(required=False, allow_null=True)
+    raw_text = serializers.CharField(required=False, allow_blank=True, default="")
+    raw_json = serializers.JSONField(required=False, default=dict)
+
+    def validate_raw_json(self, value):
+        if isinstance(value, str):
+            try:
+                value = json.loads(value)
+            except json.JSONDecodeError as error:
+                raise serializers.ValidationError("Must be valid JSON.") from error
+        if not isinstance(value, dict):
+            raise serializers.ValidationError("Must be a JSON object.")
+        return value

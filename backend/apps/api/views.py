@@ -18,8 +18,10 @@ from his_mock.client import MockHospitalAPIClient
 from .ai_vision_service import analyze_scan_with_ai
 from .scan_service import ScanNotFoundError, get_scan, list_scans, scan_image_path
 from .laboratory import (
+    LaboratoryFileUploadSerializer,
     LaboratoryResultInputSerializer,
     create_laboratory_result,
+    default_laboratory_result_payload,
     laboratory_result_data,
     validate_attachments,
 )
@@ -203,15 +205,25 @@ class LaboratoryResultCreateView(APIView):
     parser_classes = [MultiPartParser, FormParser, JSONParser]
 
     def post(self, request):
-        serializer = LaboratoryResultInputSerializer(data=request.data)
+        serializer = LaboratoryFileUploadSerializer(
+            data=request.data,
+            context={"request": request},
+        )
         serializer.is_valid(raise_exception=True)
-        uploads = request.FILES.getlist("attachments[]") or request.FILES.getlist("attachments")
+        uploads = (
+            request.FILES.getlist("attachments[]")
+            or request.FILES.getlist("attachments")
+            or request.FILES.getlist("file")
+        )
         attachments = validate_attachments(uploads)
-        if not serializer.validated_data["test_results"] and not attachments:
-            raise ValidationError(
-                {"detail": "At least one structured test result or attachment is required."}
-            )
-        result = create_laboratory_result(serializer.validated_data, attachments, request.user)
+        if not attachments:
+            raise ValidationError({"file": "Upload at least one file."})
+        result = create_laboratory_result(
+            default_laboratory_result_payload(serializer.target_patient_profile),
+            attachments,
+            request.user,
+            patient=serializer.target_patient_profile,
+        )
         return Response(laboratory_result_data(result), status=status.HTTP_201_CREATED)
 
 
