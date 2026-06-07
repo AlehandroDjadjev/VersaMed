@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import include, path
 
 from .views import AnalyzeScanView, DashboardView, HealthCheckView, LoginView, LogoutView, MeView, OnboardingSyncView, ScanDetailView, ScanImageView, ScanListView, SignupView
 from .views import (
@@ -17,6 +17,9 @@ app_name = "api"
 
 urlpatterns = [
     path("health/", HealthCheckView.as_view(), name="health-check"),
+<<<<<<< HEAD
+    path("", include("apps.medical.urls")),
+=======
     path("auth/signup/", SignupView.as_view(), name="signup"),
     path("auth/login/", LoginView.as_view(), name="login"),
     path("auth/logout/", LogoutView.as_view(), name="logout"),
@@ -33,4 +36,5 @@ urlpatterns = [
         LaboratoryResultAttachmentDownloadView.as_view(),
         name="laboratory-result-attachment-download",
     ),
+>>>>>>> ecb1ba21493d2b2f96082d24994e5efe45a02fd9
 ]
