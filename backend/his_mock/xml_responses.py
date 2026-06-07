@@ -63,13 +63,14 @@ def build_immunization_issue_response():
     return _serialize(root)
 
 
-def build_immunization_fetch_response():
+def build_immunization_fetch_response(identifier="9001010000"):
+    patient = fake_data.PATIENTS[identifier]
     root = _response(message="Mock immunization returned successfully")
     data = SubElement(root, "Data")
-    _add_mapping(data, "Patient", fake_data.PATIENT)
-    _add_mapping(data, "Doctor", fake_data.DOCTOR)
-    _add_mapping(data, "MedicalInstitution", fake_data.MEDICAL_INSTITUTION)
-    _add_mapping(data, "Immunization", fake_data.IMMUNIZATION)
+    _add_mapping(data, "Patient", patient["identity"])
+    immunizations = SubElement(data, "Immunizations")
+    for item in patient["immunizations"]:
+        _add_mapping(immunizations, "Immunization", item)
     return _serialize(root)
 
 
@@ -82,20 +83,25 @@ def build_immunization_certificate_response():
     return _serialize(root)
 
 
-def build_hospitalization_fetch_response():
+def build_hospitalization_fetch_response(identifier="9001010000"):
+    patient = fake_data.PATIENTS[identifier]
     root = _response(message="Mock hospitalization returned successfully")
     data = SubElement(root, "Data")
-    _add_mapping(data, "Patient", fake_data.PATIENT)
-    _add_mapping(data, "MedicalInstitution", fake_data.MEDICAL_INSTITUTION)
-    _add_mapping(data, "Hospitalization", fake_data.HOSPITALIZATION)
+    _add_mapping(data, "Patient", patient["identity"])
+    hospitalizations = SubElement(data, "Hospitalizations")
+    for item in patient["hospitalizations"]:
+        _add_mapping(hospitalizations, "Hospitalization", item)
     return _serialize(root)
 
 
-def build_epicrisis_response():
+def build_epicrisis_response(identifier="9001010000"):
+    patient = fake_data.PATIENTS[identifier]
     root = _response(message="Mock epicrisis returned successfully")
     data = SubElement(root, "Data")
-    _add_mapping(data, "Patient", fake_data.PATIENT)
-    _add_mapping(data, "Epicrisis", fake_data.EPICRISIS)
+    _add_mapping(data, "Patient", patient["identity"])
+    epicrises = SubElement(data, "Epicrises")
+    for item in patient["epicrises"]:
+        _add_mapping(epicrises, "Epicrisis", item)
     return _serialize(root)
 
 
