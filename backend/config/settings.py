@@ -1,7 +1,9 @@
 import os
 from pathlib import Path
+from dotenv import load_dotenv
 
 BASE_DIR = Path(__file__).resolve().parent.parent
+load_dotenv(BASE_DIR / ".env")
 
 
 def env_bool(name, default):
@@ -112,3 +114,5 @@ MOCK_AUTH_DISABLED = env_bool("MOCK_AUTH_DISABLED", True)
 MOCK_LATENCY_MS = int(os.getenv("MOCK_LATENCY_MS", "0"))
 MOCK_FORCE_ERROR = env_bool("MOCK_FORCE_ERROR", False)
 MOCK_ERROR_STATUS = int(os.getenv("MOCK_ERROR_STATUS", "500"))
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY", "")
+OPENAI_MODEL = os.getenv("OPENAI_MODEL", "gpt-4.1-mini")

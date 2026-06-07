@@ -1,7 +1,8 @@
 # VersaMed Backend
 
 Django API with token authentication, role-based users, synthetic hospital
-records, transactional onboarding, and a local XML HIS simulator.
+records, transactional onboarding, a local XML HIS simulator, and AI-assisted
+medical scan analysis.
 
 ## Run
 
@@ -13,6 +14,82 @@ pip install -r requirements.txt
 python manage.py migrate
 python manage.py runserver
 ```
+
+### Frontend
+
+```powershell
+cd frontend
+npm install
+npm run dev
+```
+
+Open `http://localhost:3000`.
+
+## Scan Interpretation API
+
+Set these backend environment variables:
+
+```env
+OPENAI_API_KEY=your-key
+OPENAI_MODEL=gpt-4.1-mini
+```
+
+Routes:
+
+- `GET /api/scans`
+- `GET /api/scans/<scan_id>`
+- `GET /api/scans/<scan_id>/image`
+- `POST /api/analyze-scan/<scan_id>`
+
+The provider-specific implementation is isolated in the AI vision service, so
+another model provider can replace it without changing the API routes.
+The current scan list contains a small, diverse public TCIA/NBIA sample covering
+chest/lung CT, breast MRI, kidney CT, liver CT, and prostate MRI. All displayed
+scan images are converted from downloaded DICOM series; placeholder graphics are
+not kept in the served scan catalog. NBIA imaging endpoints do not provide
+patient-reported symptoms, so the UI marks symptoms and complaints as unavailable
+instead of inventing them. AI output is preliminary and not a final diagnosis.
+
+### Refresh scans from TCIA/NBIA
+
+Install the Node downloader and Python DICOM conversion dependencies:
+
+```powershell
+cd backend
+npm install
+.\venv\Scripts\Activate.ps1
+pip install -r requirements.txt
+```
+
+Fetch and convert the configured diverse TCIA series:
+
+```powershell
+npm run fetch:tcia
+```
+
+Optional limits:
+
+```powershell
+$env:TCIA_SCAN_LIMIT=3
+$env:TCIA_MAX_SERIES_BYTES=83886080
+npm run fetch:tcia
+```
+
+The downloader queries `getSeries` across five public collections, selects one
+bounded diagnostic series per body part, downloads each series with `getImage`,
+extracts DICOM files under `backend/downloads/`, converts one representative
+slice, saves PNGs under `backend/media/scans/`, and replaces
+`backend/scans.json` with successfully converted TCIA cases only. It also removes
+stale image files that are not part of the refreshed catalog. If TCIA is
+unavailable or no conversion succeeds, the existing scan list is preserved.
+
+Converted PNGs are stored under `backend/media/scans/` and served through the
+scan image endpoint. The analyze endpoint loads the local PNG, converts it to a
+data URL, and sends the image plus metadata to OpenAI. Client applications never
+receive the OpenAI API key.
+
+Set `CORS_ALLOWED_ORIGINS` to a comma-separated list of browser-client origins
+when cross-origin access is required.
 
 ## Integration Flow
 

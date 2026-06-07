@@ -1,0 +1,11 @@
+{
+  "name": "versamed-tcia-fetcher",
+  "private": true,
+  "scripts": {
+    "fetch:tcia": "node scripts/fetchTciaScans.js"
+  },
+  "dependencies": {
+    "adm-zip": "^0.5.16",
+    "axios": "^1.13.2"
+  }
+}

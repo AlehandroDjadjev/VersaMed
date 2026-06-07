@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .views import DashboardView, HealthCheckView, LoginView, LogoutView, MeView, OnboardingSyncView, SignupView
+from .views import AnalyzeScanView, DashboardView, HealthCheckView, LoginView, LogoutView, MeView, OnboardingSyncView, ScanDetailView, ScanImageView, ScanListView, SignupView
 
 app_name = "api"
 
@@ -12,4 +12,8 @@ urlpatterns = [
     path("auth/me/", MeView.as_view(), name="me"),
     path("dashboard/", DashboardView.as_view(), name="dashboard"),
     path("onboarding/sync/", OnboardingSyncView.as_view(), name="onboarding-sync"),
+    path("scans", ScanListView.as_view(), name="scan-list"),
+    path("scans/<str:scan_id>", ScanDetailView.as_view(), name="scan-detail"),
+    path("scans/<str:scan_id>/image", ScanImageView.as_view(), name="scan-image"),
+    path("analyze-scan/<str:scan_id>", AnalyzeScanView.as_view(), name="analyze-scan"),
 ]
