@@ -99,9 +99,56 @@ export type PatientDashboardData = {
   };
 };
 
-type SyncEnvelope = {
+export type MedicalProblem = {
+  id: number;
+  title: string;
+  summary: string;
+  body_area: string;
+  keywords: string[];
+  created_at: string;
+  updated_at: string;
+};
+
+export type DiagnosisProblemLink = {
+  id: number;
+  problem: MedicalProblem;
+  strength: "weak" | "moderate" | "strong";
+  reason: string;
+  created_at: string;
+};
+
+export type AnalyzedDiagnosis = {
+  source_id: string;
+  diagnosis: {
+    id: number;
+    kind: string;
+    title: string;
+    raw_text: string;
+    raw_json: Record<string, unknown>;
+    happened_at: string | null;
+    summary: string;
+    description: string;
+    extracted_findings: Array<Record<string, string | number | null>>;
+    keywords: string[];
+    body_areas: string[];
+    created_at: string;
+  };
+  problem_links: DiagnosisProblemLink[];
+};
+
+export type SyncEnvelope = {
   status: string;
   user: AuthUser;
+  new_records: {
+    hospitalizations: number;
+  };
+  analyzed_diagnoses: AnalyzedDiagnosis[];
+  latest_diagnosis: AnalyzedDiagnosis | null;
+  analysis_errors: Array<{
+    source_id: string;
+    message: string;
+  }>;
+  new_problem: MedicalProblem | null;
 };
 
 type AuthEnvelope = {
@@ -354,6 +401,10 @@ export async function fetchDoctorPatients() {
 
 export async function fetchPatientDashboard() {
   return request<PatientDashboardData>("/api/dashboard/");
+}
+
+export async function fetchMedicalProblem(problemId: string | number) {
+  return request<MedicalProblem>(`/api/problems/${problemId}/`);
 }
 
 export async function syncPatientFromHisApi(personalIdentifier: string) {

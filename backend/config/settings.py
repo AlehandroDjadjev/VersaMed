@@ -145,12 +145,26 @@ MOCK_AUTH_DISABLED = env_bool("MOCK_AUTH_DISABLED", True)
 MOCK_LATENCY_MS = int(os.getenv("MOCK_LATENCY_MS", "0"))
 MOCK_FORCE_ERROR = env_bool("MOCK_FORCE_ERROR", False)
 MOCK_ERROR_STATUS = int(os.getenv("MOCK_ERROR_STATUS", "500"))
-OPENAI_API_KEY = os.getenv("OPENAI_API_KEY", "")
+OPENAI_API_KEY = (
+    os.getenv("OPENAI_API_KEY", "")
+    or os.getenv("CHAT_API_KEY", "")
+    or os.getenv("chat_api_key", "")
+)
 OPENAI_MODEL = os.getenv("OPENAI_MODEL", "gpt-4.1-mini")
 
-CHAT_API_KEY = os.getenv("chat_api_key", "")
+CHAT_API_KEY = os.getenv("CHAT_API_KEY", "") or os.getenv("chat_api_key", "")
 CHAT_MODEL = os.getenv("CHAT_MODEL", "gpt-5.1")
 CHAT_API_TIMEOUT_SECONDS = int(os.getenv("CHAT_API_TIMEOUT_SECONDS", "60"))
+TEXT_RESEARCH_QWEN_URL = os.getenv("TEXT_RESEARCH_QWEN_URL", "http://127.0.0.1:8009")
+TEXT_RESEARCH_EMBED_MODEL = os.getenv("TEXT_RESEARCH_EMBED_MODEL", "Octen/Octen-Embedding-0.6B")
+TEXT_RESEARCH_MAX_AGENTS = int(os.getenv("TEXT_RESEARCH_MAX_AGENTS", "4"))
+TEXT_RESEARCH_MAX_ROUNDS = int(os.getenv("TEXT_RESEARCH_MAX_ROUNDS", "6"))
+TEXT_RESEARCH_ALLOW_HASH_FALLBACK = env_bool("TEXT_RESEARCH_ALLOW_HASH_FALLBACK", True)
+TEXT_RESEARCH_TIMEOUT_SECONDS = int(os.getenv("TEXT_RESEARCH_TIMEOUT_SECONDS", "120"))
+TEXT_RESEARCH_OUT_DIR = os.getenv(
+    "TEXT_RESEARCH_OUT_DIR",
+    str(BASE_DIR / "AgentResearch" / "text_research_runs"),
+)
 EMAIL_BACKEND = os.getenv(
     "DJANGO_EMAIL_BACKEND",
     "django.core.mail.backends.console.EmailBackend" if DEBUG else "django.core.mail.backends.smtp.EmailBackend",

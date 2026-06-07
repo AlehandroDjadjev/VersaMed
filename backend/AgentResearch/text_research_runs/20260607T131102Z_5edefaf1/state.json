@@ -1,0 +1,3077 @@
+{
+  "question": "In adults hospitalized with community-acquired pneumonia of unspecified organism (ICD-10 J18.9), what is the evidence and current guideline consensus on the necessity, optimal timing, and modality (chest X‑ray vs CT) for routine follow‑up imaging at ~6 weeks after clinical improvement, particularly regarding detection of underlying malignancy or chronic lung disease and identification of subgroups (e.g., smokers, age >50) who benefit most?",
+  "need": "In adults hospitalized with community-acquired pneumonia of unspecified organism (ICD-10 J18.9), what is the evidence and current guideline consensus on the necessity, optimal timing, and modality (chest X‑ray vs CT) for routine follow‑up imaging at ~6 weeks after clinical improvement, particularly regarding detection of underlying malignancy or chronic lung disease and identification of subgroups (e.g., smokers, age >50) who benefit most?",
+  "finish_requested": false,
+  "finish_reason": "",
+  "hints": [],
+  "used_queries": [
+    "In adults hospitalized with community-acquired pneumonia of unspecified organism (ICD-10 J18.9), what is the evidence and current guideline"
+  ],
+  "sources": [
+    {
+      "id": "S1",
+      "url": "https://www.icd10data.com/ICD10CM/Codes/J00-J99/J09-J18/J18-/J18.9",
+      "title": "2026 ICD-10-CM Diagnosis Code J18.9: Pneumonia, unspecified organism",
+      "snippet": "The best preventive measures include washing your hands frequently, not smoking, and wearing a mask when cleaning dusty or moldy areas. There is a vaccine for pneumococcal pneumonia, a bacterial infection which accounts for up to a quarter...",
+      "status": "failed",
+      "host": "www.icd10data.com",
+      "page": {
+        "url": "https://www.icd10data.com/ICD10CM/Codes/J00-J99/J09-J18/J18-/J18.9",
+        "final_url": "https://www.icd10data.com/ICD10CM/Codes/J00-J99/J09-J18/J18-/J18.9",
+        "title": "",
+        "meta": "",
+        "headings": [],
+        "lead": "",
+        "chunks": [],
+        "links": [],
+        "fetched_at": "2026-06-07T13:10:21Z",
+        "status_code": 403,
+        "content_type": "text/html",
+        "error": "http_403"
+      },
+      "assigned_agent_ids": [
+        "A1"
+      ],
+      "opened_at_round": null,
+      "error": "http_403"
+    },
+    {
+      "id": "S2",
+      "url": "https://www.aapc.com/codes/icd-10-codes/J18.9",
+      "title": "ICD-10 Code for Pneumonia, unspecified organism- J18.9- Codify by AAPC",
+      "snippet": "Code also: , if applicable, any associated condition such as: aspiration pneumonia (J69.-) ... Get crucial instructions for accurate ICD-10-CM J18.9 coding with all applicable Excludes 1 and Excludes 2 notes from the section level convenie...",
+      "status": "rejected",
+      "host": "www.aapc.com",
+      "page": {
+        "url": "https://www.aapc.com/codes/icd-10-codes/J18.9",
+        "final_url": "https://www.aapc.com/codes/icd-10-codes/J18.9",
+        "title": "ICD-10 Code for Pneumonia, unspecified organism- J18.9- Codify by AAPC",
+        "meta": "ICD-10 code J18.9 for Pneumonia, unspecified organism is a medical classification as listed by WHO under the range -Influenza and pneumonia .",
+        "headings": [
+          "ICD-10-CM Code for Pneumonia, unspecified organism J18.9",
+          "ICD-10 code J18.9 for Pneumonia, unspecified organism is a medical classification as listed by WHO under the range - Diseases of the respiratory system .",
+          "Get the full picture on this code.",
+          "Official Long Descriptor",
+          "Additional/Related Information",
+          "Crosswalks",
+          "Forum",
+          "Coding Alert(s)",
+          "Latest News"
+        ],
+        "lead": "Start a FREE 2-WEEK TRIAL of Codify by AAPC. Excludes1: congenital pneumonia ( P23.0 ) drug-induced interstitial lung disorder ( J70.2 - J70.4 ) interstitial pneumonia NOS ( J84.9 ) neonatal aspiration pneumonia ( P24 .-) pneumonitis due to fumes and vapors ( J68.0 ) usual interstitial pneumonia ( J84.178 ) Excludes2: abscess of lung with pneumonia ( J85.1 ) aspiration pneumonia due to anesthesia during labor and delivery ( O74.0 ) aspiration pneumonia due to anesthesia during pregnancy ( O29 ) aspiration pneumonia due to anesthesia during puerperium ( O89.0 ) aspiration pneumonia due to solids and liquids ( J69 .-) aspiration pneumonia NOS ( J69.0 ) lipid pneumonia ( J69.1 ) pneumonitis due to external agents ( J67 - J70 ) Code first , if applicable, associated influenza ( J09.X1 , J10.0 -, J11.0 -) Code also: , if applicable, any associated condition such as: aspiration pneumonia ( J69 .-)",
+        "chunks": [
+          {
+            "id": "C1",
+            "heading": "ICD-10-CM Code for Pneumonia, unspecified organism J18.9 > ICD-10 code J18.9 for Pneumonia, unspecified organism is a medical classification as listed by WHO under the range - Diseases of the respiratory system .",
+            "text": "Start a FREE 2-WEEK TRIAL of Codify by AAPC. Excludes1: congenital pneumonia ( P23.0 ) drug-induced interstitial lung disorder ( J70.2 - J70.4 ) interstitial pneumonia NOS ( J84.9 ) neonatal aspiration pneumonia ( P24 .-) pneumonitis due to fumes and vapors ( J68.0 ) usual interstitial pneumonia ( J84.178 ) Excludes2: abscess of lung with pneumonia ( J85.1 ) aspiration pneumonia due to anesthesia during labor and delivery ( O74.0 ) aspiration pneumonia due to anesthesia during pregnancy ( O29 ) aspiration pneumonia due to anesthesia during puerperium ( O89.0 ) aspiration pneumonia due to solids and liquids ( J69 .-) aspiration pneumonia NOS ( J69.0 ) lipid pneumonia ( J69.1 ) pneumonitis due to external agents ( J67 - J70 ) Code first , if applicable, associated influenza ( J09.X1 , J10.0 -, J11.0 -) Code also: , if applicable, any associated condition such as: aspiration pneumonia ( J69 .-)",
+            "score": 0.3069079518318176,
+            "rank": 1
+          }
+        ],
+        "links": [
+          {
+            "id": "L1",
+            "url": "https://www.aapc.com/codes/code-search",
+            "text": "Advanced Search",
+            "context": "Advanced Search",
+            "score": 0.0
+          },
+          {
+            "id": "L2",
+            "url": "https://www.aapc.com/",
+            "text": "Home",
+            "context": "Home",
+            "score": 0.0
+          },
+          {
+            "id": "L3",
+            "url": "https://www.aapc.com/codes",
+            "text": "Codes",
+            "context": "Codes",
+            "score": 0.0
+          },
+          {
+            "id": "L4",
+            "url": "https://www.aapc.com/resources/what-is-icd-10",
+            "text": "ICD-10",
+            "context": "ICD-10",
+            "score": 0.0
+          },
+          {
+            "id": "L5",
+            "url": "https://www.aapc.com/codes/icd-10-codes-range",
+            "text": "ICD-10-CM Codes",
+            "context": "ICD-10-CM Codes",
+            "score": 0.0
+          },
+          {
+            "id": "L6",
+            "url": "https://www.aapc.com/codes/icd-10-codes-range/J00-J99",
+            "text": "Diseases of the respiratory system",
+            "context": "Diseases of the respiratory system",
+            "score": 0.0
+          },
+          {
+            "id": "L7",
+            "url": "https://www.aapc.com/codes/icd-10-codes-range/J00-J99/J09-J18",
+            "text": "Influenza and pneumonia",
+            "context": "Influenza and pneumonia",
+            "score": 0.0
+          },
+          {
+            "id": "L8",
+            "url": "https://www.aapc.com/codes/icd-10-codes/J18",
+            "text": "Pneumonia, unspecified organism(J18)",
+            "context": "Pneumonia, unspecified organism(J18)",
+            "score": 0.0
+          },
+          {
+            "id": "L9",
+            "url": "https://www.aapc.com/codes/icd-10-codes/J18.8",
+            "text": "J18.8",
+            "context": "J18.8 J18.9 J20",
+            "score": 0.0
+          },
+          {
+            "id": "L10",
+            "url": "https://www.aapc.com/codes/icd-10-codes/J20",
+            "text": "J20",
+            "context": "J18.8 J18.9 J20",
+            "score": 0.0
+          },
+          {
+            "id": "L11",
+            "url": "https://www.aapc.com/lp/codify-contact",
+            "text": "FOR TEAMS",
+            "context": "FOR INDIVIDUALS FOR TEAMS",
+            "score": 0.0
+          },
+          {
+            "id": "L12",
+            "url": "https://www.aapc.com/codes/icd-10-codes/J18.9",
+            "text": "Official Long Descriptor",
+            "context": "Official Long Descriptor",
+            "score": 0.0
+          },
+          {
+            "id": "L13",
+            "url": "https://www.aapc.com/codes/icd-10-codes/code_listing/P23.0",
+            "text": "P23.0",
+            "context": "Excludes1: congenital pneumonia ( P23.0 ) drug-induced interstitial lung disorder ( J70.2 - J70.4 ) interstitial pneumonia NOS ( J84.9 ) neonatal aspiration pneumonia ( P24 .-) pneumonitis due to fumes and vapors ( J68....",
+            "score": 0.0
+          },
+          {
+            "id": "L14",
+            "url": "https://www.aapc.com/codes/icd-10-codes/code_listing/J70.2",
+            "text": "J70.2",
+            "context": "drug-induced interstitial lung disorder ( J70.2 - J70.4 ) interstitial pneumonia NOS ( J84.9 ) neonatal aspiration pneumonia ( P24 .-) pneumonitis due to fumes and vapors ( J68.0 ) usual interstitial pneumonia ( J84.178...",
+            "score": 0.0
+          },
+          {
+            "id": "L15",
+            "url": "https://www.aapc.com/codes/icd-10-codes/code_listing/J70.4",
+            "text": "J70.4",
+            "context": "drug-induced interstitial lung disorder ( J70.2 - J70.4 ) interstitial pneumonia NOS ( J84.9 ) neonatal aspiration pneumonia ( P24 .-) pneumonitis due to fumes and vapors ( J68.0 ) usual interstitial pneumonia ( J84.178...",
+            "score": 0.0
+          },
+          {
+            "id": "L16",
+            "url": "https://www.aapc.com/codes/icd-10-codes/code_listing/J84.9",
+            "text": "J84.9",
+            "context": "drug-induced interstitial lung disorder ( J70.2 - J70.4 ) interstitial pneumonia NOS ( J84.9 ) neonatal aspiration pneumonia ( P24 .-) pneumonitis due to fumes and vapors ( J68.0 ) usual interstitial pneumonia ( J84.178...",
+            "score": 0.0
+          },
+          {
+            "id": "L17",
+            "url": "https://www.aapc.com/codes/icd-10-codes/code_listing/P24",
+            "text": "P24",
+            "context": "drug-induced interstitial lung disorder ( J70.2 - J70.4 ) interstitial pneumonia NOS ( J84.9 ) neonatal aspiration pneumonia ( P24 .-) pneumonitis due to fumes and vapors ( J68.0 ) usual interstitial pneumonia ( J84.178...",
+            "score": 0.0
+          },
+          {
+            "id": "L18",
+            "url": "https://www.aapc.com/codes/icd-10-codes/code_listing/J68.0",
+            "text": "J68.0",
+            "context": "drug-induced interstitial lung disorder ( J70.2 - J70.4 ) interstitial pneumonia NOS ( J84.9 ) neonatal aspiration pneumonia ( P24 .-) pneumonitis due to fumes and vapors ( J68.0 ) usual interstitial pneumonia ( J84.178...",
+            "score": 0.0
+          },
+          {
+            "id": "L19",
+            "url": "https://www.aapc.com/codes/icd-10-codes/code_listing/J84.178",
+            "text": "J84.178",
+            "context": "drug-induced interstitial lung disorder ( J70.2 - J70.4 ) interstitial pneumonia NOS ( J84.9 ) neonatal aspiration pneumonia ( P24 .-) pneumonitis due to fumes and vapors ( J68.0 ) usual interstitial pneumonia ( J84.178...",
+            "score": 0.0
+          },
+          {
+            "id": "L20",
+            "url": "https://www.aapc.com/codes/icd-10-codes/code_listing/J85.1",
+            "text": "J85.1",
+            "context": "Excludes2: abscess of lung with pneumonia ( J85.1 ) aspiration pneumonia due to anesthesia during labor and delivery ( O74.0 ) aspiration pneumonia due to anesthesia during pregnancy ( O29 ) aspiration pneumonia due to...",
+            "score": 0.0
+          },
+          {
+            "id": "L21",
+            "url": "https://www.aapc.com/codes/icd-10-codes/code_listing/O74.0",
+            "text": "O74.0",
+            "context": "Excludes2: abscess of lung with pneumonia ( J85.1 ) aspiration pneumonia due to anesthesia during labor and delivery ( O74.0 ) aspiration pneumonia due to anesthesia during pregnancy ( O29 ) aspiration pneumonia due to...",
+            "score": 0.0
+          },
+          {
+            "id": "L22",
+            "url": "https://www.aapc.com/codes/icd-10-codes/code_listing/O29",
+            "text": "O29",
+            "context": "Excludes2: abscess of lung with pneumonia ( J85.1 ) aspiration pneumonia due to anesthesia during labor and delivery ( O74.0 ) aspiration pneumonia due to anesthesia during pregnancy ( O29 ) aspiration pneumonia due to...",
+            "score": 0.0
+          },
+          {
+            "id": "L23",
+            "url": "https://www.aapc.com/codes/icd-10-codes/code_listing/O89.0",
+            "text": "O89.0",
+            "context": "Excludes2: abscess of lung with pneumonia ( J85.1 ) aspiration pneumonia due to anesthesia during labor and delivery ( O74.0 ) aspiration pneumonia due to anesthesia during pregnancy ( O29 ) aspiration pneumonia due to...",
+            "score": 0.0
+          },
+          {
+            "id": "L24",
+            "url": "https://www.aapc.com/codes/icd-10-codes/code_listing/J69",
+            "text": "J69",
+            "context": "Excludes2: abscess of lung with pneumonia ( J85.1 ) aspiration pneumonia due to anesthesia during labor and delivery ( O74.0 ) aspiration pneumonia due to anesthesia during pregnancy ( O29 ) aspiration pneumonia due to...",
+            "score": 0.0
+          },
+          {
+            "id": "L25",
+            "url": "https://www.aapc.com/codes/icd-10-codes/code_listing/J69.0",
+            "text": "J69.0",
+            "context": "Excludes2: abscess of lung with pneumonia ( J85.1 ) aspiration pneumonia due to anesthesia during labor and delivery ( O74.0 ) aspiration pneumonia due to anesthesia during pregnancy ( O29 ) aspiration pneumonia due to...",
+            "score": 0.0
+          },
+          {
+            "id": "L26",
+            "url": "https://www.aapc.com/codes/icd-10-codes/code_listing/J69.1",
+            "text": "J69.1",
+            "context": "Excludes2: abscess of lung with pneumonia ( J85.1 ) aspiration pneumonia due to anesthesia during labor and delivery ( O74.0 ) aspiration pneumonia due to anesthesia during pregnancy ( O29 ) aspiration pneumonia due to...",
+            "score": 0.0
+          },
+          {
+            "id": "L27",
+            "url": "https://www.aapc.com/codes/icd-10-codes/code_listing/J67",
+            "text": "J67",
+            "context": "Excludes2: abscess of lung with pneumonia ( J85.1 ) aspiration pneumonia due to anesthesia during labor and delivery ( O74.0 ) aspiration pneumonia due to anesthesia during pregnancy ( O29 ) aspiration pneumonia due to...",
+            "score": 0.0
+          },
+          {
+            "id": "L28",
+            "url": "https://www.aapc.com/codes/icd-10-codes/code_listing/J70",
+            "text": "J70",
+            "context": "Excludes2: abscess of lung with pneumonia ( J85.1 ) aspiration pneumonia due to anesthesia during labor and delivery ( O74.0 ) aspiration pneumonia due to anesthesia during pregnancy ( O29 ) aspiration pneumonia due to...",
+            "score": 0.0
+          },
+          {
+            "id": "L29",
+            "url": "https://www.aapc.com/codes/icd-10-codes/code_listing/J09.X1",
+            "text": "J09.X1",
+            "context": "Code first , if applicable, associated influenza ( J09.X1 , J10.0 -, J11.0 -)",
+            "score": 0.0
+          },
+          {
+            "id": "L30",
+            "url": "https://www.aapc.com/codes/icd-10-codes/code_listing/J10.0",
+            "text": "J10.0",
+            "context": "Code first , if applicable, associated influenza ( J09.X1 , J10.0 -, J11.0 -)",
+            "score": 0.0
+          },
+          {
+            "id": "L31",
+            "url": "https://www.aapc.com/codes/icd-10-codes/code_listing/J11.0",
+            "text": "J11.0",
+            "context": "Code first , if applicable, associated influenza ( J09.X1 , J10.0 -, J11.0 -)",
+            "score": 0.0
+          },
+          {
+            "id": "L32",
+            "url": "https://www.aapc.com/discuss",
+            "text": "here",
+            "context": "Have a question about ICD-10-CM Code J18.9 ? Start a discussion here",
+            "score": 0.0
+          },
+          {
+            "id": "L33",
+            "url": "https://www.aapc.com/discuss/threads/denial-on-cpt-36410.180014/post-492748",
+            "text": "Denial on CPT 36410",
+            "context": "Denial on CPT 36410",
+            "score": 0.0
+          },
+          {
+            "id": "L34",
+            "url": "https://www.aapc.com/discuss/threads/practicode-cases-e-m.178202/post-487670",
+            "text": "Practicode Cases E/M",
+            "context": "Practicode Cases E/M",
+            "score": 0.0
+          },
+          {
+            "id": "L35",
+            "url": "https://www.aapc.com/discuss/threads/practicode-cases-e-m.178202/post-487609",
+            "text": "Practicode Cases E/M",
+            "context": "Practicode Cases E/M",
+            "score": 0.0
+          },
+          {
+            "id": "L36",
+            "url": "https://www.aapc.com/discuss/threads/practicode-cases-e-m-office-visit-testing-unspecified.178202",
+            "text": "Practicode Cases E/M office visit testing unspecified",
+            "context": "Practicode Cases E/M office visit testing unspecified",
+            "score": 0.0
+          },
+          {
+            "id": "L37",
+            "url": "https://www.aapc.com/discuss/threads/covid-19-coding.172713/post-471265",
+            "text": "COVID-19 CODING",
+            "context": "COVID-19 CODING",
+            "score": 0.0
+          },
+          {
+            "id": "L38",
+            "url": "https://www.aapc.com/discuss/threads/aarp-uhc-denials-for-spirometry-nebulizers.170644/post-467327",
+            "text": "AARP/UHC DENIALS for spirometry/nebulizers",
+            "context": "AARP/UHC DENIALS for spirometry/nebulizers",
+            "score": 0.0
+          },
+          {
+            "id": "L39",
+            "url": "https://www.aapc.com/discuss/threads/pneumonia-coding-inpt-vs-outpt.170668",
+            "text": "Pneumonia coding inpt vs outpt",
+            "context": "Pneumonia coding inpt vs outpt",
+            "score": 0.0
+          },
+          {
+            "id": "L40",
+            "url": "https://www.aapc.com/discuss/threads/how-to-code--sequence.168541/post-459734",
+            "text": "How to code & sequence",
+            "context": "How to code & sequence",
+            "score": 0.0
+          },
+          {
+            "id": "L41",
+            "url": "https://www.aapc.com/discuss/threads/secondary-to-and-due-to.167153/post-456509",
+            "text": "\"secondary to\" and \"due to\"",
+            "context": "\"secondary to\" and \"due to\"",
+            "score": 0.0
+          },
+          {
+            "id": "L42",
+            "url": "https://www.aapc.com/discuss/threads/hcc-coding.167181/post-456454",
+            "text": "HCC CODING",
+            "context": "HCC CODING",
+            "score": 0.0
+          },
+          {
+            "id": "L43",
+            "url": "https://www.aapc.com/codify",
+            "text": "codify",
+            "context": "",
+            "score": 0.0
+          },
+          {
+            "id": "L44",
+            "url": "https://www.aapc.com/blog/73594-conquer-coding-for-sepsis-and-sirs",
+            "text": "Conquer Coding for Sepsis and SIRS",
+            "context": "Conquer Coding for Sepsis and SIRS",
+            "score": 0.0
+          },
+          {
+            "id": "L45",
+            "url": "https://www.aapc.com/blog/49837-what-is-lobar-pneumonia",
+            "text": "What is Lobar Pneumonia?",
+            "context": "What is Lobar Pneumonia?",
+            "score": 0.0
+          },
+          {
+            "id": "L46",
+            "url": "https://www.aapc.com/blog/41637-clarify-updates-to-diagnosis-coding-of-pulmonary-diseases",
+            "text": "Clarify Updates to Diagnosis Coding of Pulmonary Diseases",
+            "context": "Clarify Updates to Diagnosis Coding of Pulmonary Diseases",
+            "score": 0.0
+          },
+          {
+            "id": "L47",
+            "url": "https://www.aapc.com/blog",
+            "text": "View All News",
+            "context": "View All News",
+            "score": 0.0
+          },
+          {
+            "id": "L48",
+            "url": "https://www.aapc.com/about-us",
+            "text": "About Us",
+            "context": "About Us",
+            "score": 0.0
+          },
+          {
+            "id": "L49",
+            "url": "https://www.aapc.com/codes/sitemap",
+            "text": "Codify Sitemap",
+            "context": "Codify Sitemap",
+            "score": 0.0
+          },
+          {
+            "id": "L50",
+            "url": "https://www.aapc.com/codes/nl/sitemap",
+            "text": "Newsletter Sitemap",
+            "context": "Newsletter Sitemap",
+            "score": 0.0
+          },
+          {
+            "id": "L51",
+            "url": "https://www.aapc.com/about-us/contact",
+            "text": "Contact Us",
+            "context": "Contact Us",
+            "score": 0.0
+          }
+        ],
+        "fetched_at": "2026-06-07T13:10:21Z",
+        "status_code": 200,
+        "content_type": "text/html; charset=utf-8",
+        "error": ""
+      },
+      "assigned_agent_ids": [
+        "A2"
+      ],
+      "opened_at_round": 2,
+      "error": ""
+    },
+    {
+      "id": "S3",
+      "url": "https://www.findacode.com/icd-10-cm/j18.9-pneumonia-unspecified-organism-icd10cm-code.html",
+      "title": "J18.9 Pneumonia, unspecified organism - ICD-10-CM Diagnosis Codes",
+      "snippet": "J18.9 Pneumonia, unspecified organism - ICD-10-CM Diagnosis Codes",
+      "status": "fetched",
+      "host": "www.findacode.com",
+      "page": {
+        "url": "https://www.findacode.com/icd-10-cm/j18.9-pneumonia-unspecified-organism-icd10cm-code.html",
+        "final_url": "https://www.findacode.com/icd-10-cm/j18.9-pneumonia-unspecified-organism-icd10cm-code.html",
+        "title": "J18.9 Pneumonia, unspecified organism - ICD-10-CM Diagnosis Codes",
+        "meta": "J18.9 Pneumonia, unspecified organism - ICD-10-CM Diagnosis Codes",
+        "headings": [
+          "MY NEWSLETTERS",
+          "FEES",
+          "FACILITY",
+          "RISK ADJUSTMENT",
+          "Home work?",
+          "ICD-10-CM",
+          "10. Diseases of the respiratory system (J00-J99)",
+          "J09-J18 Influenza and pneumonia",
+          "J18 Pneumonia, unspecified organism",
+          "J18.9 Pneumonia, unspecified organism...",
+          "ICD-10-CM Diagnosis Codes",
+          "Schedule a Demo",
+          "sign IN"
+        ],
+        "lead": "The above description is abbreviated. This code description may also have Includes , Excludes , Notes, Guidelines, Examples and other information. Access to this feature is available in the following products: Find-A-Code Essentials Find-A-Code Professional/Premium/Elite Find-A-Code Facility Base/Plus/Complete HCC Standard/Pro The above description is abbreviated. This code description may also have Includes , Excludes , Notes, Guidelines, Examples and other information. sign IN sign UP The above description is abbreviated. This code description may also have Includes , Excludes , Notes, Guidelines, Examples and other information. Find-A-Code Professional/Premium/Elite Find-A-Code Facility Base/Plus/Complete Additional Code Information includes: APC Status Indicator Assistant Surgeon (80, 82) Bilateral Surgery (50) CCS Clinical Classification Co-Surgeons (62) Diagnostic Imaging Family Facility MUEs Global Days Hierarchical Condition Categories (HCC) Major Complications or Comorbidities (MCC/CC) Medicare Status Code Multiple Procedures (51) Non-Facility MUEs OTS Orthotic PC/TC Indicator (26) Physician Supervisions Team Surgery (66) Type Of Service (TOS) and more... Access to this feature is available in the following products: Find-A-Code Professional/Premium/Elite Find-A-Code Facility Base/Plus/Complete HCC Standard/Pro sign IN sign UP",
+        "chunks": [
+          {
+            "id": "C1",
+            "heading": "J18.9 Pneumonia, unspecified organism...",
+            "text": "The above description is abbreviated. This code description may also have Includes , Excludes , Notes, Guidelines, Examples and other information. Access to this feature is available in the following products: Find-A-Code Essentials Find-A-Code Professional/Premium/Elite Find-A-Code Facility Base/Plus/Complete HCC Standard/Pro The above description is abbreviated. This code description may also have Includes , Excludes , Notes, Guidelines, Examples and other information. sign IN sign UP The above description is abbreviated. This code description may also have Includes , Excludes , Notes, Guidelines, Examples and other information. Find-A-Code Professional/Premium/Elite Find-A-Code Facility Base/Plus/Complete",
+            "score": 0.26847580075263977,
+            "rank": 2
+          },
+          {
+            "id": "C2",
+            "heading": "J18.9 Pneumonia, unspecified organism...",
+            "text": "lso have Includes , Excludes , Notes, Guidelines, Examples and other information. Find-A-Code Professional/Premium/Elite Find-A-Code Facility Base/Plus/Complete Additional Code Information includes: APC Status Indicator Assistant Surgeon (80, 82) Bilateral Surgery (50) CCS Clinical Classification Co-Surgeons (62) Diagnostic Imaging Family Facility MUEs Global Days Hierarchical Condition Categories (HCC) Major Complications or Comorbidities (MCC/CC) Medicare Status Code Multiple Procedures (51) Non-Facility MUEs OTS Orthotic PC/TC Indicator (26) Physician Supervisions Team Surgery (66) Type Of Service (TOS) and more... Access to this feature is available in the following products: Find-A-Code Professional/Premium/Elite Find-A-Code Facility Base/Plus/Complete HCC Standard/Pro sign IN sign UP Additional Code Information includes:",
+            "score": 0.32004737854003906,
+            "rank": 1
+          },
+          {
+            "id": "C3",
+            "heading": "J18.9 Pneumonia, unspecified organism...",
+            "text": "products: Find-A-Code Professional/Premium/Elite Find-A-Code Facility Base/Plus/Complete HCC Standard/Pro sign IN sign UP Additional Code Information includes: APC Status Indicator Assistant Surgeon (80, 82) Bilateral Surgery (50) CCS Clinical Classification Co-Surgeons (62) Diagnostic Imaging Family Facility MUEs Global Days Hierarchical Condition Categories (HCC) Major Complications or Comorbidities (MCC/CC) Hierarchical Condition Categories (HCC) Major Complications or Comorbidities (MCC/CC) Medicare Status Code Multiple Procedures (51) Non-Facility MUEs OTS Orthotic PC/TC Indicator (26) Physician Supervisions Team Surgery (66) Type Of Service (TOS) and more... Find-A-Code Professional/Premium/Elite Find-A-Code Facility Base/Plus/Complete",
+            "score": 0.26340222358703613,
+            "rank": 3
+          },
+          {
+            "id": "C4",
+            "heading": "J18.9 Pneumonia, unspecified organism...",
+            "text": "r (26) Physician Supervisions Team Surgery (66) Type Of Service (TOS) and more... Find-A-Code Professional/Premium/Elite Find-A-Code Facility Base/Plus/Complete View historical information about the code including when it was added, changed, deleted, etc. Access to this feature is available in the following products: Find-A-Code Professional/Premium/Elite Find-A-Code Facility Base/Plus/Complete HCC Standard/Pro sign IN sign UP View historical information about the code including when it was added, changed, deleted, etc. Find-A-Code Professional/Premium/Elite Find-A-Code Facility Base/Plus/Complete",
+            "score": 0.21064287424087524,
+            "rank": 6
+          },
+          {
+            "id": "C5",
+            "heading": "J18.9 Pneumonia, unspecified organism...",
+            "text": "al information about the code including when it was added, changed, deleted, etc. Find-A-Code Professional/Premium/Elite Find-A-Code Facility Base/Plus/Complete Subscribers may add their own notes as well as \"Admin Notes\" visible to all subscribers in their account. Access to this feature is available in the following products: Find-A-Code Essentials Find-A-Code Professional/Premium/Elite Find-A-Code Facility Base/Plus/Complete HCC Standard/Pro Subscribers may add their own notes as well as \"Admin Notes\" visible to all subscribers in their account. sign IN sign UP Subscribers may add their own notes as well as \"Admin Notes\" visible to all subscribers in their account. Find-A-Code Professional/Premium/Elite Find-A-Code Facility Base/Plus/Complete Subscribers will see related documentation, coding and billing tips. Access to this feature is available in the following products: Find-A-Code Professional/Premium/Elite Find-A-Code Facility Base/Plus/Complete HCC Standard/Pro sign IN sign UP",
+            "score": 0.22001053392887115,
+            "rank": 5
+          },
+          {
+            "id": "C6",
+            "heading": "J18.9 Pneumonia, unspecified organism...",
+            "text": "feature is available in the following products: Find-A-Code Professional/Premium/Elite Find-A-Code Facility Base/Plus/Complete HCC Standard/Pro sign IN sign UP Find-A-Code Professional/Premium/Elite Find-A-Code Facility Base/Plus/Complete View the general equivalency mappings (GEMs) between the ICD-9 and ICD-10 code sets. Access to this feature is available in the following products: Find-A-Code Professional/Premium/Elite Find-A-Code Facility Base/Plus/Complete HCC Standard/Pro sign IN sign UP View the general equivalency mappings (GEMs) between the ICD-9 and ICD-10 code sets. Find-A-Code Professional/Premium/Elite Find-A-Code Facility Base/Plus/Complete View relationships (or crosswalks) between code sets. Access to this feature is available in the following products: Find-A-Code Professional/Premium/Elite Find-A-Code Facility Base/Plus/Complete ASA CROSSWALK® +Base Units sign IN sign UP View relationships (or crosswalks) between code sets. Find-A-Code Professional/Premium/Elite",
+            "score": 0.2622431516647339,
+            "rank": 4
+          },
+          {
+            "id": "C7",
+            "heading": "J18.9 Pneumonia, unspecified organism...",
+            "text": "ility Base/Plus/Complete ASA CROSSWALK® +Base Units sign IN sign UP View relationships (or crosswalks) between code sets. Find-A-Code Professional/Premium/Elite Find-A-Code Facility Base/Plus/Complete Thank you for choosing Find-A-Code, please Sign In to remove ads.",
+            "score": 0.19188238680362701,
+            "rank": 7
+          }
+        ],
+        "links": [
+          {
+            "id": "L1",
+            "url": "https://www.findacode.com/index.html",
+            "text": "index.html",
+            "context": "codes diagnosis ICD-10-CM DRGs HCCs CDPS, CDPS+Rx, MRX ICD-11 SNOMED CT ICD-9-CM procedures CPT ® HCPCS CDT ® (dental) ICD-10-PCS LOINC SNOMED CT APC ASC ASA ABC (alt med) ICD-9 v3 supplies HCPCS DMEPOS Search drugs & v...",
+            "score": 0.0
+          },
+          {
+            "id": "L2",
+            "url": "https://www.findacode.com/icd-10-cm/j18.9-pneumonia-unspecified-organism-icd10cm-code.html",
+            "text": "codes",
+            "context": "codes diagnosis ICD-10-CM DRGs HCCs CDPS, CDPS+Rx, MRX ICD-11 SNOMED CT ICD-9-CM procedures CPT ® HCPCS CDT ® (dental) ICD-10-PCS LOINC SNOMED CT APC ASC ASA ABC (alt med) ICD-9 v3 supplies HCPCS DMEPOS Search drugs & v...",
+            "score": 0.0
+          },
+          {
+            "id": "L3",
+            "url": "https://www.findacode.com/icd-10-cm/icd-10-cm-diagnosis-codes-set.html",
+            "text": "ICD-10-CM",
+            "context": "ICD-10-CM",
+            "score": 0.0
+          },
+          {
+            "id": "L4",
+            "url": "https://www.findacode.com/drg/drg-diagnosis-related-group-codes.html",
+            "text": "DRGs",
+            "context": "DRGs",
+            "score": 0.0
+          },
+          {
+            "id": "L5",
+            "url": "https://www.findacode.com/hcc/hcc-hierarchical-condition-categories.html",
+            "text": "HCCs",
+            "context": "HCCs",
+            "score": 0.0
+          },
+          {
+            "id": "L6",
+            "url": "https://www.findacode.com/medicaid",
+            "text": "CDPS, CDPS+Rx, MRX",
+            "context": "CDPS, CDPS+Rx, MRX",
+            "score": 0.0
+          },
+          {
+            "id": "L7",
+            "url": "https://www.findacode.com/icd-11",
+            "text": "ICD-11",
+            "context": "ICD-11",
+            "score": 0.0
+          },
+          {
+            "id": "L8",
+            "url": "https://www.findacode.com/snomed",
+            "text": "SNOMED CT",
+            "context": "SNOMED CT",
+            "score": 0.0
+          },
+          {
+            "id": "L9",
+            "url": "https://www.findacode.com/icd-9/icd-9-cm-diagnosis-codes.html",
+            "text": "ICD-9-CM",
+            "context": "ICD-9-CM",
+            "score": 0.0
+          },
+          {
+            "id": "L10",
+            "url": "https://www.findacode.com/cpt/cpt-procedure-codes.html",
+            "text": "CPT ®",
+            "context": "CPT ®",
+            "score": 0.0
+          },
+          {
+            "id": "L11",
+            "url": "https://www.findacode.com/hcpcs/hcpcs-supply-dme-codes.html",
+            "text": "HCPCS",
+            "context": "HCPCS",
+            "score": 0.0
+          },
+          {
+            "id": "L12",
+            "url": "https://www.findacode.com/dental-codes/dental-codes-ada-cdt.html",
+            "text": "CDT ® (dental)",
+            "context": "CDT ® (dental)",
+            "score": 0.0
+          },
+          {
+            "id": "L13",
+            "url": "https://www.findacode.com/icd-10-pcs/icd-10-pcs-procedure-codes-set.html",
+            "text": "ICD-10-PCS",
+            "context": "ICD-10-PCS",
+            "score": 0.0
+          },
+          {
+            "id": "L14",
+            "url": "https://www.findacode.com/loinc",
+            "text": "LOINC",
+            "context": "LOINC",
+            "score": 0.0
+          },
+          {
+            "id": "L15",
+            "url": "https://www.findacode.com/apc/apc-ambulatory-payment-classification-codes.html",
+            "text": "APC",
+            "context": "APC",
+            "score": 0.0
+          },
+          {
+            "id": "L16",
+            "url": "https://www.findacode.com/asc",
+            "text": "ASC",
+            "context": "ASC",
+            "score": 0.0
+          },
+          {
+            "id": "L17",
+            "url": "https://www.findacode.com/asa",
+            "text": "ASA",
+            "context": "ASA",
+            "score": 0.0
+          },
+          {
+            "id": "L18",
+            "url": "https://www.findacode.com/abc/abc-codes.html",
+            "text": "ABC (alt med)",
+            "context": "ABC (alt med)",
+            "score": 0.0
+          },
+          {
+            "id": "L19",
+            "url": "https://www.findacode.com/icd-9/icd-9-v3-procedure-codes.html",
+            "text": "ICD-9 v3",
+            "context": "ICD-9 v3",
+            "score": 0.0
+          },
+          {
+            "id": "L20",
+            "url": "https://www.findacode.com/hcpcs/hcpcs-dme-product-search.html",
+            "text": "DMEPOS Search",
+            "context": "DMEPOS Search",
+            "score": 0.0
+          },
+          {
+            "id": "L21",
+            "url": "https://www.findacode.com/ndc",
+            "text": "NDCs - National Drug Codes",
+            "context": "NDCs - National Drug Codes",
+            "score": 0.0
+          },
+          {
+            "id": "L22",
+            "url": "https://www.findacode.com/drugs",
+            "text": "Drug Database",
+            "context": "Drug Database",
+            "score": 0.0
+          },
+          {
+            "id": "L23",
+            "url": "https://www.findacode.com/cvx/index.html",
+            "text": "CVX - vaccinations",
+            "context": "CVX - vaccinations",
+            "score": 0.0
+          },
+          {
+            "id": "L24",
+            "url": "https://www.findacode.com/drugs/dea",
+            "text": "CSCN - DEA Controlled Substances",
+            "context": "CSCN - DEA Controlled Substances",
+            "score": 0.0
+          },
+          {
+            "id": "L25",
+            "url": "https://www.findacode.com/tools/code-lists-manage.php",
+            "text": "Manage Code Lists",
+            "context": "Manage Code Lists My Code Notes My Search Keywords",
+            "score": 0.0
+          },
+          {
+            "id": "L26",
+            "url": "https://www.findacode.com/tools/notes",
+            "text": "My Code Notes",
+            "context": "My Code Notes My Search Keywords",
+            "score": 0.0
+          },
+          {
+            "id": "L27",
+            "url": "https://www.findacode.com/tools/keywords",
+            "text": "My Search Keywords",
+            "context": "My Search Keywords",
+            "score": 0.0
+          },
+          {
+            "id": "L28",
+            "url": "https://www.findacode.com/cms1500-claim-form/cms1500-claim-form.html",
+            "text": "CMS1500 - claim form & codes",
+            "context": "CMS1500 - claim form & codes",
+            "score": 0.0
+          },
+          {
+            "id": "L29",
+            "url": "https://www.findacode.com/ub04-claim-form/ub04-cms1450-claim-form.html",
+            "text": "UB04/CMS1450 - form & codes",
+            "context": "UB04/CMS1450 - form & codes",
+            "score": 0.0
+          },
+          {
+            "id": "L30",
+            "url": "https://www.findacode.com/topics/topic/hipaa.html",
+            "text": "HIPAA Forms",
+            "context": "HIPAA Forms",
+            "score": 0.0
+          },
+          {
+            "id": "L31",
+            "url": "https://www.findacode.com/medicare/forms/abn.html",
+            "text": "ABN - forms & instructions",
+            "context": "ABN - forms & instructions",
+            "score": 0.0
+          },
+          {
+            "id": "L32",
+            "url": "https://www.findacode.com/medicare/forms/appeals.html",
+            "text": "Medicare Appeals Forms",
+            "context": "Medicare Appeals Forms",
+            "score": 0.0
+          },
+          {
+            "id": "L33",
+            "url": "https://www.findacode.com/medicare/forms/index.html",
+            "text": "Other Medicare Forms",
+            "context": "Other Medicare Forms",
+            "score": 0.0
+          },
+          {
+            "id": "L34",
+            "url": "https://www.findacode.com/tools/checklists",
+            "text": "Check-A-List™",
+            "context": "Check-A-List™",
+            "score": 0.0
+          },
+          {
+            "id": "L35",
+            "url": "https://www.findacode.com/tools/superbill-builder",
+            "text": "SuperBill Builder",
+            "context": "SuperBill Builder",
+            "score": 0.0
+          },
+          {
+            "id": "L36",
+            "url": "https://www.findacode.com/other-medical-code-sets.html",
+            "text": "other code sets",
+            "context": "other code sets",
+            "score": 0.0
+          },
+          {
+            "id": "L37",
+            "url": "https://www.findacode.com/library",
+            "text": "library",
+            "context": "library",
+            "score": 0.0
+          },
+          {
+            "id": "L38",
+            "url": "https://www.findacode.com/support.html",
+            "text": "Find-A-Code Tutorials",
+            "context": "Find-A-Code Tutorials",
+            "score": 0.0
+          },
+          {
+            "id": "L39",
+            "url": "https://www.findacode.com/webinars",
+            "text": "Find-A-Code Webinars",
+            "context": "Find-A-Code Webinars",
+            "score": 0.0
+          },
+          {
+            "id": "L40",
+            "url": "https://www.findacode.com/ub04-claim-form/ub04-cms1450-instructions.html",
+            "text": "CMS1450 Instructions",
+            "context": "CMS1450 Instructions",
+            "score": 0.0
+          },
+          {
+            "id": "L41",
+            "url": "https://www.findacode.com/icd-10-cm/icd-10-cm-guidelines.html",
+            "text": "ICD-10-CM Official Guidelines",
+            "context": "ICD-10-CM Official Guidelines",
+            "score": 0.0
+          },
+          {
+            "id": "L42",
+            "url": "https://www.findacode.com/icd-10-pcs/icd-10-pcs-guidelines.html",
+            "text": "ICD-10-PCS Official Guidelines",
+            "context": "ICD-10-PCS Official Guidelines",
+            "score": 0.0
+          },
+          {
+            "id": "L43",
+            "url": "https://www.findacode.com/cpt/em-codes.html",
+            "text": "E&M Guides - Medicare, AMA, etc.",
+            "context": "E&M Guides - Medicare, AMA, etc.",
+            "score": 0.0
+          },
+          {
+            "id": "L44",
+            "url": "https://www.findacode.com/newsletters/index.html",
+            "text": "All Available Newsletters",
+            "context": "All Available Newsletters",
+            "score": 0.0
+          },
+          {
+            "id": "L45",
+            "url": "https://www.findacode.com/newsletters/cpt_advanced_coding_pack.html",
+            "text": "AMA's CPT ® Advanced Coding Pack",
+            "context": "AMA's CPT ® Advanced Coding Pack",
+            "score": 0.0
+          },
+          {
+            "id": "L46",
+            "url": "https://www.findacode.com/articles/index.html",
+            "text": "Find-A-Code Articles",
+            "context": "Find-A-Code Articles",
+            "score": 0.0
+          },
+          {
+            "id": "L47",
+            "url": "https://www.findacode.com/medicare/medicare-quarterly-provider-compliance-newsletter.html?newsletter",
+            "text": "Medicare Quarterly Provider Compliance",
+            "context": "Medicare Quarterly Provider Compliance",
+            "score": 0.0
+          },
+          {
+            "id": "L48",
+            "url": "https://www.findacode.com/medicare/medicare-info.html",
+            "text": "Medicare Information",
+            "context": "Medicare Information",
+            "score": 0.0
+          },
+          {
+            "id": "L49",
+            "url": "https://www.findacode.com/medicaid/index.html",
+            "text": "Medicaid Information",
+            "context": "Medicaid Information",
+            "score": 0.0
+          },
+          {
+            "id": "L50",
+            "url": "https://www.findacode.com/medicare/pub100-manuals.html",
+            "text": "CMS Manuals - IOM/PUB 100",
+            "context": "CMS Manuals - IOM/PUB 100",
+            "score": 0.0
+          },
+          {
+            "id": "L51",
+            "url": "https://www.findacode.com/medicare/e-m-guidelines-manuals.html",
+            "text": "E&M Guidelines & Procedures",
+            "context": "E&M Guidelines & Procedures",
+            "score": 0.0
+          },
+          {
+            "id": "L52",
+            "url": "https://www.findacode.com/medicare/coverage/medicare-contractor-list.php",
+            "text": "LCDs & Articles - by Contractor",
+            "context": "LCDs & Articles - by Contractor",
+            "score": 0.0
+          },
+          {
+            "id": "L53",
+            "url": "https://www.findacode.com/pdf.html?id=MCRP",
+            "text": "Medicare Claim Reviews",
+            "context": "Medicare Claim Reviews",
+            "score": 0.0
+          },
+          {
+            "id": "L54",
+            "url": "https://www.findacode.com/medicare/ncci-guides-manuals.html",
+            "text": "NCCI Policy Manual",
+            "context": "NCCI Policy Manual",
+            "score": 0.0
+          },
+          {
+            "id": "L55",
+            "url": "https://www.findacode.com/medicare/ncd-national-coverage-determinations.html",
+            "text": "NCDs - National Coverage",
+            "context": "NCDs - National Coverage",
+            "score": 0.0
+          },
+          {
+            "id": "L56",
+            "url": "https://www.findacode.com/medicare/oig-workplans.html",
+            "text": "OIG WorkPlans",
+            "context": "OIG WorkPlans",
+            "score": 0.0
+          },
+          {
+            "id": "L57",
+            "url": "https://www.findacode.com/medicare/qpp/index.html",
+            "text": "QPP (Quality Payment Program)",
+            "context": "QPP (Quality Payment Program)",
+            "score": 0.0
+          },
+          {
+            "id": "L58",
+            "url": "https://www.findacode.com/tools/medabbrev",
+            "text": "MedAbbrev - abbreviations & acronyms (+85k entries)",
+            "context": "MedAbbrev - abbreviations & acronyms (+85k entries)",
+            "score": 0.0
+          },
+          {
+            "id": "L59",
+            "url": "https://www.findacode.com/tools/medical-abbreviations",
+            "text": "FAC Abbreviations & Acronyms",
+            "context": "FAC Abbreviations & Acronyms",
+            "score": 0.0
+          },
+          {
+            "id": "L60",
+            "url": "https://www.findacode.com/dictionaries/dorlands.html",
+            "text": "Dorlands ® Dictionary, Acronyms & Appendices",
+            "context": "Dorlands ® Dictionary, Acronyms & Appendices",
+            "score": 0.0
+          },
+          {
+            "id": "L61",
+            "url": "https://www.findacode.com/dictionaries/stedmans.html",
+            "text": "Stedmans ® Dictionary & Appendices",
+            "context": "Stedmans ® Dictionary & Appendices",
+            "score": 0.0
+          },
+          {
+            "id": "L62",
+            "url": "https://www.findacode.com/aimee",
+            "text": "Aimee™ - AI Smart Assistant",
+            "context": "Aimee™ - AI Smart Assistant",
+            "score": 0.0
+          },
+          {
+            "id": "L63",
+            "url": "https://www.findacode.com/search/search.php",
+            "text": "Find-A-Code™ - keyword search",
+            "context": "Find-A-Code™ - keyword search",
+            "score": 0.0
+          },
+          {
+            "id": "L64",
+            "url": "https://www.findacode.com/search/intelli",
+            "text": "IntelliSearch™- beta",
+            "context": "IntelliSearch™- beta",
+            "score": 0.0
+          },
+          {
+            "id": "L65",
+            "url": "https://www.findacode.com/tools/browse-a-code.php",
+            "text": "Browse-A-Code™ - drill down",
+            "context": "Browse-A-Code™ - drill down",
+            "score": 0.0
+          },
+          {
+            "id": "L66",
+            "url": "https://www.findacode.com/tools/click-a-dex",
+            "text": "Click-A-Dex™ - index search",
+            "context": "Click-A-Dex™ - index search",
+            "score": 0.0
+          },
+          {
+            "id": "L67",
+            "url": "https://www.findacode.com/tools/build-a-code.php",
+            "text": "Build-A-Code™ - code builder",
+            "context": "Build-A-Code™ - code builder",
+            "score": 0.0
+          },
+          {
+            "id": "L68",
+            "url": "https://www.findacode.com/tools/map-a-code",
+            "text": "Map-A-Code™ - crosswalks",
+            "context": "Map-A-Code™ - crosswalks",
+            "score": 0.0
+          },
+          {
+            "id": "L69",
+            "url": "https://www.findacode.com/tools/list-a-code",
+            "text": "List-A-Code™ - custom lists",
+            "context": "List-A-Code™ - custom lists",
+            "score": 0.0
+          },
+          {
+            "id": "L70",
+            "url": "https://www.findacode.com/tools/npi-lookup.html",
+            "text": "Find-A-NPI™ - quick look-up",
+            "context": "Find-A-NPI™ - quick look-up",
+            "score": 0.0
+          },
+          {
+            "id": "L71",
+            "url": "https://www.findacode.com/medical-lab-tests",
+            "text": "Medical Lab Tests",
+            "context": "Medical Lab Tests",
+            "score": 0.0
+          },
+          {
+            "id": "L72",
+            "url": "https://www.findacode.com/tools/commercial-payers",
+            "text": "Commercial Payer Policies",
+            "context": "Commercial Payer Policies",
+            "score": 0.0
+          },
+          {
+            "id": "L73",
+            "url": "https://www.findacode.com/tools/code-changes.html",
+            "text": "Code Changes - with NCCI Edits & RVUs",
+            "context": "Code Changes - with NCCI Edits & RVUs",
+            "score": 0.0
+          },
+          {
+            "id": "L74",
+            "url": "https://www.findacode.com/tools/global-days.php",
+            "text": "Global Period/Days",
+            "context": "Global Period/Days",
+            "score": 0.0
+          },
+          {
+            "id": "L75",
+            "url": "https://www.findacode.com/tools/em-calculator",
+            "text": "E/M Calculator",
+            "context": "E/M Calculator",
+            "score": 0.0
+          },
+          {
+            "id": "L76",
+            "url": "https://www.findacode.com/tools/home-health-pdgm-calculator",
+            "text": "Home Health PDGM",
+            "context": "Home Health PDGM",
+            "score": 0.0
+          },
+          {
+            "id": "L77",
+            "url": "https://www.findacode.com/tools/map-a-code/cpt-hcpcs-rvus-fees.php",
+            "text": "RVUs & Medicare Fees",
+            "context": "RVUs & Medicare Fees",
+            "score": 0.0
+          },
+          {
+            "id": "L78",
+            "url": "https://www.findacode.com/tools/check-a-fee.php",
+            "text": "Check-A-Fee™ - vs. Medicare",
+            "context": "Check-A-Fee™ - vs. Medicare",
+            "score": 0.0
+          },
+          {
+            "id": "L79",
+            "url": "https://www.findacode.com/tools/fee-reports/specialty-fee-reports.php",
+            "text": "Specialty Fee Report™",
+            "context": "Specialty Fee Report™",
+            "score": 0.0
+          },
+          {
+            "id": "L80",
+            "url": "https://www.findacode.com/tools/fee-reports/index.php",
+            "text": "Unlimited Fee Reports™",
+            "context": "Unlimited Fee Reports™",
+            "score": 0.0
+          },
+          {
+            "id": "L81",
+            "url": "https://www.findacode.com/tools/patient-responsibility.php",
+            "text": "Patient Responsibility Amount",
+            "context": "Patient Responsibility Amount",
+            "score": 0.0
+          },
+          {
+            "id": "L82",
+            "url": "https://www.findacode.com/tools/pro-fee-calculator",
+            "text": "Pro Fee Calculator",
+            "context": "Pro Fee Calculator",
+            "score": 0.0
+          },
+          {
+            "id": "L83",
+            "url": "https://www.findacode.com/tools/drg-grouper-icd10",
+            "text": "MS-DRG Grouper",
+            "context": "MS-DRG Grouper",
+            "score": 0.0
+          },
+          {
+            "id": "L84",
+            "url": "https://www.findacode.com/tools/apc-calculator",
+            "text": "APC Packager/Pricer",
+            "context": "APC Packager/Pricer",
+            "score": 0.0
+          },
+          {
+            "id": "L85",
+            "url": "https://www.findacode.com/tools/asc-calculator",
+            "text": "ASC Payment Calculator",
+            "context": "ASC Payment Calculator",
+            "score": 0.0
+          },
+          {
+            "id": "L86",
+            "url": "https://www.findacode.com/tools/hcc-calculator",
+            "text": "HCC Risk Score Calculator",
+            "context": "HCC Risk Score Calculator",
+            "score": 0.0
+          },
+          {
+            "id": "L87",
+            "url": "https://www.findacode.com/hcc/medicare-risk-adjustment-eligible-codes.php",
+            "text": "Risk Adjustment CPT/HCPCS Codes",
+            "context": "Risk Adjustment CPT/HCPCS Codes",
+            "score": 0.0
+          },
+          {
+            "id": "L88",
+            "url": "https://www.findacode.com/tools/map-a-code/icd10cm-hcc.php",
+            "text": "ICD-10-CM to HCC - Map-A-Code™",
+            "context": "ICD-10-CM to HCC - Map-A-Code™",
+            "score": 0.0
+          },
+          {
+            "id": "L89",
+            "url": "https://www.findacode.com/scrubber/scrubber.php",
+            "text": "Scrub-A-Claim™ - claim scrubber",
+            "context": "Scrub-A-Claim™ - claim scrubber",
+            "score": 0.0
+          },
+          {
+            "id": "L90",
+            "url": "https://www.findacode.com/tools/ncci-check.php",
+            "text": "CCI Validator™ - for NON-Facility/Practitioner",
+            "context": "CCI Validator™ - for NON-Facility/Practitioner",
+            "score": 0.0
+          },
+          {
+            "id": "L91",
+            "url": "https://www.findacode.com/tools/ncci-check-facility.php",
+            "text": "CCI Validator™ - for FACILITY/Hospital",
+            "context": "CCI Validator™ - for FACILITY/Hospital",
+            "score": 0.0
+          },
+          {
+            "id": "L92",
+            "url": "https://www.findacode.com/tools/ncci/medicaid.html",
+            "text": "CCI Validator™ - for Medicaid",
+            "context": "CCI Validator™ - for Medicaid",
+            "score": 0.0
+          },
+          {
+            "id": "L93",
+            "url": "https://www.findacode.com/tools/icd-10-cm-validator",
+            "text": "ICD-10-CM Validator™",
+            "context": "ICD-10-CM Validator™",
+            "score": 0.0
+          },
+          {
+            "id": "L94",
+            "url": "https://www.findacode.com/aboutus/ceus-training.html",
+            "text": "CEUs & Training",
+            "context": "CEUs & Training",
+            "score": 0.0
+          },
+          {
+            "id": "L95",
+            "url": "https://www.findacode.com/marketplace/coding-courses-and-training.html",
+            "text": "Coding Courses",
+            "context": "Coding Courses",
+            "score": 0.0
+          },
+          {
+            "id": "L96",
+            "url": "https://www.findacode.com/icd-10-cm/print-pdg.html",
+            "text": "Provider Documentation Guides for ICD-10-CM",
+            "context": "Provider Documentation Guides for ICD-10-CM",
+            "score": 0.0
+          },
+          {
+            "id": "L97",
+            "url": "https://www.findacode.com/zygote",
+            "text": "ZygoteBody™ - Anatomy Viewer",
+            "context": "ZygoteBody™ - Anatomy Viewer",
+            "score": 0.0
+          },
+          {
+            "id": "L98",
+            "url": "https://www.findacode.com/topics",
+            "text": "topics",
+            "context": "topics Facilities & Organizations - ACOs, Hospitals, etc. Payers - Medicare, Medicaid, BC/BS, Aetna, etc. Specialties - Cardiology, ENT, Family Practice, etc. Subjects - Audits, E&M, HIPAA, Practice Mgt, etc.",
+            "score": 0.0
+          },
+          {
+            "id": "L99",
+            "url": "https://www.findacode.com/topics/facilities.html",
+            "text": "Facilities & Organizations - ACOs, Hospitals, etc.",
+            "context": "Facilities & Organizations - ACOs, Hospitals, etc.",
+            "score": 0.0
+          },
+          {
+            "id": "L100",
+            "url": "https://www.findacode.com/topics/payers.html",
+            "text": "Payers - Medicare, Medicaid, BC/BS, Aetna, etc.",
+            "context": "Payers - Medicare, Medicaid, BC/BS, Aetna, etc.",
+            "score": 0.0
+          },
+          {
+            "id": "L101",
+            "url": "https://www.findacode.com/topics/specialties.html",
+            "text": "Specialties - Cardiology, ENT, Family Practice, etc.",
+            "context": "Specialties - Cardiology, ENT, Family Practice, etc.",
+            "score": 0.0
+          },
+          {
+            "id": "L102",
+            "url": "https://www.findacode.com/topics/subjects.html",
+            "text": "Subjects - Audits, E&M, HIPAA, Practice Mgt, etc.",
+            "context": "Subjects - Audits, E&M, HIPAA, Practice Mgt, etc.",
+            "score": 0.0
+          },
+          {
+            "id": "L103",
+            "url": "https://www.findacode.com/community.html",
+            "text": "community",
+            "context": "community Articles - knowledge-base Library - buy digital books from Find-A-Code CEUs & Training - sources Coding Support - recommendations FAQs - frequently asked questions Marketplace - recommended products & services...",
+            "score": 0.0
+          },
+          {
+            "id": "L104",
+            "url": "https://www.findacode.com/marketplace/consultants-coding-billing-audits.html",
+            "text": "Coding Support - recommendations",
+            "context": "Coding Support - recommendations",
+            "score": 0.0
+          },
+          {
+            "id": "L105",
+            "url": "https://www.findacode.com/marketplace",
+            "text": "Marketplace - recommended products & services",
+            "context": "Marketplace - recommended products & services",
+            "score": 0.0
+          },
+          {
+            "id": "L106",
+            "url": "https://www.findacode.com/news/index.html",
+            "text": "News - industry news & Find-A-Code updates",
+            "context": "News - industry news & Find-A-Code updates",
+            "score": 0.0
+          },
+          {
+            "id": "L107",
+            "url": "https://www.findacode.com/demo",
+            "text": "Watch Demo Videos",
+            "context": "Watch Demo Videos",
+            "score": 0.0
+          },
+          {
+            "id": "L108",
+            "url": "https://www.findacode.com/",
+            "text": "Home",
+            "context": "Home",
+            "score": 0.0
+          },
+          {
+            "id": "L109",
+            "url": "https://www.findacode.com/medical-coding-code-sets.html",
+            "text": "Codes",
+            "context": "Codes",
+            "score": 0.0
+          },
+          {
+            "id": "L110",
+            "url": "https://www.findacode.com/code-set.php?set=ICD10CM",
+            "text": "ICD-10-CM",
+            "context": "ICD-10-CM 10. Diseases of the respiratory system (J00-J99) J09-J18 Influenza and pneumonia J18 Pneumonia, unspecified organism",
+            "score": 0.0
+          },
+          {
+            "id": "L111",
+            "url": "https://www.findacode.com/code-set.php?set=ICD10CM&i=7861",
+            "text": "10. Diseases of the respiratory system (J00-J99)",
+            "context": "ICD-10-CM 10. Diseases of the respiratory system (J00-J99) J09-J18 Influenza and pneumonia J18 Pneumonia, unspecified organism",
+            "score": 0.0
+          },
+          {
+            "id": "L112",
+            "url": "https://www.findacode.com/code-set.php?set=ICD10CM&i=9619",
+            "text": "J09-J18 Influenza and pneumonia",
+            "context": "ICD-10-CM 10. Diseases of the respiratory system (J00-J99) J09-J18 Influenza and pneumonia J18 Pneumonia, unspecified organism",
+            "score": 0.0
+          },
+          {
+            "id": "L113",
+            "url": "https://www.findacode.com/code-set.php?set=ICD10CM&i=23595",
+            "text": "J18 Pneumonia, unspecified organism",
+            "context": "ICD-10-CM 10. Diseases of the respiratory system (J00-J99) J09-J18 Influenza and pneumonia J18 Pneumonia, unspecified organism",
+            "score": 0.0
+          },
+          {
+            "id": "L114",
+            "url": "https://www.findacode.com/code-prevnext.php?set=ICD10CM&c=J18.9&action=prev",
+            "text": "Previous Code",
+            "context": "",
+            "score": 0.0
+          },
+          {
+            "id": "L115",
+            "url": "https://www.findacode.com/code-prevnext.php?set=ICD10CM&c=J18.9&action=next",
+            "text": "Next code",
+            "context": "",
+            "score": 0.0
+          },
+          {
+            "id": "L116",
+            "url": "https://www.findacode.com/tools/code-print.php?set=ICD10CM&c=J18.9",
+            "text": "Print Code Information",
+            "context": "",
+            "score": 0.0
+          },
+          {
+            "id": "L117",
+            "url": "https://www.findacode.com/news/newsletter_signup.php",
+            "text": "newsletter free subscription",
+            "context": "demo request yours today subscribe start today newsletter free subscription",
+            "score": 0.0
+          },
+          {
+            "id": "L118",
+            "url": "https://www.findacode.com/newsletters/aha-coding-clinic/hcpcs",
+            "text": "AHA Coding Clinic ® for HCPCS - current + archives",
+            "context": "Find-A-Code News AHA Coding Clinic ® for HCPCS - current + archives AHA Coding Clinic ® for ICD-10-CM and ICD-10-PCS - current + archives AMA CPT ® Assistant - current + archives AMA CPT ® Knowledge Base Q/A BC Advantag...",
+            "score": 0.0
+          },
+          {
+            "id": "L119",
+            "url": "https://www.findacode.com/newsletters/aha-coding-clinic/icd",
+            "text": "AHA Coding Clinic ® for ICD-10-CM and ICD-10-PCS - current + archives",
+            "context": "Find-A-Code News AHA Coding Clinic ® for HCPCS - current + archives AHA Coding Clinic ® for ICD-10-CM and ICD-10-PCS - current + archives AMA CPT ® Assistant - current + archives AMA CPT ® Knowledge Base Q/A BC Advantag...",
+            "score": 0.0
+          },
+          {
+            "id": "L120",
+            "url": "https://www.findacode.com/newsletters/ama-cpt-assistant",
+            "text": "AMA CPT ® Assistant - current + archives",
+            "context": "Find-A-Code News AHA Coding Clinic ® for HCPCS - current + archives AHA Coding Clinic ® for ICD-10-CM and ICD-10-PCS - current + archives AMA CPT ® Assistant - current + archives AMA CPT ® Knowledge Base Q/A BC Advantag...",
+            "score": 0.0
+          }
+        ],
+        "fetched_at": "2026-06-07T13:10:21Z",
+        "status_code": 200,
+        "content_type": "text/html; charset=utf-8",
+        "error": ""
+      },
+      "assigned_agent_ids": [
+        "A3"
+      ],
+      "opened_at_round": 2,
+      "error": ""
+    },
+    {
+      "id": "S4",
+      "url": "https://icdlist.com/icd-10/J18.9",
+      "title": "ICD-10-CM Diagnosis Code J18.9 - Pneumonia, unspecified organism",
+      "snippet": "The code is valid during the current ... Unspecified diagnosis codes like J18.9 are acceptable when clinical information is unknown or not available about a particular condition ....",
+      "status": "fetched",
+      "host": "icdlist.com",
+      "page": {
+        "url": "https://icdlist.com/icd-10/J18.9",
+        "final_url": "https://icdlist.com/icd-10/J18.9",
+        "title": "ICD-10-CM Diagnosis Code J18.9 - Pneumonia, unspecified organism",
+        "meta": "J18.9 is a billable diagnosis code used to specify pneumonia, unspecified organism. Synonyms: acute erosive gastritis, acute gastroenteritis, acute ulcerative",
+        "headings": [
+          "2026 ICD-10-CM Diagnosis Code J18.9",
+          "Pneumonia, unspecified organism",
+          "ICD-10-CM Codes Adjacent to J18.9",
+          "Code Classification",
+          "Diseases of the respiratory system (J00–J99)",
+          "Influenza and pneumonia (J09-J18)",
+          "Pneumonia, unspecified organism (J18)",
+          "Approximate Synonyms",
+          "Clinical Classification",
+          "Pneumonia (except that caused by tuberculosis)",
+          "Clinical Information",
+          "Bronchopneumonia",
+          "Chlamydial Pneumonia",
+          "Community-Acquired Pneumonia",
+          "Cryptogenic Organizing Pneumonia",
+          "Hamman-Rich Syndrome",
+          "Healthcare-Associated Pneumonia",
+          "Idiopathic Interstitial Pneumonias",
+          "Lung Diseases, Interstitial",
+          "Murine pneumonia virus",
+          "Organizing Pneumonia",
+          "Pneumonia",
+          "Pneumonia of Calves, Enzootic",
+          "Pneumonia of Swine, Mycoplasmal",
+          "Pneumonia, Aspiration",
+          "Pneumonia, Atypical Interstitial, of Cattle",
+          "Pneumonia, Bacterial",
+          "Pneumonia, Lipid",
+          "Pneumonia, Mycoplasma",
+          "Pneumonia, Necrotizing",
+          "Pneumonia, Pneumococcal",
+          "Pneumonia, Pneumocystis",
+          "Pneumonia, Progressive Interstitial, of Sheep",
+          "Pneumonia, Rickettsial",
+          "Pneumonia, Staphylococcal",
+          "Pneumonia, Ventilator-Associated",
+          "Pneumonia, Viral",
+          "Pulmonary Eosinophilia",
+          "Radiation Pneumonitis",
+          "Pneumovirus",
+          "Pulmonary Alveoli",
+          "Streptococcus pneumoniae",
+          "Rickettsiaceae",
+          "Eosinophils",
+          "Grade 2 Pneumonitis, CTCAE|Grade 2 Pneumonitis",
+          "Grade 3 Pneumonitis, CTCAE|Grade 3 Pneumonitis",
+          "Erosive Gastritis",
+          "Acute Interstitial Pneumonia|AIP|Acute Interstitial Pneumonitis",
+          "Aspiration Pneumonitis|Aspiration Pneumonia|Aspiration Pneumonia",
+          "Bird Fancier's Lung|Avian Hypersensitivity Pneumonitis|Bird fancier's lung|Bird-Breeder's Lung|Pigeon-Breeder's Lung",
+          "Chemical Pneumonitis",
+          "Extrinsic Allergic Alveolitis|Allergic Pneumonitis|Hypersensitivity Pneumonitis",
+          "Fibrotic Hypersensitivity Pneumonitis|fHP",
+          "Grade 1 Pneumonitis, CTCAE|Grade 1 Pneumonitis",
+          "Grade 2 Pneumonitis, CTCAE|Grade 2 Pneumonitis",
+          "Grade 3 Pneumonitis, CTCAE|Grade 3 Pneumonitis",
+          "Grade 4 Pneumonitis, CTCAE|Grade 4 Pneumonitis",
+          "Grade 5 Pneumonitis, CTCAE|Grade 5 Pneumonitis",
+          "Hypersensitivity Pneumonitis due to Other Organic Dusts|Hypersensitivity pneumonitis due to Other organic dusts",
+          "Hypersensitivity Pneumonitis due to Unspecified Organic Dust|Hypersensitivity pneumonitis due to unspecified organic dust",
+          "Idiopathic Interstitial Pneumonia|IIP|Idiopathic Interstitial Pneumonitis",
+          "Interstitial Pneumonia|Interstitial Pneumonitis",
+          "Lymphocytic Interstitial Pneumonia|Diffuse Hyperplasia of Bronchus-Associated Lymphoid Tissue|LIP|Lymphocytic Interstitial Pneumonitis|Lymphocytic interst. pneumonitis|Lymphocytic interstitial pneumonitis",
+          "Pneumonitis",
+          "Pneumonitis, CTCAE|Pneumonitis|Pneumonitis",
+          "Radiation-Induced Pneumonitis",
+          "Steroid-Refractory Pneumonitis",
+          "Ornithosis",
+          "Index to Diseases and Injuries References",
+          "Index of External Cause of Injuries",
+          "MS-DRG Mapping for ICD-10-CM Code J18.9",
+          "Simple Pneumonia and Pleurisy with MCC",
+          "Simple Pneumonia and Pleurisy with CC",
+          "Simple Pneumonia and Pleurisy without CC/MCC",
+          "HIV with Major Related Condition with MCC",
+          "HIV with Major Related Condition with CC",
+          "HIV with Major Related Condition without CC/MCC",
+          "Convert J18.9 to ICD-9-CM",
+          "Pneumonia, organism NOS",
+          "Patient Education",
+          "Pneumonia",
+          "What is pneumonia?",
+          "What causes pneumonia?",
+          "Who is more likely to develop pneumonia?",
+          "What are the symptoms of pneumonia?",
+          "What other problems can pneumonia cause?",
+          "How is pneumonia diagnosed?",
+          "What are the treatments for pneumonia?",
+          "Can pneumonia be prevented?",
+          "Other ICD-10-CM Codes Commonly Used for Similar Conditions",
+          "Code History",
+          "Footnotes"
+        ],
+        "lead": "J18.9 is a billable diagnosis code used to specify a medical diagnosis of pneumonia, unspecified organism. The code is valid during the current fiscal year for the submission of HIPAA-covered transactions from October 01, 2025 through September 30, 2026. Unspecified diagnosis codes like J18.9 are acceptable when clinical information is unknown or not available about a particular condition. Although a more specific code is preferable, unspecified codes should be used when such codes most accurately reflect what is known about a patient's condition. Specific diagnosis codes should not be used if not supported by the patient's medical record. J16.0 - Chlamydial pneumonia J16.8 - Pneumonia due to other specified infectious organisms J17 - Pneumonia in diseases classified elsewhere J18 - Pneumonia, unspecified organism J18.0 - Bronchopneumonia, unspecified organism J18.1 - Lobar pneumonia, unspecified organism J18.2 - Hypostatic pneumonia, unspecified organism J18.8 - Other pneumonia, unspecified organism J18.9 - Pneumonia, unspecified organism J20 - Acute bronchitis J20.0 - Acute bronchitis due to Mycoplasma pneumoniae J20.1 - Acute bronchitis due to Hemophilus influenzae J20.2 - Acute bronchitis due to streptococcus J20.3 - Acute bronchitis due to coxsackievirus J20.4 - Acute bronchitis due to parainfluenza virus J20.5 - Acute bronchitis due to respiratory syncytial virus J20.6 - Acute bronchitis due to rhinovirus J20.7 - Acute bronchitis due to echovirus J20.8 - Acute bronchitis due to other specified organisms J16.8 - Pneumonia due to other specified infectious organisms J17 - Pneumonia in diseases classified elsewhere J18 - Pneumonia, unspecified organism J18.0 - Bronchopneumonia, unspecified organism J18.1 - Lobar pneumonia, unspecified organism J18.2 - Hypostatic pneumonia, unspecified organism J18.8 - Other pneumonia, unspecified organism J18.9 - Pneumonia, unspecified organism J20 - Acute bronchitis J20.0 - Acute bronchitis due to Mycoplasma pneumoniae J20.1 -...",
+        "chunks": [
+          {
+            "id": "C1",
+            "heading": "2026 ICD-10-CM Diagnosis Code J18.9",
+            "text": "J18.9 is a billable diagnosis code used to specify a medical diagnosis of pneumonia, unspecified organism. The code is valid during the current fiscal year for the submission of HIPAA-covered transactions from October 01, 2025 through September 30, 2026. Unspecified diagnosis codes like J18.9 are acceptable when clinical information is unknown or not available about a particular condition. Although a more specific code is preferable, unspecified codes should be used when such codes most accurately reflect what is known about a patient's condition. Specific diagnosis codes should not be used if not supported by the patient's medical record.",
+            "score": 0.0,
+            "rank": 0
+          },
+          {
+            "id": "C2",
+            "heading": "2026 ICD-10-CM Diagnosis Code J18.9",
+            "text": "most accurately reflect what is known about a patient's condition. Specific diagnosis codes should not be used if not supported by the patient's medical record. J16.0 - Chlamydial pneumonia J16.8 - Pneumonia due to other specified infectious organisms J17 - Pneumonia in diseases classified elsewhere J18 - Pneumonia, unspecified organism J18.0 - Bronchopneumonia, unspecified organism J18.1 - Lobar pneumonia, unspecified organism J18.2 - Hypostatic pneumonia, unspecified organism J18.8 - Other pneumonia, unspecified organism J18.9 - Pneumonia, unspecified organism J20 - Acute bronchitis J20.0 - Acute bronchitis due to Mycoplasma pneumoniae J20.1 - Acute bronchitis due to Hemophilus influenzae J20.2 - Acute bronchitis due to streptococcus J20.3 - Acute bronchitis due to coxsackievirus J20.4 - Acute bronchitis due to parainfluenza virus J20.5 - Acute bronchitis due to respiratory syncytial virus J20.6 - Acute bronchitis due to rhinovirus J20.7 - Acute bronchitis due to echovirus J20.8 - Acute bronchitis due to other specified organisms",
+            "score": 0.0,
+            "rank": 0
+          },
+          {
+            "id": "C3",
+            "heading": "2026 ICD-10-CM Diagnosis Code J18.9",
+            "text": "y syncytial virus J20.6 - Acute bronchitis due to rhinovirus J20.7 - Acute bronchitis due to echovirus J20.8 - Acute bronchitis due to other specified organisms J16.8 - Pneumonia due to other specified infectious organisms J17 - Pneumonia in diseases classified elsewhere J18 - Pneumonia, unspecified organism J18.0 - Bronchopneumonia, unspecified organism J18.1 - Lobar pneumonia, unspecified organism J18.2 - Hypostatic pneumonia, unspecified organism J18.8 - Other pneumonia, unspecified organism J18.9 - Pneumonia, unspecified organism J20 - Acute bronchitis J20.0 - Acute bronchitis due to Mycoplasma pneumoniae J20.1 - Acute bronchitis due to Hemophilus influenzae J20.2 - Acute bronchitis due to streptococcus J20.3 - Acute bronchitis due to coxsackievirus J20.4 - Acute bronchitis due to parainfluenza virus J20.5 - Acute bronchitis due to respiratory syncytial virus J20.6 - Acute bronchitis due to rhinovirus J20.7 - Acute bronchitis due to echovirus J20.8 - Acute bronchitis due to other specified organisms",
+            "score": 0.0,
+            "rank": 0
+          },
+          {
+            "id": "C4",
+            "heading": "2026 ICD-10-CM Diagnosis Code J18.9",
+            "text": "y syncytial virus J20.6 - Acute bronchitis due to rhinovirus J20.7 - Acute bronchitis due to echovirus J20.8 - Acute bronchitis due to other specified organisms J17 - Pneumonia in diseases classified elsewhere J18 - Pneumonia, unspecified organism J18.0 - Bronchopneumonia, unspecified organism J18.1 - Lobar pneumonia, unspecified organism J18.2 - Hypostatic pneumonia, unspecified organism J18.8 - Other pneumonia, unspecified organism J18.9 - Pneumonia, unspecified organism J20 - Acute bronchitis J20.0 - Acute bronchitis due to Mycoplasma pneumoniae J20.1 - Acute bronchitis due to Hemophilus influenzae J20.2 - Acute bronchitis due to streptococcus J20.3 - Acute bronchitis due to coxsackievirus J20.4 - Acute bronchitis due to parainfluenza virus J20.5 - Acute bronchitis due to respiratory syncytial virus J20.6 - Acute bronchitis due to rhinovirus J20.7 - Acute bronchitis due to echovirus J20.8 - Acute bronchitis due to other specified organisms",
+            "score": 0.0,
+            "rank": 0
+          },
+          {
+            "id": "C5",
+            "heading": "2026 ICD-10-CM Diagnosis Code J18.9",
+            "text": "y syncytial virus J20.6 - Acute bronchitis due to rhinovirus J20.7 - Acute bronchitis due to echovirus J20.8 - Acute bronchitis due to other specified organisms J18 - Pneumonia, unspecified organism J18.0 - Bronchopneumonia, unspecified organism J18.1 - Lobar pneumonia, unspecified organism J18.2 - Hypostatic pneumonia, unspecified organism J18.8 - Other pneumonia, unspecified organism J18.9 - Pneumonia, unspecified organism J20 - Acute bronchitis J20.0 - Acute bronchitis due to Mycoplasma pneumoniae J20.1 - Acute bronchitis due to Hemophilus influenzae J20.2 - Acute bronchitis due to streptococcus J20.3 - Acute bronchitis due to coxsackievirus J20.4 - Acute bronchitis due to parainfluenza virus J20.5 - Acute bronchitis due to respiratory syncytial virus J20.6 - Acute bronchitis due to rhinovirus J20.7 - Acute bronchitis due to echovirus J20.8 - Acute bronchitis due to other specified organisms",
+            "score": 0.0,
+            "rank": 0
+          },
+          {
+            "id": "C6",
+            "heading": "2026 ICD-10-CM Diagnosis Code J18.9",
+            "text": "y syncytial virus J20.6 - Acute bronchitis due to rhinovirus J20.7 - Acute bronchitis due to echovirus J20.8 - Acute bronchitis due to other specified organisms J18.0 - Bronchopneumonia, unspecified organism J18.1 - Lobar pneumonia, unspecified organism J18.2 - Hypostatic pneumonia, unspecified organism J18.8 - Other pneumonia, unspecified organism J18.9 - Pneumonia, unspecified organism J20 - Acute bronchitis J20.0 - Acute bronchitis due to Mycoplasma pneumoniae J20.1 - Acute bronchitis due to Hemophilus influenzae J20.2 - Acute bronchitis due to streptococcus J20.3 - Acute bronchitis due to coxsackievirus J20.4 - Acute bronchitis due to parainfluenza virus J20.5 - Acute bronchitis due to respiratory syncytial virus J20.6 - Acute bronchitis due to rhinovirus J20.7 - Acute bronchitis due to echovirus J20.8 - Acute bronchitis due to other specified organisms",
+            "score": 0.0,
+            "rank": 0
+          },
+          {
+            "id": "C7",
+            "heading": "2026 ICD-10-CM Diagnosis Code J18.9",
+            "text": "y syncytial virus J20.6 - Acute bronchitis due to rhinovirus J20.7 - Acute bronchitis due to echovirus J20.8 - Acute bronchitis due to other specified organisms J18.1 - Lobar pneumonia, unspecified organism J18.2 - Hypostatic pneumonia, unspecified organism J18.8 - Other pneumonia, unspecified organism J18.9 - Pneumonia, unspecified organism J20 - Acute bronchitis J20.0 - Acute bronchitis due to Mycoplasma pneumoniae J20.1 - Acute bronchitis due to Hemophilus influenzae J20.2 - Acute bronchitis due to streptococcus J20.3 - Acute bronchitis due to coxsackievirus J20.4 - Acute bronchitis due to parainfluenza virus J20.5 - Acute bronchitis due to respiratory syncytial virus J20.6 - Acute bronchitis due to rhinovirus J20.7 - Acute bronchitis due to echovirus J20.8 - Acute bronchitis due to other specified organisms",
+            "score": 0.0,
+            "rank": 0
+          },
+          {
+            "id": "C8",
+            "heading": "2026 ICD-10-CM Diagnosis Code J18.9",
+            "text": "y syncytial virus J20.6 - Acute bronchitis due to rhinovirus J20.7 - Acute bronchitis due to echovirus J20.8 - Acute bronchitis due to other specified organisms J18.2 - Hypostatic pneumonia, unspecified organism J18.8 - Other pneumonia, unspecified organism J18.9 - Pneumonia, unspecified organism J20 - Acute bronchitis J20.0 - Acute bronchitis due to Mycoplasma pneumoniae J20.1 - Acute bronchitis due to Hemophilus influenzae J20.2 - Acute bronchitis due to streptococcus J20.3 - Acute bronchitis due to coxsackievirus J20.4 - Acute bronchitis due to parainfluenza virus J20.5 - Acute bronchitis due to respiratory syncytial virus J20.6 - Acute bronchitis due to rhinovirus J20.7 - Acute bronchitis due to echovirus J20.8 - Acute bronchitis due to other specified organisms",
+            "score": 0.0,
+            "rank": 0
+          },
+          {
+            "id": "C9",
+            "heading": "2026 ICD-10-CM Diagnosis Code J18.9",
+            "text": "y syncytial virus J20.6 - Acute bronchitis due to rhinovirus J20.7 - Acute bronchitis due to echovirus J20.8 - Acute bronchitis due to other specified organisms J18.8 - Other pneumonia, unspecified organism J18.9 - Pneumonia, unspecified organism J20 - Acute bronchitis J20.0 - Acute bronchitis due to Mycoplasma pneumoniae J20.1 - Acute bronchitis due to Hemophilus influenzae J20.2 - Acute bronchitis due to streptococcus J20.3 - Acute bronchitis due to coxsackievirus J20.4 - Acute bronchitis due to parainfluenza virus J20.5 - Acute bronchitis due to respiratory syncytial virus J20.6 - Acute bronchitis due to rhinovirus J20.7 - Acute bronchitis due to echovirus J20.8 - Acute bronchitis due to other specified organisms",
+            "score": 0.0,
+            "rank": 0
+          },
+          {
+            "id": "C10",
+            "heading": "2026 ICD-10-CM Diagnosis Code J18.9",
+            "text": "y syncytial virus J20.6 - Acute bronchitis due to rhinovirus J20.7 - Acute bronchitis due to echovirus J20.8 - Acute bronchitis due to other specified organisms J18.9 - Pneumonia, unspecified organism J20 - Acute bronchitis J20.0 - Acute bronchitis due to Mycoplasma pneumoniae J20.1 - Acute bronchitis due to Hemophilus influenzae J20.2 - Acute bronchitis due to streptococcus J20.3 - Acute bronchitis due to coxsackievirus J20.4 - Acute bronchitis due to parainfluenza virus J20.5 - Acute bronchitis due to respiratory syncytial virus J20.6 - Acute bronchitis due to rhinovirus J20.7 - Acute bronchitis due to echovirus J20.8 - Acute bronchitis due to other specified organisms",
+            "score": 0.0,
+            "rank": 0
+          },
+          {
+            "id": "C11",
+            "heading": "2026 ICD-10-CM Diagnosis Code J18.9",
+            "text": "y syncytial virus J20.6 - Acute bronchitis due to rhinovirus J20.7 - Acute bronchitis due to echovirus J20.8 - Acute bronchitis due to other specified organisms J20 - Acute bronchitis J20.0 - Acute bronchitis due to Mycoplasma pneumoniae J20.1 - Acute bronchitis due to Hemophilus influenzae J20.2 - Acute bronchitis due to streptococcus J20.3 - Acute bronchitis due to coxsackievirus J20.4 - Acute bronchitis due to parainfluenza virus J20.5 - Acute bronchitis due to respiratory syncytial virus J20.6 - Acute bronchitis due to rhinovirus J20.7 - Acute bronchitis due to echovirus J20.8 - Acute bronchitis due to other specified organisms",
+            "score": 0.0,
+            "rank": 0
+          },
+          {
+            "id": "C12",
+            "heading": "2026 ICD-10-CM Diagnosis Code J18.9",
+            "text": "y syncytial virus J20.6 - Acute bronchitis due to rhinovirus J20.7 - Acute bronchitis due to echovirus J20.8 - Acute bronchitis due to other specified organisms J20.0 - Acute bronchitis due to Mycoplasma pneumoniae J20.1 - Acute bronchitis due to Hemophilus influenzae J20.2 - Acute bronchitis due to streptococcus J20.3 - Acute bronchitis due to coxsackievirus J20.4 - Acute bronchitis due to parainfluenza virus J20.5 - Acute bronchitis due to respiratory syncytial virus J20.6 - Acute bronchitis due to rhinovirus J20.7 - Acute bronchitis due to echovirus J20.8 - Acute bronchitis due to other specified organisms",
+            "score": 0.0,
+            "rank": 0
+          },
+          {
+            "id": "C13",
+            "heading": "2026 ICD-10-CM Diagnosis Code J18.9",
+            "text": "y syncytial virus J20.6 - Acute bronchitis due to rhinovirus J20.7 - Acute bronchitis due to echovirus J20.8 - Acute bronchitis due to other specified organisms J20.1 - Acute bronchitis due to Hemophilus influenzae J20.2 - Acute bronchitis due to streptococcus J20.3 - Acute bronchitis due to coxsackievirus J20.4 - Acute bronchitis due to parainfluenza virus J20.5 - Acute bronchitis due to respiratory syncytial virus J20.6 - Acute bronchitis due to rhinovirus J20.7 - Acute bronchitis due to echovirus J20.8 - Acute bronchitis due to other specified organisms J20.2 - Acute bronchitis due to streptococcus J20.3 - Acute bronchitis due to coxsackievirus J20.4 - Acute bronchitis due to parainfluenza virus J20.5 - Acute bronchitis due to respiratory syncytial virus J20.6 - Acute bronchitis due to rhinovirus J20.7 - Acute bronchitis due to echovirus J20.8 - Acute bronchitis due to other specified organisms",
+            "score": 0.0,
+            "rank": 0
+          },
+          {
+            "id": "C14",
+            "heading": "2026 ICD-10-CM Diagnosis Code J18.9",
+            "text": "y syncytial virus J20.6 - Acute bronchitis due to rhinovirus J20.7 - Acute bronchitis due to echovirus J20.8 - Acute bronchitis due to other specified organisms J20.3 - Acute bronchitis due to coxsackievirus J20.4 - Acute bronchitis due to parainfluenza virus J20.5 - Acute bronchitis due to respiratory syncytial virus J20.6 - Acute bronchitis due to rhinovirus J20.7 - Acute bronchitis due to echovirus J20.8 - Acute bronchitis due to other specified organisms J20.4 - Acute bronchitis due to parainfluenza virus J20.5 - Acute bronchitis due to respiratory syncytial virus J20.6 - Acute bronchitis due to rhinovirus J20.7 - Acute bronchitis due to echovirus J20.8 - Acute bronchitis due to other specified organisms J20.5 - Acute bronchitis due to respiratory syncytial virus J20.6 - Acute bronchitis due to rhinovirus J20.7 - Acute bronchitis due to echovirus J20.8 - Acute bronchitis due to other specified organisms",
+            "score": 0.0,
+            "rank": 0
+          },
+          {
+            "id": "C15",
+            "heading": "2026 ICD-10-CM Diagnosis Code J18.9",
+            "text": "y syncytial virus J20.6 - Acute bronchitis due to rhinovirus J20.7 - Acute bronchitis due to echovirus J20.8 - Acute bronchitis due to other specified organisms J20.6 - Acute bronchitis due to rhinovirus J20.7 - Acute bronchitis due to echovirus J20.8 - Acute bronchitis due to other specified organisms J20.7 - Acute bronchitis due to echovirus J20.8 - Acute bronchitis due to other specified organisms J20.8 - Acute bronchitis due to other specified organisms Tabular List of Diseases and Injuries Index to Diseases and Injuries References Other Codes Used Similar Conditions Diseases of the respiratory system J00–J99 Influenza and pneumonia J09-J18 Pneumonia, unspecified organism J18 Influenza and pneumonia J09-J18 Pneumonia, unspecified organism J18 Pneumonia, unspecified organism J18",
+            "score": 0.0,
+            "rank": 0
+          },
+          {
+            "id": "C16",
+            "heading": "2026 ICD-10-CM Diagnosis Code J18.9",
+            "text": "nd pneumonia J09-J18 Pneumonia, unspecified organism J18 Influenza and pneumonia J09-J18 Pneumonia, unspecified organism J18 Pneumonia, unspecified organism J18 The following list of clinical terms are approximate synonyms, alternative descriptions, or common phrases that might be used by patients, healthcare providers, or medical coders to describe the same condition. These synonyms and related diagnosis terms are often used when searching for an ICD-10 code, especially when the exact medical terminology is unclear. Whether you're looking for lay terms, similar diagnosis names, or common language alternatives, this list can help guide you to the correct ICD-10 classification. Acute ulcerative gastroenteritis complicating pneumonia Disorder of respiratory system co-occurrent with human immunodeficiency virus infection Pleural effusion associated with pulmonary infection Postoperative lower respiratory tract infection Recurrent lower respiratory tract infection",
+            "score": 0.0,
+            "rank": 0
+          },
+          {
+            "id": "C17",
+            "heading": "2026 ICD-10-CM Diagnosis Code J18.9",
+            "text": "virus infection Pleural effusion associated with pulmonary infection Postoperative lower respiratory tract infection Recurrent lower respiratory tract infection Clinical Classifications group individual ICD-10-CM diagnosis codes into broader, clinically meaningful categories. These categories help simplify complex data by organizing related conditions under common clinical themes. They are especially useful for data analysis, reporting, and clinical decision-making. Even when diagnosis codes differ, similar conditions can be grouped together based on their clinical relevance. Each category is assigned a unique CCSR code that represents a specific clinical concept, often tied to a body system or medical specialty. Inpatient Default: Y - Yes, default inpatient assignment for principal diagnosis or first-listed diagnosis. Outpatient Default: Y - Yes, default outpatient assignment for principal diagnosis or first-listed diagnosis.",
+            "score": 0.0,
+            "rank": 0
+          },
+          {
+            "id": "C18",
+            "heading": "2026 ICD-10-CM Diagnosis Code J18.9",
+            "text": "for principal diagnosis or first-listed diagnosis. Outpatient Default: Y - Yes, default outpatient assignment for principal diagnosis or first-listed diagnosis. Bronchopneumonia inflammation of the lung parenchyma that is associated with bronchitis, usually involving lobular areas from terminal bronchioles to the pulmonary alveoli. the affected areas become filled with exudate that forms consolidated patches. Chlamydial Pneumonia pneumonia caused by infections with the genus chlamydia; and chlamydophila, usually with chlamydophila pneumoniae. Community-Acquired Pneumonia infection of the lungs in a patient who is not hospitalized or who has not resided in a long-term care facility for 14 days prior to the onset of symptoms. it is associated with some signs and symptoms of acute infection and is accompanied by the presence of an acute infiltrate on chest radiograph.(us pharm. 2007;32(10):44-5 https://www.uspharmacist.com/article/community-acquired-pneumonia)",
+            "score": 0.0,
+            "rank": 0
+          },
+          {
+            "id": "C19",
+            "heading": "2026 ICD-10-CM Diagnosis Code J18.9",
+            "text": "panied by the presence of an acute infiltrate on chest radiograph.(us pharm. 2007;32(10):44-5 https://www.uspharmacist.com/article/community-acquired-pneumonia) Cryptogenic Organizing Pneumonia an interstitial lung disease of unknown etiology, occurring between 21-80 years of age. it is characterized by a dramatic onset of a pneumonia-like illness with cough, fever, malaise, fatigue, and weight loss. pathological features include prominent interstitial inflammation without collagen fibrosis, diffuse fibroblastic foci, and no microscopic honeycomb change. there is excessive proliferation of granulation tissue within small airways and alveolar ducts. Hamman-Rich Syndrome acute idiopathic interstitial pneumonitis characterized by diffuse pulmonary alveoli damage with uniform edematous connective tissue proliferation. it is often associated with extensive fibroblastic distortion of the lung parenchyma and leads to adult respiratory distress syndrome in later stages.",
+            "score": 0.0,
+            "rank": 0
+          },
+          {
+            "id": "C20",
+            "heading": "2026 ICD-10-CM Diagnosis Code J18.9",
+            "text": "feration. it is often associated with extensive fibroblastic distortion of the lung parenchyma and leads to adult respiratory distress syndrome in later stages. Healthcare-Associated Pneumonia infection of the lung often accompanied by inflammation that is acquired through an interaction within a healthcare institution often through a therapeutic experience (e.g., use of catheters or ventilators). Idiopathic Interstitial Pneumonias a group of interstitial lung diseases with no known etiology. there are several entities with varying patterns of inflammation and fibrosis. they are classified by their distinct clinical-radiological-pathological features and prognosis. they include idiopathic pulmonary fibrosis; cryptogenic organizing pneumonia; and others.",
+            "score": 0.0,
+            "rank": 0
+          },
+          {
+            "id": "C21",
+            "heading": "2026 ICD-10-CM Diagnosis Code J18.9",
+            "text": "ir distinct clinical-radiological-pathological features and prognosis. they include idiopathic pulmonary fibrosis; cryptogenic organizing pneumonia; and others. Lung Diseases, Interstitial a diverse group of lung diseases that affect the lung parenchyma. they are characterized by an initial inflammation of pulmonary alveoli that extends to the interstitium and beyond leading to diffuse pulmonary fibrosis. interstitial lung diseases are classified by their etiology (known or unknown causes), and radiological-pathological features. Murine pneumonia virus a species of the genus pneumovirus causing pneumonia in mice. Organizing Pneumonia any obstructive lung disease characterized by consolidated formation of granulation tissue polyps within alveolar ducts and alveoli. it is classified as either primary (cryptogenic organizing pneumonia) or secondary organizing pneumonia. secondary organizing pneumonia after transplantation is called bronchiolitis obliterans syndrome.",
+            "score": 0.0,
+            "rank": 0
+          },
+          {
+            "id": "C22",
+            "heading": "2026 ICD-10-CM Diagnosis Code J18.9",
+            "text": "genic organizing pneumonia) or secondary organizing pneumonia. secondary organizing pneumonia after transplantation is called bronchiolitis obliterans syndrome. Pneumonia infection of the lung often accompanied by inflammation. Pneumonia of Calves, Enzootic chronic endemic respiratory disease of dairy calves and an important component of bovine respiratory disease complex. it primarily affects calves up to six months of age and the etiology is multifactorial. stress plus a primary viral infection is followed by a secondary bacterial infection. the latter is most commonly associated with pasteurella multocida producing a purulent bronchopneumonia. sometimes present are mannheimia haemolytica; haemophilus somnus and mycoplasma species.",
+            "score": 0.0,
+            "rank": 0
+          },
+          {
+            "id": "C23",
+            "heading": "2026 ICD-10-CM Diagnosis Code J18.9 > Pneumonia, Atypical Interstitial, of Cattle",
+            "text": "iated with pasteurella multocida producing a purulent bronchopneumonia. sometimes present are mannheimia haemolytica; haemophilus somnus and mycoplasma species. Pneumonia of Swine, Mycoplasmal a chronic, clinically mild, infectious pneumonia of pigs caused by mycoplasma hyopneumoniae. ninety percent of swine herds worldwide are infected with this economically costly disease that primarily affects animals aged two to six months old. the disease can be associated with porcine respiratory disease complex. pasteurella multocida is often found as a secondary infection. Pneumonia, Aspiration a type of lung inflammation resulting from the aspiration of food, liquid, or gastric contents into the upper respiratory tract. Pneumonia, Atypical Interstitial, of Cattle a cattle disease of uncertain cause, probably an allergic reaction. Pneumonia, Bacterial inflammation of the lung parenchyma that is caused by bacterial infections.",
+            "score": 0.0,
+            "rank": 0
+          },
+          {
+            "id": "C24",
+            "heading": "2026 ICD-10-CM Diagnosis Code J18.9 > Pneumonia, Atypical Interstitial, of Cattle",
+            "text": "ttle disease of uncertain cause, probably an allergic reaction. Pneumonia, Bacterial inflammation of the lung parenchyma that is caused by bacterial infections. Pneumonia, Lipid pneumonia due to aspiration or inhalation of various oily or fatty substances or otherwise accumulation of endogenous lipid substances in the pulmonary alveoli. Pneumonia, Mycoplasma interstitial pneumonia caused by extensive infection of the lungs (lung) and bronchi, particularly the lower lobes of the lungs, by mycoplasma pneumoniae in humans. in sheep, it is caused by mycoplasma ovipneumoniae. in cattle, it may be caused by mycoplasma dispar. Pneumonia, Necrotizing severe complication of pneumonia characterized by liquefaction of lung tissue. Pneumonia, Pneumococcal a febrile disease caused by streptococcus pneumoniae.",
+            "score": 0.0,
+            "rank": 0
+          },
+          {
+            "id": "C25",
+            "heading": "2026 ICD-10-CM Diagnosis Code J18.9 > Pneumonia, Atypical Interstitial, of Cattle > Pneumonia, Progressive Interstitial, of Sheep",
+            "text": "ing severe complication of pneumonia characterized by liquefaction of lung tissue. Pneumonia, Pneumococcal a febrile disease caused by streptococcus pneumoniae. Pneumonia, Pneumocystis a pulmonary disease in humans occurring in immunodeficient or malnourished patients or infants, characterized by dyspnea, tachypnea, and hypoxemia. pneumocystis pneumonia is a frequently seen opportunistic infection in aids. it is caused by the fungus pneumocystis jirovecii. the disease is also found in other mammals where it is caused by related species of pneumocystis. Pneumonia, Progressive Interstitial, of Sheep chronic respiratory disease caused by the visna-maedi virus. it was formerly believed to be identical with jaagsiekte (pulmonary adenomatosis, ovine) but is now recognized as a separate entity. Pneumonia, Rickettsial pneumonia caused by infection with bacteria of the family rickettsiaceae.",
+            "score": 0.0,
+            "rank": 0
+          },
+          {
+            "id": "C26",
+            "heading": "2026 ICD-10-CM Diagnosis Code J18.9 > Pneumonia, Atypical Interstitial, of Cattle > Pneumonia, Progressive Interstitial, of Sheep",
+            "text": "denomatosis, ovine) but is now recognized as a separate entity. Pneumonia, Rickettsial pneumonia caused by infection with bacteria of the family rickettsiaceae. Pneumonia, Staphylococcal pneumonia caused by infections with bacteria of the genus staphylococcus, usually with staphylococcus aureus. Pneumonia, Ventilator-Associated serious inflammation of the lung in patients who required the use of pulmonary ventilator. it is usually caused by bacterial cross infection in hospitals. Pneumonia, Viral inflammation of the lung parenchyma that is caused by a viral infection. Pulmonary Eosinophilia a condition characterized by infiltration of the lung with eosinophils due to inflammation or other disease processes. major eosinophilic lung diseases are the eosinophilic pneumonias caused by infections, allergens, or toxic agents. Radiation Pneumonitis inflammation of the lung due to harmful effects of ionizing or non-ionizing radiation.",
+            "score": 0.0,
+            "rank": 0
+          },
+          {
+            "id": "C27",
+            "heading": "2026 ICD-10-CM Diagnosis Code J18.9 > Pneumonia, Atypical Interstitial, of Cattle > Pneumonia, Progressive Interstitial, of Sheep",
+            "text": "s caused by infections, allergens, or toxic agents. Radiation Pneumonitis inflammation of the lung due to harmful effects of ionizing or non-ionizing radiation. Pneumovirus a genus of the family paramyxoviridae (subfamily pneumovirinae) where the human and bovine virions have neither hemagglutinin nor neuraminidase activity. respiratory syncytial virus, human is the type species. Pulmonary Alveoli small polyhedral outpouchings along the walls of the alveolar sacs, alveolar ducts and terminal bronchioles through the walls of which gas exchange between alveolar air and pulmonary capillary blood takes place. Streptococcus pneumoniae a gram-positive organism found in the upper respiratory tract, inflammatory exudates, and various body fluids of normal and/or diseased humans and, rarely, domestic animals. Rickettsiaceae a family of gram-negative bacteria belonging to the order rickettsiales.",
+            "score": 0.0,
+            "rank": 0
+          },
+          {
+            "id": "C28",
+            "heading": "2026 ICD-10-CM Diagnosis Code J18.9 > Pneumonia, Atypical Interstitial, of Cattle > Grade 3 Pneumonitis, CTCAE|Grade 3 Pneumonitis",
+            "text": "y fluids of normal and/or diseased humans and, rarely, domestic animals. Rickettsiaceae a family of gram-negative bacteria belonging to the order rickettsiales. Eosinophils granular leukocytes with a nucleus that usually has two lobes connected by a slender thread of chromatin, and cytoplasm containing coarse, round granules that are uniform in size and stainable by eosin. Grade 2 Pneumonitis, CTCAE|Grade 2 Pneumonitis symptomatic; medical intervention indicated; limiting instrumental adl or mild/moderate impact on age-appropriate normal daily activity (pediatric) Grade 3 Pneumonitis, CTCAE|Grade 3 Pneumonitis severe symptoms; oxygen indicated; limiting self-care adl or severe impact on age-appropriate normal daily activity (pediatric) Erosive Gastritis gastritis that is characterized by erosion of the mucosal surface.",
+            "score": 0.0,
+            "rank": 0
+          },
+          {
+            "id": "C29",
+            "heading": "2026 ICD-10-CM Diagnosis Code J18.9 > Pneumonia, Atypical Interstitial, of Cattle > Acute Interstitial Pneumonia|AIP|Acute Interstitial Pneumonitis",
+            "text": "e adl or severe impact on age-appropriate normal daily activity (pediatric) Erosive Gastritis gastritis that is characterized by erosion of the mucosal surface. Acute Interstitial Pneumonia|AIP|Acute Interstitial Pneumonitis a rare, rapidly progressing interstitial lung disorder characterized by diffuse and bilateral alveolar damage. patients present with sudden onset of dyspnea and rapid development of respiratory failure. management is supportive and hospitalization and mechanical ventilation are usually required. Aspiration Pneumonitis|Aspiration Pneumonia|Aspiration Pneumonia inflammation of the lungs due to the inhalation of solid or liquid material.",
+            "score": 0.0,
+            "rank": 0
+          },
+          {
+            "id": "C30",
+            "heading": "2026 ICD-10-CM Diagnosis Code J18.9 > Pneumonia, Atypical Interstitial, of Cattle > Bird Fancier's Lung|Avian Hypersensitivity Pneumonitis|Bird fancier's lung|Bird-Breeder's Lung|Pigeon-Breeder's Lung",
+            "text": "usually required. Aspiration Pneumonitis|Aspiration Pneumonia|Aspiration Pneumonia inflammation of the lungs due to the inhalation of solid or liquid material. Bird Fancier's Lung|Avian Hypersensitivity Pneumonitis|Bird fancier's lung|Bird-Breeder's Lung|Pigeon-Breeder's Lung hypersensitivity granulomatous pneumonitis caused by the inhalation of avian antigens that are present in the dust of the droppings and feathers of many species of birds. in the acute phase it manifests as fever, chills, dyspnea, cough, and chest tightness. chronic exposure may lead to interstitial lung fibrosis. Chemical Pneumonitis inflammation of the lungs caused by the inhalation or aspiration of chemicals.",
+            "score": 0.0,
+            "rank": 0
+          },
+          {
+            "id": "C31",
+            "heading": "2026 ICD-10-CM Diagnosis Code J18.9 > Pneumonia, Atypical Interstitial, of Cattle > Extrinsic Allergic Alveolitis|Allergic Pneumonitis|Hypersensitivity Pneumonitis",
+            "text": "ss. chronic exposure may lead to interstitial lung fibrosis. Chemical Pneumonitis inflammation of the lungs caused by the inhalation or aspiration of chemicals. Extrinsic Allergic Alveolitis|Allergic Pneumonitis|Hypersensitivity Pneumonitis an inflammatory interstitial lung disease caused by hypersensitivity reaction to inhalation or ingestion of antigens. the antigens are usually related to the patient's occupation. it can present as an acute illness with flu-like symptoms, subacute with repeated episodes of pneumonia, or chronic with dyspnea and productive cough. the majority of patients recover following the cessation of the exposure to the antigen that causes the disease. chronic exposure may eventually progress to interstitial lung fibrosis. Fibrotic Hypersensitivity Pneumonitis|fHP interstitial lung fibrosis resulting from chronic hypersensitivity pneumonitis.",
+            "score": 0.0,
+            "rank": 0
+          },
+          {
+            "id": "C32",
+            "heading": "2026 ICD-10-CM Diagnosis Code J18.9 > Pneumonia, Atypical Interstitial, of Cattle > Grade 5 Pneumonitis, CTCAE|Grade 5 Pneumonitis",
+            "text": "rogress to interstitial lung fibrosis. Fibrotic Hypersensitivity Pneumonitis|fHP interstitial lung fibrosis resulting from chronic hypersensitivity pneumonitis. Grade 1 Pneumonitis, CTCAE|Grade 1 Pneumonitis asymptomatic; clinical or diagnostic observations only; intervention not indicated Grade 2 Pneumonitis, CTCAE|Grade 2 Pneumonitis symptomatic; medical intervention indicated; limiting instrumental adl Grade 3 Pneumonitis, CTCAE|Grade 3 Pneumonitis severe symptoms; limiting self care adl; oxygen indicated Grade 4 Pneumonitis, CTCAE|Grade 4 Pneumonitis life-threatening respiratory compromise; urgent intervention indicated (e.g., tracheotomy or intubation) Grade 5 Pneumonitis, CTCAE|Grade 5 Pneumonitis death Hypersensitivity Pneumonitis due to Other Organic Dusts|Hypersensitivity pneumonitis due to Other organic dusts evidence of hypersensitivity pneumonitis due to other organic dusts.",
+            "score": 0.0,
+            "rank": 0
+          },
+          {
+            "id": "C33",
+            "heading": "2026 ICD-10-CM Diagnosis Code J18.9 > Pneumonia, Atypical Interstitial, of Cattle > Idiopathic Interstitial Pneumonia|IIP|Idiopathic Interstitial Pneumonitis",
+            "text": "umonitis due to Other Organic Dusts|Hypersensitivity pneumonitis due to Other organic dusts evidence of hypersensitivity pneumonitis due to other organic dusts. Hypersensitivity Pneumonitis due to Unspecified Organic Dust|Hypersensitivity pneumonitis due to unspecified organic dust evidence of hypersensitivity pneumonitis due to unspecified organic dust. Idiopathic Interstitial Pneumonia|IIP|Idiopathic Interstitial Pneumonitis non-infectious inflammation of the interstitial lung tissue of unknown etiology. this category includes desquamative interstitial pneumonia, usual interstitial pneumonia, lymphocytic interstitial pneumonia, acute interstitial pneumonia, and nonspecific interstitial pneumonia. Interstitial Pneumonia|Interstitial Pneumonitis inflammation of interstitial lung tissue, usually associated with infection.",
+            "score": 0.0,
+            "rank": 0
+          },
+          {
+            "id": "C34",
+            "heading": "2026 ICD-10-CM Diagnosis Code J18.9 > Pneumonia, Atypical Interstitial, of Cattle > Lymphocytic Interstitial Pneumonia|Diffuse Hyperplasia of Bronchus-Associated Lymphoid Tissue|LIP|Lymphocytic Interstitial Pneumonitis|Lymphocytic interst. pneumonitis|Lymphocytic interstitial pneumonitis",
+            "text": "nonspecific interstitial pneumonia. Interstitial Pneumonia|Interstitial Pneumonitis inflammation of interstitial lung tissue, usually associated with infection. Lymphocytic Interstitial Pneumonia|Diffuse Hyperplasia of Bronchus-Associated Lymphoid Tissue|LIP|Lymphocytic Interstitial Pneumonitis|Lymphocytic interst. pneumonitis|Lymphocytic interstitial pneumonitis interstitial pneumonia characterized by the presence of bibasilar pulmonary interstitial infiltrates composed of lymphocytes and plasma cells. it may be associated with autoimmune and lymphoproliferative disorders. signs and symptoms include fever, cough, and dyspnea. symptomatic patients may require immunosuppressive treatment. Pneumonitis an inflammatory process affecting the lung parenchyma. it is a milder form of lung inflammation compared to pneumonia. Pneumonitis, CTCAE|Pneumonitis|Pneumonitis a disorder characterized by inflammation focally or diffusely affecting the lung parenchyma.",
+            "score": 0.0,
+            "rank": 0
+          },
+          {
+            "id": "C35",
+            "heading": "2026 ICD-10-CM Diagnosis Code J18.9 > Index to Diseases and Injuries References",
+            "text": "n compared to pneumonia. Pneumonitis, CTCAE|Pneumonitis|Pneumonitis a disorder characterized by inflammation focally or diffusely affecting the lung parenchyma. Radiation-Induced Pneumonitis pneumonitis that is associated with irradiation. Steroid-Refractory Pneumonitis pneumonitis that does not respond to corticosteroid therapy. Ornithosis disease caused by the chlamydophila psittaci bacteria, usually transmitted from birds to humans. The following annotation back-references for this diagnosis code are found in the injuries and diseases index. The Index to Diseases and Injuries is an alphabetical listing of medical terms, with each term mapped to one or more ICD-10-CM code(s). - Infection, infected, infective (opportunistic) - B99.9 - lung - See Also: Pneumonia; - J18.9 - Infection, infected, infective (opportunistic) - B99.9 - lung - See Also: Pneumonia; - J18.9 - lung - See Also: Pneumonia; - J18.9",
+            "score": 0.0,
+            "rank": 0
+          },
+          {
+            "id": "C36",
+            "heading": "2026 ICD-10-CM Diagnosis Code J18.9 > MS-DRG Mapping for ICD-10-CM Code J18.9",
+            "text": "ee Also: Pneumonia; - J18.9 - Infection, infected, infective (opportunistic) - B99.9 - lung - See Also: Pneumonia; - J18.9 - lung - See Also: Pneumonia; - J18.9 - Pneumonia (acute) (double) (migratory) (purulent) (septic) (unresolved) - J18.9 - atypical NEC - J18.9 - Pneumonia (acute) (double) (migratory) (purulent) (septic) (unresolved) - J18.9 References found for this diagnosis code in the External Cause of Injuries Index: Infection, infected, infective(opportunistic) Pneumonia(acute) (double) (migratory) (purulent) (septic) (unresolved) Pneumonia(acute) (double) (migratory) (purulent) (septic) (unresolved) Diagnosis-Related Groups (DRGs) are used to classify hospital cases for billing and healthcare management. They help standardize how hospitals and other providers are reimbursed for inpatient care. Patients are grouped based on their principal diagnosis into broader categories called Major Diagnostic Categories (MDCs).",
+            "score": 0.0,
+            "rank": 0
+          },
+          {
+            "id": "C37",
+            "heading": "2026 ICD-10-CM Diagnosis Code J18.9 > MS-DRG Mapping for ICD-10-CM Code J18.9",
+            "text": "rs are reimbursed for inpatient care. Patients are grouped based on their principal diagnosis into broader categories called Major Diagnostic Categories (MDCs). Once assigned to a DRG, the hospital receives a set payment for the patient’s care, regardless of the actual services provided. This fixed rate is intended to cover the typical cost of treating patients within that group. The payment amount depends on the DRG's relative weight, which reflects the expected complexity and cost of care based on the severity of the patient’s condition. Diagnostic related groups encourage healthcare providers to focus on quality and efficiency in patient care while managing costs effectively. The diagnosis code is present in the following groups for version MS-DRG V43.0 applicable from 10/01/2025 through 09/30/2026. MDC: 04 - Diseases & Disorders of the Respiratory System MDC: 04 - Diseases & Disorders of the Respiratory System MDC: 04 - Diseases & Disorders of the Respiratory System",
+            "score": 0.0,
+            "rank": 0
+          },
+          {
+            "id": "C38",
+            "heading": "2026 ICD-10-CM Diagnosis Code J18.9 > MS-DRG Mapping for ICD-10-CM Code J18.9",
+            "text": "Diseases & Disorders of the Respiratory System MDC: 04 - Diseases & Disorders of the Respiratory System MDC: 04 - Diseases & Disorders of the Respiratory System MDC: 25 - Human Immunodeficiency Virus Infections MDC: 25 - Human Immunodeficiency Virus Infections MDC: 25 - Human Immunodeficiency Virus Infections Below are the ICD-9 codes that most closely match this ICD-10 code, based on the General Equivalence Mappings (GEMs). This ICD-10 to ICD-9 crosswalk tool is helpful for coders who need to reference legacy diagnosis codes for audits, historical claims, or approximate code comparisons. Approximate Flag - The approximate mapping means this ICD-10 code does not have an exact ICD-9 equivalent. The matched code is the closest available option, but it may not fully capture the original diagnosis or clinical intent.",
+            "score": 0.0,
+            "rank": 0
+          },
+          {
+            "id": "C39",
+            "heading": "2026 ICD-10-CM Diagnosis Code J18.9 > MS-DRG Mapping for ICD-10-CM Code J18.9",
+            "text": "es not have an exact ICD-9 equivalent. The matched code is the closest available option, but it may not fully capture the original diagnosis or clinical intent. Pneumonia is an infection in one or both of your lungs. It causes the air sacs of your lungs to fill up with fluid or pus. Pneumonia can range from mild to severe, depending on what caused it, your age, and your overall health. Bacterial , viral, and fungal infections can cause pneumonia. Bacteria are the most common cause. Bacterial pneumonia can occur on its own. It can also develop after you've had certain viral infections such as a cold or the flu. Several different types of bacteria can cause pneumonia, including: Legionella pneumophila ; this type of pneumonia is often called Legionnaires' disease Haemophilus influenzae type b (Hib)",
+            "score": 0.0,
+            "rank": 0
+          },
+          {
+            "id": "C40",
+            "heading": "2026 ICD-10-CM Diagnosis Code J18.9 > MS-DRG Mapping for ICD-10-CM Code J18.9 > Who is more likely to develop pneumonia?",
+            "text": "cteria can cause pneumonia, including: Legionella pneumophila ; this type of pneumonia is often called Legionnaires' disease Haemophilus influenzae type b (Hib) Viruses that infect the respiratory tract may cause pneumonia. Viral pneumonia is often mild and goes away on its own within a few weeks. But sometimes it is serious enough that you need to get treatment in a hospital. If you have viral pneumonia, you are at risk of also getting bacterial pneumonia. The different viruses that can cause pneumonia include: SARS-CoV-2, the virus that causes COVID-19 Fungal pneumonia is more common in people who have chronic health problems or weakened immune systems. Some of the types include: Aspiration can also cause pneumonia. It can happen when you aspirate (accidentally breathe in) food or fluid into the lungs. If you are not able to cough out the food or fluid, it may cause an infection. Anyone can develop pneumonia, but certain factors can increase your risk:",
+            "score": 0.0,
+            "rank": 0
+          },
+          {
+            "id": "C41",
+            "heading": "MS-DRG Mapping for ICD-10-CM Code J18.9 > Who is more likely to develop pneumonia? > What are the symptoms of pneumonia?",
+            "text": "lungs. If you are not able to cough out the food or fluid, it may cause an infection. Anyone can develop pneumonia, but certain factors can increase your risk: Age; the risk is higher for children who are age 2 and under and adults age 65 and older. Exposure to certain chemicals, pollutants, or toxic fumes. Lifestyle habits, such as smoking, heavy alcohol use, and malnourishment. Being in a hospital, especially if you are in the ICU. Being sedated and/or on a ventilator raises the risk even more. Have trouble coughing or swallowing, from a stroke or other condition. Recently having been sick with a cold or the flu. Other chronic (long-lasting) health conditions, including diabetes, heart failure, sickle cell disease, liver disease, and kidney disease. The symptoms of pneumonia can range from mild to severe and include: Cough, usually with phlegm (a type of thick mucus made in your lungs) Chest pain when you breathe or cough",
+            "score": 0.0,
+            "rank": 0
+          },
+          {
+            "id": "C42",
+            "heading": "MS-DRG Mapping for ICD-10-CM Code J18.9 > Who is more likely to develop pneumonia? > What other problems can pneumonia cause?",
+            "text": "pneumonia can range from mild to severe and include: Cough, usually with phlegm (a type of thick mucus made in your lungs) Chest pain when you breathe or cough The symptoms can vary for different groups. Newborns and infants may not show any signs of the infection. Others may vomit and have a fever and cough. They might seem sick, with no energy, or be restless. Older adults and people who have serious illnesses or weak immune systems may have fewer and milder symptoms. They may even have a lower-than-normal temperature. Older adults who have pneumonia sometimes may feel weak or suddenly get confused. Sometimes pneumonia can cause serious complications such as: Bacteremia, which happens when the bacteria move into the bloodstream. It is serious and can lead to septic shock. Lung abscesses, which are collections of pus in cavities of the lungs.",
+            "score": 0.0,
+            "rank": 0
+          },
+          {
+            "id": "C43",
+            "heading": "MS-DRG Mapping for ICD-10-CM Code J18.9 > Who is more likely to develop pneumonia? > What other problems can pneumonia cause?",
+            "text": "when the bacteria move into the bloodstream. It is serious and can lead to septic shock. Lung abscesses, which are collections of pus in cavities of the lungs. Pleural disorders, which are conditions that affect the pleura. The pleura is the tissue that covers the outside of the lungs and lines the inside of your chest cavity. Sometimes pneumonia can be hard to diagnose. This is because it can cause some of the same symptoms as a cold or the flu. It may take time for you to realize that you have a more serious condition. To find out if you have pneumonia, your health care provider: Will take your medical history, which includes asking about your symptoms Will do a physical exam, which includes listening to your lungs with a stethoscope",
+            "score": 0.0,
+            "rank": 0
+          },
+          {
+            "id": "C44",
+            "heading": "MS-DRG Mapping for ICD-10-CM Code J18.9 > Who is more likely to develop pneumonia? > What other problems can pneumonia cause?",
+            "text": "er: Will take your medical history, which includes asking about your symptoms Will do a physical exam, which includes listening to your lungs with a stethoscope May order various tests, such as: A chest x-ray Blood tests such as a complete blood count (CBC) to see if your immune system is actively fighting an infection A blood culture to find out whether you have a bacterial infection that has spread to your bloodstream Blood tests such as a complete blood count (CBC) to see if your immune system is actively fighting an infection A blood culture to find out whether you have a bacterial infection that has spread to your bloodstream If you are in the hospital, have serious symptoms, are older, or have other health problems, you may also have more tests, such as: Sputum test, which checks for bacteria in a sample of your sputum (mucus that is brought up from the lungs by coughing).",
+            "score": 0.0,
+            "rank": 0
+          },
+          {
+            "id": "C45",
+            "heading": "MS-DRG Mapping for ICD-10-CM Code J18.9 > Who is more likely to develop pneumonia? > What are the treatments for pneumonia?",
+            "text": "you may also have more tests, such as: Sputum test, which checks for bacteria in a sample of your sputum (mucus that is brought up from the lungs by coughing). Chest CT scan to see how much of your lungs are affected. It may also show if you have complications such as lung abscesses or pleural effusions (a buildup of fluid in the pleural space). Pleural fluid culture, which checks for bacteria in a fluid sample that was taken from the pleural space. Pulse oximetry or blood oxygen level test, to check how much oxygen is in your blood. Bronchoscopy, a procedure used to look inside your lungs' airways. Treatment for pneumonia depends on the type of pneumonia, which germ is causing it, and how severe it is: Antibiotics treat bacterial pneumonia and some types of fungal pneumonia. They do not work for viral pneumonia. In some cases, your provider may prescribe antiviral medicines for viral pneumonia. Antifungal medicines treat other types of fungal pneumonia.",
+            "score": 0.0,
+            "rank": 0
+          },
+          {
+            "id": "C46",
+            "heading": "2026 ICD-10-CM Diagnosis Code J18.9 > Other ICD-10-CM Codes Commonly Used for Similar Conditions",
+            "text": "viral pneumonia. In some cases, your provider may prescribe antiviral medicines for viral pneumonia. Antifungal medicines treat other types of fungal pneumonia. You may need to be treated in a hospital if your symptoms are severe or if you are at risk for complications. While there, you may get additional treatments. For example, if your blood oxygen level is low, you may receive oxygen therapy. It may take time to recover from pneumonia. Some people feel better within a week. For other people, it can take a month or more. Vaccines can help prevent pneumonia caused by pneumococcal bacteria or the flu virus. Washing your hands often, not smoking, and having a healthy lifestyle may also help prevent pneumonia. NIH: National Heart, Lung, and Blood Institute J18 Pneumonia, unspecified organism J18 Pneumonia, unspecified organism J18.0 Bronchopneumonia, unspecified organism J18.0 Bronchopneumonia, unspecified organism J18.1 Lobar pneumonia, unspecified organism",
+            "score": 0.0,
+            "rank": 0
+          },
+          {
+            "id": "C47",
+            "heading": "2026 ICD-10-CM Diagnosis Code J18.9 > Other ICD-10-CM Codes Commonly Used for Similar Conditions",
+            "text": "onia, unspecified organism J18.0 Bronchopneumonia, unspecified organism J18.0 Bronchopneumonia, unspecified organism J18.1 Lobar pneumonia, unspecified organism J18.1 Lobar pneumonia, unspecified organism J18.2 Hypostatic pneumonia, unspecified organism J18.2 Hypostatic pneumonia, unspecified organism J18.8 Other pneumonia, unspecified organism J18.8 Other pneumonia, unspecified organism FY 2026 - No Change, effective from 10/1/2025 through 9/30/2026 FY 2025 - No Change, effective from 10/1/2024 through 9/30/2025 FY 2024 - No Change, effective from 10/1/2023 through 9/30/2024 FY 2023 - No Change, effective from 10/1/2022 through 9/30/2023 FY 2022 - No Change, effective from 10/1/2021 through 9/30/2022 FY 2021 - No Change, effective from 10/1/2020 through 9/30/2021 FY 2020 - No Change, effective from 10/1/2019 through 9/30/2020 FY 2019 - No Change, effective from 10/1/2018 through 9/30/2019 FY 2018 - No Change, effective from 10/1/2017 through 9/30/2018",
+            "score": 0.0,
+            "rank": 0
+          },
+          {
+            "id": "C48",
+            "heading": "2026 ICD-10-CM Diagnosis Code J18.9 > Other ICD-10-CM Codes Commonly Used for Similar Conditions",
+            "text": "from 10/1/2019 through 9/30/2020 FY 2019 - No Change, effective from 10/1/2018 through 9/30/2019 FY 2018 - No Change, effective from 10/1/2017 through 9/30/2018 FY 2017 - No Change, effective from 10/1/2016 through 9/30/2017 FY 2016 - New Code, effective from 10/1/2015 through 9/30/2016. This was the first year ICD-10-CM was implemented into the HIPAA code set. [1] Not chronic - A diagnosis code that does not fit the criteria for chronic condition (duration, ongoing medical treatment, and limitations) is considered not chronic. Some codes designated as not chronic are acute conditions. Other diagnosis codes that indicate a possible chronic condition, but for which the duration of the illness is not specified in the code description (i.e., we do not know the condition has lasted 12 months or longer) also are considered not chronic.",
+            "score": 0.0,
+            "rank": 0
+          }
+        ],
+        "links": [
+          {
+            "id": "L1",
+            "url": "https://icdlist.com/",
+            "text": "ICD List - ICD-10 and ICD-10-PCS Medical Coding Reference",
+            "context": "",
+            "score": 0.0
+          },
+          {
+            "id": "L2",
+            "url": "https://icdlist.com/icd-10/J18.9",
+            "text": "Codes",
+            "context": "Codes ICD-10-CM Codes ICD-10-PCS Codes ICD-9 Codes (Legacy)",
+            "score": 0.0
+          },
+          {
+            "id": "L3",
+            "url": "https://icdlist.com/icd-10/codes",
+            "text": "ICD-10-CM Codes",
+            "context": "ICD-10-CM Codes",
+            "score": 0.0
+          },
+          {
+            "id": "L4",
+            "url": "https://icdlist.com/icd-10-pcs/codes",
+            "text": "ICD-10-PCS Codes",
+            "context": "ICD-10-PCS Codes",
+            "score": 0.0
+          },
+          {
+            "id": "L5",
+            "url": "https://icdlist.com/icd-9/index",
+            "text": "ICD-9 Codes (Legacy)",
+            "context": "ICD-9 Codes (Legacy)",
+            "score": 0.0
+          },
+          {
+            "id": "L6",
+            "url": "https://icdlist.com/icd-10/look-up",
+            "text": "ICD-10 Look Up",
+            "context": "ICD-10 Look Up",
+            "score": 0.0
+          },
+          {
+            "id": "L7",
+            "url": "https://icdlist.com/search-advanced.php",
+            "text": "ICD-10 Advanced Look Up",
+            "context": "ICD-10 Advanced Look Up",
+            "score": 0.0
+          },
+          {
+            "id": "L8",
+            "url": "https://icdlist.com/icd-10/diseases-injuries-search.php",
+            "text": "ICD-10 Diseases and Injuries Look Up",
+            "context": "ICD-10 Diseases and Injuries Look Up",
+            "score": 0.0
+          },
+          {
+            "id": "L9",
+            "url": "https://icdlist.com/icd-10/drugs-search.php",
+            "text": "ICD-10 Table of Drugs and Chemicals Look Up",
+            "context": "ICD-10 Table of Drugs and Chemicals Look Up",
+            "score": 0.0
+          },
+          {
+            "id": "L10",
+            "url": "https://icdlist.com/icd-10/neoplasms-search.php",
+            "text": "ICD-10 Table of Neoplasms Look Up",
+            "context": "ICD-10 Table of Neoplasms Look Up",
+            "score": 0.0
+          },
+          {
+            "id": "L11",
+            "url": "https://icdlist.com/icd-10-pcs/look-up",
+            "text": "ICD-10-PCS Look Up",
+            "context": "ICD-10-PCS Look Up",
+            "score": 0.0
+          },
+          {
+            "id": "L12",
+            "url": "https://icdlist.com/icd-9/look-up",
+            "text": "ICD-9 Look Up",
+            "context": "ICD-9 Look Up",
+            "score": 0.0
+          },
+          {
+            "id": "L13",
+            "url": "https://icdlist.com/convert",
+            "text": "ICD-9 and ICD-10 Conversion",
+            "context": "ICD-9 and ICD-10 Conversion",
+            "score": 0.0
+          },
+          {
+            "id": "L14",
+            "url": "https://icdlist.com/icd-10/diseases-injuries",
+            "text": "ICD-10 Index to Diseases and Injuries",
+            "context": "ICD-10 Index to Diseases and Injuries",
+            "score": 0.0
+          },
+          {
+            "id": "L15",
+            "url": "https://icdlist.com/icd-10/poa",
+            "text": "ICD-10 Present on Admission Exempt Codes",
+            "context": "ICD-10 Present on Admission Exempt Codes",
+            "score": 0.0
+          },
+          {
+            "id": "L16",
+            "url": "https://icdlist.com/icd-10/quality-measures",
+            "text": "ICD-10 Quality Payment Program Measures",
+            "context": "ICD-10 Quality Payment Program Measures",
+            "score": 0.0
+          },
+          {
+            "id": "L17",
+            "url": "https://icdlist.com/icd-10/tags/billable",
+            "text": "ICD-10 Billable Codes",
+            "context": "ICD-10 Billable Codes",
+            "score": 0.0
+          },
+          {
+            "id": "L18",
+            "url": "https://icdlist.com/icd-10/tags/non-billable",
+            "text": "ICD-10 Non-Billable Codes",
+            "context": "ICD-10 Non-Billable Codes",
+            "score": 0.0
+          },
+          {
+            "id": "L19",
+            "url": "https://icdlist.com/icd-10/tags/initial",
+            "text": "ICD-10 Initial Codes",
+            "context": "ICD-10 Initial Codes",
+            "score": 0.0
+          },
+          {
+            "id": "L20",
+            "url": "https://icdlist.com/icd-10/tags/subsequent",
+            "text": "ICD-10 Subsequent Codes",
+            "context": "ICD-10 Subsequent Codes",
+            "score": 0.0
+          },
+          {
+            "id": "L21",
+            "url": "https://icdlist.com/icd-10/tags/sequela",
+            "text": "ICD-10 Sequela Codes",
+            "context": "ICD-10 Sequela Codes",
+            "score": 0.0
+          },
+          {
+            "id": "L22",
+            "url": "https://icdlist.com/icd-10/tags/unspecified",
+            "text": "ICD-10 Unspecified Codes",
+            "context": "ICD-10 Unspecified Codes",
+            "score": 0.0
+          },
+          {
+            "id": "L23",
+            "url": "https://icdlist.com/icd-10/tags/7th-character",
+            "text": "ICD-10 7th Character Codes",
+            "context": "ICD-10 7th Character Codes",
+            "score": 0.0
+          },
+          {
+            "id": "L24",
+            "url": "https://icdlist.com/icd-10/table-drugs",
+            "text": "ICD-10 Table of Drugs",
+            "context": "ICD-10 Table of Drugs",
+            "score": 0.0
+          },
+          {
+            "id": "L25",
+            "url": "https://icdlist.com/icd-10/tags/drugs-poisoning-accidental",
+            "text": "ICD-10 Accidental Poisoning",
+            "context": "ICD-10 Accidental Poisoning",
+            "score": 0.0
+          },
+          {
+            "id": "L26",
+            "url": "https://icdlist.com/icd-10/tags/drugs-poisoning-intentional",
+            "text": "ICD-10 Intentional Poisoning",
+            "context": "ICD-10 Intentional Poisoning",
+            "score": 0.0
+          },
+          {
+            "id": "L27",
+            "url": "https://icdlist.com/icd-10/tags/drugs-poisoning-assault",
+            "text": "ICD-10 Assault Poisoning",
+            "context": "ICD-10 Assault Poisoning",
+            "score": 0.0
+          },
+          {
+            "id": "L28",
+            "url": "https://icdlist.com/icd-10/tags/drugs-poisoning-undetermined",
+            "text": "ICD-10 Undetermined Poisoning",
+            "context": "ICD-10 Undetermined Poisoning",
+            "score": 0.0
+          },
+          {
+            "id": "L29",
+            "url": "https://icdlist.com/icd-10/tags/drugs-adverse-effect",
+            "text": "ICD-10 Drugs Adverse Effect",
+            "context": "ICD-10 Drugs Adverse Effect",
+            "score": 0.0
+          },
+          {
+            "id": "L30",
+            "url": "https://icdlist.com/icd-10/tags/drugs-underdosing",
+            "text": "ICD-10 Drugs Underdosing",
+            "context": "ICD-10 Drugs Underdosing",
+            "score": 0.0
+          },
+          {
+            "id": "L31",
+            "url": "https://icdlist.com/icd-10/table-neoplasms",
+            "text": "ICD-10 Table of Neoplasms",
+            "context": "ICD-10 Table of Neoplasms",
+            "score": 0.0
+          },
+          {
+            "id": "L32",
+            "url": "https://icdlist.com/icd-10/tags/primary-malignant-neoplasms",
+            "text": "ICD-10 Primary Malignant Neoplasms",
+            "context": "ICD-10 Primary Malignant Neoplasms",
+            "score": 0.0
+          },
+          {
+            "id": "L33",
+            "url": "https://icdlist.com/icd-10/tags/secondary-malignant-neoplasms",
+            "text": "ICD-10 Secondary Malignant Neoplasms",
+            "context": "ICD-10 Secondary Malignant Neoplasms",
+            "score": 0.0
+          },
+          {
+            "id": "L34",
+            "url": "https://icdlist.com/icd-10/tags/cainsitu-neoplasms",
+            "text": "ICD-10 CaInSitu Neoplasms",
+            "context": "ICD-10 CaInSitu Neoplasms",
+            "score": 0.0
+          },
+          {
+            "id": "L35",
+            "url": "https://icdlist.com/icd-10/tags/neoplasms-uncertain-behavior",
+            "text": "ICD-10 Uncertain Behavior",
+            "context": "ICD-10 Uncertain Behavior",
+            "score": 0.0
+          },
+          {
+            "id": "L36",
+            "url": "https://icdlist.com/icd-10/tags/neoplasms-unspecified-behavior",
+            "text": "ICD-10 Unspecified Behavior",
+            "context": "ICD-10 Unspecified Behavior",
+            "score": 0.0
+          },
+          {
+            "id": "L37",
+            "url": "https://icdlist.com/icd-10/guidelines",
+            "text": "ICD-10 Guidelines",
+            "context": "ICD-10 Guidelines",
+            "score": 0.0
+          },
+          {
+            "id": "L38",
+            "url": "https://icdlist.com/icd-10-pcs/guidelines",
+            "text": "ICD-10-PCS Guidelines",
+            "context": "ICD-10-PCS Guidelines",
+            "score": 0.0
+          },
+          {
+            "id": "L39",
+            "url": "https://icdlist.com/icd-10/drg",
+            "text": "ICD-10 DRG",
+            "context": "ICD-10 DRG",
+            "score": 0.0
+          },
+          {
+            "id": "L40",
+            "url": "https://icdlist.com/icd-10/drg-search.php",
+            "text": "ICD-10 DRG Look Up",
+            "context": "ICD-10 DRG Look Up",
+            "score": 0.0
+          },
+          {
+            "id": "L41",
+            "url": "https://icdlist.com/icd-10-pcs/drg",
+            "text": "ICD-10-PCS DRG",
+            "context": "ICD-10-PCS DRG",
+            "score": 0.0
+          },
+          {
+            "id": "L42",
+            "url": "https://icdlist.com/icd-10-pcs/drg-search.php",
+            "text": "ICD-10-PCS DRG Look Up",
+            "context": "ICD-10-PCS DRG Look Up",
+            "score": 0.0
+          },
+          {
+            "id": "L43",
+            "url": "https://icdlist.com/icd-10/code-edits",
+            "text": "ICD-10 Code Edits",
+            "context": "ICD-10 Code Edits",
+            "score": 0.0
+          },
+          {
+            "id": "L44",
+            "url": "https://icdlist.com/icd-10/code-edits/adult-diagnoses",
+            "text": "Adult diagnoses",
+            "context": "Adult diagnoses",
+            "score": 0.0
+          },
+          {
+            "id": "L45",
+            "url": "https://icdlist.com/icd-10/code-edits/maternity-diagnoses",
+            "text": "Maternity diagnoses",
+            "context": "Maternity diagnoses",
+            "score": 0.0
+          },
+          {
+            "id": "L46",
+            "url": "https://icdlist.com/icd-10/code-edits/newborn-diagnoses",
+            "text": "Newborn diagnoses",
+            "context": "Newborn diagnoses",
+            "score": 0.0
+          },
+          {
+            "id": "L47",
+            "url": "https://icdlist.com/icd-10/code-edits/pediatric-diagnoses",
+            "text": "Pediatric diagnoses",
+            "context": "Pediatric diagnoses",
+            "score": 0.0
+          },
+          {
+            "id": "L48",
+            "url": "https://icdlist.com/icd-10/code-edits/manifestation-diagnoses",
+            "text": "Manifestation diagnoses",
+            "context": "Manifestation diagnoses",
+            "score": 0.0
+          },
+          {
+            "id": "L49",
+            "url": "https://icdlist.com/icd-10/code-edits/questionable-admission-codes",
+            "text": "Questionable admission codes",
+            "context": "Questionable admission codes",
+            "score": 0.0
+          },
+          {
+            "id": "L50",
+            "url": "https://icdlist.com/icd-10/code-edits/unacceptable-principal-diagnosis",
+            "text": "Unacceptable principal codes",
+            "context": "Unacceptable principal codes",
+            "score": 0.0
+          },
+          {
+            "id": "L51",
+            "url": "https://icdlist.com/icd-10/code-edits/outcome-delivery-diagnoses-codes",
+            "text": "Outcome of delivery codes",
+            "context": "Outcome of delivery codes",
+            "score": 0.0
+          },
+          {
+            "id": "L52",
+            "url": "https://icdlist.com/icd-10/code-edits/unspecified-codes",
+            "text": "Unspecified codes",
+            "context": "Unspecified codes",
+            "score": 0.0
+          },
+          {
+            "id": "L53",
+            "url": "https://icdlist.com/icd-10-pcs/code-edits",
+            "text": "ICD-10-PCS Code Edits",
+            "context": "ICD-10-PCS Code Edits",
+            "score": 0.0
+          },
+          {
+            "id": "L54",
+            "url": "https://icdlist.com/icd-10-pcs/code-edits/non-covered-procedure-codes",
+            "text": "Non-covered Procedure Codes",
+            "context": "Non-covered Procedure Codes",
+            "score": 0.0
+          },
+          {
+            "id": "L55",
+            "url": "https://icdlist.com/icd-10-pcs/code-edits/non-covered-procedure-codes-over-age-60",
+            "text": "Non-covered Procedure Codes Over Age 60",
+            "context": "Non-covered Procedure Codes Over Age 60",
+            "score": 0.0
+          },
+          {
+            "id": "L56",
+            "url": "https://icdlist.com/icd-10-pcs/code-edits/non-covered-procedure-codes-sterilization",
+            "text": "Non-covered Procedure Codes Sterilization",
+            "context": "Non-covered Procedure Codes Sterilization",
+            "score": 0.0
+          },
+          {
+            "id": "L57",
+            "url": "https://icdlist.com/icd-10-pcs/code-edits/limited-coverage",
+            "text": "Limited Coverage",
+            "context": "Limited Coverage",
+            "score": 0.0
+          },
+          {
+            "id": "L58",
+            "url": "https://icdlist.com/icd-10-pcs/code-edits/procedure-inconsistent-with-los",
+            "text": "Procedure Inconsistent with LOS",
+            "context": "Procedure Inconsistent with LOS",
+            "score": 0.0
+          },
+          {
+            "id": "L59",
+            "url": "https://icdlist.com/icd-10-pcs/code-edits/questionable-obstetric-admission",
+            "text": "Questionable Obstetric Admission",
+            "context": "Questionable Obstetric Admission",
+            "score": 0.0
+          },
+          {
+            "id": "L60",
+            "url": "https://icdlist.com/icd-10/new-codes",
+            "text": "New Codes",
+            "context": "New Codes",
+            "score": 0.0
+          },
+          {
+            "id": "L61",
+            "url": "https://icdlist.com/icd-10/revised-codes",
+            "text": "Revised Codes",
+            "context": "Revised Codes",
+            "score": 0.0
+          },
+          {
+            "id": "L62",
+            "url": "https://icdlist.com/icd-10/deleted-codes",
+            "text": "Deleted Codes",
+            "context": "Deleted Codes",
+            "score": 0.0
+          },
+          {
+            "id": "L63",
+            "url": "https://icdlist.com/icd-10-pcs/new-codes",
+            "text": "New Codes",
+            "context": "New Codes",
+            "score": 0.0
+          },
+          {
+            "id": "L64",
+            "url": "https://icdlist.com/icd-10/codes/diseases-respiratory-system",
+            "text": "J00–J99",
+            "context": "J00–J99",
+            "score": 0.0
+          },
+          {
+            "id": "L65",
+            "url": "https://icdlist.com/icd-10/codes/influenza-and-pneumonia-j09-j18",
+            "text": "J09-J18",
+            "context": "J09-J18",
+            "score": 0.0
+          },
+          {
+            "id": "L66",
+            "url": "https://icdlist.com/icd-10/codes/pneumonia-unspecified-organism-j18",
+            "text": "J18",
+            "context": "J18",
+            "score": 0.0
+          },
+          {
+            "id": "L67",
+            "url": "https://icdlist.com/convert/icd10/J18.9",
+            "text": "Convert to ICD‑9",
+            "context": "Convert to ICD‑9",
+            "score": 0.0
+          },
+          {
+            "id": "L68",
+            "url": "https://www.facebook.com/sharer.php?u=https://icdlist.com/icd-10/J18.9",
+            "text": "Facebook Share",
+            "context": "",
+            "score": 0.0
+          },
+          {
+            "id": "L69",
+            "url": "https://twitter.com/share?url=https://icdlist.com/icd-10/J18.9&text=ICD-10-CM Diagnosis Code J18.9 - Pneumonia, unspecified organism&hashtags=ICD 10",
+            "text": "X (Twitter) Share",
+            "context": "",
+            "score": 0.0
+          },
+          {
+            "id": "L70",
+            "url": "https://www.linkedin.com/shareArticle?url=https://icdlist.com/icd-10/J18.9&title=ICD-10-CM Diagnosis Code J18.9 - Pneumonia, unspecified organism",
+            "text": "LinkedIn Share",
+            "context": "",
+            "score": 0.0
+          },
+          {
+            "id": "L71",
+            "url": "https://reddit.com/submit?url=https://icdlist.com/icd-10/J18.9&title=ICD-10-CM Diagnosis Code J18.9 - Pneumonia, unspecified organism",
+            "text": "Reddit Share",
+            "context": "",
+            "score": 0.0
+          },
+          {
+            "id": "L72",
+            "url": "https://icdlist.com/cdn-cgi/l/email-protection",
+            "text": "E-mail Share",
+            "context": "",
+            "score": 0.0
+          },
+          {
+            "id": "L73",
+            "url": "https://icdlist.com/icd-10/J15.9",
+            "text": "J15.9",
+            "context": "J15.9 - Unspecified bacterial pneumonia J16 - Pneumonia due to other infectious organisms, not elsewhere classified J16.0 - Chlamydial pneumonia J16.8 - Pneumonia due to other specified infectious organisms J17 - Pneumo...",
+            "score": 0.0
+          },
+          {
+            "id": "L74",
+            "url": "https://icdlist.com/icd-10/J16",
+            "text": "J16",
+            "context": "J16 - Pneumonia due to other infectious organisms, not elsewhere classified J16.0 - Chlamydial pneumonia J16.8 - Pneumonia due to other specified infectious organisms J17 - Pneumonia in diseases classified elsewhere J18...",
+            "score": 0.0
+          },
+          {
+            "id": "L75",
+            "url": "https://icdlist.com/icd-10/J16.0",
+            "text": "J16.0",
+            "context": "J16.0 - Chlamydial pneumonia J16.8 - Pneumonia due to other specified infectious organisms J17 - Pneumonia in diseases classified elsewhere J18 - Pneumonia, unspecified organism J18.0 - Bronchopneumonia, unspecified org...",
+            "score": 0.0
+          },
+          {
+            "id": "L76",
+            "url": "https://icdlist.com/icd-10/J16.8",
+            "text": "J16.8",
+            "context": "J16.8 - Pneumonia due to other specified infectious organisms J17 - Pneumonia in diseases classified elsewhere J18 - Pneumonia, unspecified organism J18.0 - Bronchopneumonia, unspecified organism J18.1 - Lobar pneumonia...",
+            "score": 0.0
+          },
+          {
+            "id": "L77",
+            "url": "https://icdlist.com/icd-10/J17",
+            "text": "J17",
+            "context": "J17 - Pneumonia in diseases classified elsewhere J18 - Pneumonia, unspecified organism J18.0 - Bronchopneumonia, unspecified organism J18.1 - Lobar pneumonia, unspecified organism J18.2 - Hypostatic pneumonia, unspecifi...",
+            "score": 0.0
+          },
+          {
+            "id": "L78",
+            "url": "https://icdlist.com/icd-10/J18",
+            "text": "J18",
+            "context": "J18 - Pneumonia, unspecified organism J18.0 - Bronchopneumonia, unspecified organism J18.1 - Lobar pneumonia, unspecified organism J18.2 - Hypostatic pneumonia, unspecified organism J18.8 - Other pneumonia, unspecified...",
+            "score": 0.0
+          },
+          {
+            "id": "L79",
+            "url": "https://icdlist.com/icd-10/J18.0",
+            "text": "J18.0",
+            "context": "J18.0 - Bronchopneumonia, unspecified organism J18.1 - Lobar pneumonia, unspecified organism J18.2 - Hypostatic pneumonia, unspecified organism J18.8 - Other pneumonia, unspecified organism J18.9 - Pneumonia, unspecifie...",
+            "score": 0.0
+          },
+          {
+            "id": "L80",
+            "url": "https://icdlist.com/icd-10/J18.1",
+            "text": "J18.1",
+            "context": "J18.1 - Lobar pneumonia, unspecified organism J18.2 - Hypostatic pneumonia, unspecified organism J18.8 - Other pneumonia, unspecified organism J18.9 - Pneumonia, unspecified organism J20 - Acute bronchitis J20.0 - Acute...",
+            "score": 0.0
+          },
+          {
+            "id": "L81",
+            "url": "https://icdlist.com/icd-10/J18.2",
+            "text": "J18.2",
+            "context": "J18.2 - Hypostatic pneumonia, unspecified organism J18.8 - Other pneumonia, unspecified organism J18.9 - Pneumonia, unspecified organism J20 - Acute bronchitis J20.0 - Acute bronchitis due to Mycoplasma pneumoniae J20.1...",
+            "score": 0.0
+          },
+          {
+            "id": "L82",
+            "url": "https://icdlist.com/icd-10/J18.8",
+            "text": "J18.8",
+            "context": "J18.8 - Other pneumonia, unspecified organism J18.9 - Pneumonia, unspecified organism J20 - Acute bronchitis J20.0 - Acute bronchitis due to Mycoplasma pneumoniae J20.1 - Acute bronchitis due to Hemophilus influenzae J2...",
+            "score": 0.0
+          },
+          {
+            "id": "L83",
+            "url": "https://icdlist.com/icd-10/J20",
+            "text": "J20",
+            "context": "J20 - Acute bronchitis J20.0 - Acute bronchitis due to Mycoplasma pneumoniae J20.1 - Acute bronchitis due to Hemophilus influenzae J20.2 - Acute bronchitis due to streptococcus J20.3 - Acute bronchitis due to coxsackiev...",
+            "score": 0.0
+          },
+          {
+            "id": "L84",
+            "url": "https://icdlist.com/icd-10/J20.0",
+            "text": "J20.0",
+            "context": "J20.0 - Acute bronchitis due to Mycoplasma pneumoniae J20.1 - Acute bronchitis due to Hemophilus influenzae J20.2 - Acute bronchitis due to streptococcus J20.3 - Acute bronchitis due to coxsackievirus J20.4 - Acute bron...",
+            "score": 0.0
+          },
+          {
+            "id": "L85",
+            "url": "https://icdlist.com/icd-10/J20.1",
+            "text": "J20.1",
+            "context": "J20.1 - Acute bronchitis due to Hemophilus influenzae J20.2 - Acute bronchitis due to streptococcus J20.3 - Acute bronchitis due to coxsackievirus J20.4 - Acute bronchitis due to parainfluenza virus J20.5 - Acute bronch...",
+            "score": 0.0
+          },
+          {
+            "id": "L86",
+            "url": "https://icdlist.com/icd-10/J20.2",
+            "text": "J20.2",
+            "context": "J20.2 - Acute bronchitis due to streptococcus J20.3 - Acute bronchitis due to coxsackievirus J20.4 - Acute bronchitis due to parainfluenza virus J20.5 - Acute bronchitis due to respiratory syncytial virus J20.6 - Acute...",
+            "score": 0.0
+          },
+          {
+            "id": "L87",
+            "url": "https://icdlist.com/icd-10/J20.3",
+            "text": "J20.3",
+            "context": "J20.3 - Acute bronchitis due to coxsackievirus J20.4 - Acute bronchitis due to parainfluenza virus J20.5 - Acute bronchitis due to respiratory syncytial virus J20.6 - Acute bronchitis due to rhinovirus J20.7 - Acute bro...",
+            "score": 0.0
+          },
+          {
+            "id": "L88",
+            "url": "https://icdlist.com/icd-10/J20.4",
+            "text": "J20.4",
+            "context": "J20.4 - Acute bronchitis due to parainfluenza virus J20.5 - Acute bronchitis due to respiratory syncytial virus J20.6 - Acute bronchitis due to rhinovirus J20.7 - Acute bronchitis due to echovirus J20.8 - Acute bronchit...",
+            "score": 0.0
+          },
+          {
+            "id": "L89",
+            "url": "https://icdlist.com/icd-10/J20.5",
+            "text": "J20.5",
+            "context": "J20.5 - Acute bronchitis due to respiratory syncytial virus J20.6 - Acute bronchitis due to rhinovirus J20.7 - Acute bronchitis due to echovirus J20.8 - Acute bronchitis due to other specified organisms",
+            "score": 0.0
+          },
+          {
+            "id": "L90",
+            "url": "https://icdlist.com/icd-10/J20.6",
+            "text": "J20.6",
+            "context": "J20.6 - Acute bronchitis due to rhinovirus J20.7 - Acute bronchitis due to echovirus J20.8 - Acute bronchitis due to other specified organisms",
+            "score": 0.0
+          },
+          {
+            "id": "L91",
+            "url": "https://icdlist.com/icd-10/J20.7",
+            "text": "J20.7",
+            "context": "J20.7 - Acute bronchitis due to echovirus J20.8 - Acute bronchitis due to other specified organisms",
+            "score": 0.0
+          },
+          {
+            "id": "L92",
+            "url": "https://icdlist.com/icd-10/J20.8",
+            "text": "J20.8",
+            "context": "J20.8 - Acute bronchitis due to other specified organisms",
+            "score": 0.0
+          },
+          {
+            "id": "L93",
+            "url": "https://icdlist.com/icd-10/codes/certain-infectious-parasitic-diseases",
+            "text": "A00–B99",
+            "context": "A00–B99 - Certain infectious and parasitic diseases",
+            "score": 0.0
+          },
+          {
+            "id": "L94",
+            "url": "https://icdlist.com/icd-10/codes/neoplasms",
+            "text": "C00–D49",
+            "context": "C00–D49 - Neoplasms",
+            "score": 0.0
+          },
+          {
+            "id": "L95",
+            "url": "https://icdlist.com/icd-10/codes/diseases-blood-blood-forming-organs-certain-disorders-involving-immune-mechanism",
+            "text": "D50–D89",
+            "context": "D50–D89 - Diseases of the blood and blood-forming organs and certain disorders involving the immune mechanism",
+            "score": 0.0
+          },
+          {
+            "id": "L96",
+            "url": "https://icdlist.com/icd-10/codes/endocrine-nutritional-metabolic-diseases",
+            "text": "E00–E89",
+            "context": "E00–E89 - Endocrine, nutritional and metabolic diseases",
+            "score": 0.0
+          },
+          {
+            "id": "L97",
+            "url": "https://icdlist.com/icd-10/codes/mental-behavioural-disorders",
+            "text": "F01–F99",
+            "context": "F01–F99 - Mental and behavioural disorders",
+            "score": 0.0
+          },
+          {
+            "id": "L98",
+            "url": "https://icdlist.com/icd-10/codes/diseases-nervous-system",
+            "text": "G00–G99",
+            "context": "G00–G99 - Diseases of the nervous system",
+            "score": 0.0
+          },
+          {
+            "id": "L99",
+            "url": "https://icdlist.com/icd-10/codes/diseases-eye-adnexa",
+            "text": "H00–H59",
+            "context": "H00–H59 - Diseases of the eye and adnexa",
+            "score": 0.0
+          },
+          {
+            "id": "L100",
+            "url": "https://icdlist.com/icd-10/codes/diseases-ear-mastoid-process",
+            "text": "H60–H95",
+            "context": "H60–H95 - Diseases of the ear and mastoid process",
+            "score": 0.0
+          },
+          {
+            "id": "L101",
+            "url": "https://icdlist.com/icd-10/codes/diseases-circulatory-system",
+            "text": "I00–I99",
+            "context": "I00–I99 - Diseases of the circulatory system",
+            "score": 0.0
+          },
+          {
+            "id": "L102",
+            "url": "https://icdlist.com/icd-10/codes/diseases-digestive-system",
+            "text": "K00–K95",
+            "context": "K00–K95 - Diseases of the digestive system",
+            "score": 0.0
+          },
+          {
+            "id": "L103",
+            "url": "https://icdlist.com/icd-10/codes/diseases-skin-subcutaneous-tissue",
+            "text": "L00–L99",
+            "context": "L00–L99 - Diseases of the skin and subcutaneous tissue",
+            "score": 0.0
+          },
+          {
+            "id": "L104",
+            "url": "https://icdlist.com/icd-10/codes/diseases-musculoskeletal-system-connective-tissue",
+            "text": "M00–M99",
+            "context": "M00–M99 - Diseases of the musculoskeletal system and connective tissue",
+            "score": 0.0
+          },
+          {
+            "id": "L105",
+            "url": "https://icdlist.com/icd-10/codes/diseases-genitourinary-system",
+            "text": "N00–N99",
+            "context": "N00–N99 - Diseases of the genitourinary system",
+            "score": 0.0
+          },
+          {
+            "id": "L106",
+            "url": "https://icdlist.com/icd-10/codes/pregnancy-childbirth-puerperium",
+            "text": "O00-O9A",
+            "context": "O00-O9A - Pregnancy, childbirth and the puerperium",
+            "score": 0.0
+          },
+          {
+            "id": "L107",
+            "url": "https://icdlist.com/icd-10/codes/certain-conditions-originating-in-perinatal-period",
+            "text": "P00–P96",
+            "context": "P00–P96 - Certain conditions originating in the perinatal period",
+            "score": 0.0
+          },
+          {
+            "id": "L108",
+            "url": "https://icdlist.com/icd-10/codes/congenital-malformations-deformations-chromosomal-abnormalities",
+            "text": "Q00-Q99",
+            "context": "Q00-Q99 - Congenital malformations, deformations and chromosomal abnormalities",
+            "score": 0.0
+          },
+          {
+            "id": "L109",
+            "url": "https://icdlist.com/icd-10/codes/symptoms-signs-abnormal-clinical-laboratory-findings-not-elsewhere-classified",
+            "text": "R00–R99",
+            "context": "R00–R99 - Symptoms, signs and abnormal clinical and laboratory findings, not elsewhere classified",
+            "score": 0.0
+          },
+          {
+            "id": "L110",
+            "url": "https://icdlist.com/icd-10/codes/injury-poisoning-certain-other-consequences-external-causes",
+            "text": "S00–T88",
+            "context": "S00–T88 - Injury, poisoning and certain other consequences of external causes",
+            "score": 0.0
+          },
+          {
+            "id": "L111",
+            "url": "https://icdlist.com/icd-10/codes/external-causes-morbidity-mortality",
+            "text": "V01–Y99",
+            "context": "V01–Y99 - External causes of morbidity and mortality",
+            "score": 0.0
+          },
+          {
+            "id": "L112",
+            "url": "https://icdlist.com/icd-10/codes/factors-influencing-health-status-contact-with-health-services",
+            "text": "Z00–Z99",
+            "context": "Z00–Z99 - Factors influencing health status and contact with health services",
+            "score": 0.0
+          },
+          {
+            "id": "L113",
+            "url": "https://icdlist.com/icd-10/codes/codes-for-special-purposes",
+            "text": "U00–U85",
+            "context": "U00–U85 - Codes for Special Purposes",
+            "score": 0.0
+          },
+          {
+            "id": "L114",
+            "url": "https://icdlist.com/icd-10/codes/acute-upper-respiratory-infections-j00-j06",
+            "text": "J00-J06",
+            "context": "J00-J06 - Acute upper respiratory infections",
+            "score": 0.0
+          },
+          {
+            "id": "L115",
+            "url": "https://icdlist.com/icd-10/codes/other-acute-lower-respiratory-infections-j20-j22",
+            "text": "J20-J22",
+            "context": "J20-J22 - Other acute lower respiratory infections",
+            "score": 0.0
+          },
+          {
+            "id": "L116",
+            "url": "https://icdlist.com/icd-10/codes/other-diseases-of-upper-respiratory-tract-j30-j39",
+            "text": "J30-J39",
+            "context": "J30-J39 - Other diseases of upper respiratory tract",
+            "score": 0.0
+          },
+          {
+            "id": "L117",
+            "url": "https://icdlist.com/icd-10/codes/chronic-lower-respiratory-diseases-j40-j4a",
+            "text": "J40-J4A",
+            "context": "J40-J4A - Chronic lower respiratory diseases",
+            "score": 0.0
+          },
+          {
+            "id": "L118",
+            "url": "https://icdlist.com/icd-10/codes/lung-diseases-due-to-external-agents-j60-j70",
+            "text": "J60-J70",
+            "context": "J60-J70 - Lung diseases due to external agents",
+            "score": 0.0
+          },
+          {
+            "id": "L119",
+            "url": "https://icdlist.com/icd-10/codes/other-respiratory-diseases-principally-affecting-the-interstitium-j80-j84",
+            "text": "J80-J84",
+            "context": "J80-J84 - Other respiratory diseases principally affecting the interstitium",
+            "score": 0.0
+          },
+          {
+            "id": "L120",
+            "url": "https://icdlist.com/icd-10/codes/suppurative-and-necrotic-conditions-of-the-lower-respiratory-tract-j85-j86",
+            "text": "J85-J86",
+            "context": "J85-J86 - Suppurative and necrotic conditions of the lower respiratory tract",
+            "score": 0.0
+          }
+        ],
+        "fetched_at": "2026-06-07T13:10:21Z",
+        "status_code": 200,
+        "content_type": "text/html; charset=utf-8",
+        "error": ""
+      },
+      "assigned_agent_ids": [
+        "A4"
+      ],
+      "opened_at_round": 2,
+      "error": ""
+    },
+    {
+      "id": "S5",
+      "url": "https://questmbs.com/icd-10-codes/pneumonia-icd-10-codes",
+      "title": "Pneumonia ICD-10 Codes: A Comprehensive Guideline",
+      "snippet": "August 14, 2024 - The most common codes include J18.9 for unspecified pneumonia and J18.1 for lobar pneumonia. ... Community-acquired pneumonia is typically coded as J18.9 when the specific organism is not identified .",
+      "status": "queued",
+      "host": "questmbs.com",
+      "page": null,
+      "assigned_agent_ids": [
+        "A5"
+      ],
+      "opened_at_round": null,
+      "error": ""
+    },
+    {
+      "id": "S6",
+      "url": "https://revenuees.com/icd-10/pneumonia-icd-10-code",
+      "title": "Pneumonia ICD-10 Code Guide: Coding & Reimbursement",
+      "snippet": "April 9, 2025 - ICD-10 Code: J18.9 (Pneumonia, unspecified organism) In this case, J18.9 is appropriate as the organism has not been identified or confirmed . It’s important to document that the diagnosis remains uncertain and that additio...",
+      "status": "queued",
+      "host": "revenuees.com",
+      "page": null,
+      "assigned_agent_ids": [],
+      "opened_at_round": null,
+      "error": ""
+    },
+    {
+      "id": "S7",
+      "url": "https://www.combinehealth.ai/icd-codes/j18-9-code-pneumonia",
+      "title": "ICD-10 Code for Pneumonia, unspecified organism | J18.9 - Co",
+      "snippet": "Do not use Pneumonia, unspecified organism if the clinician documents a specific pathogen (for example, \"pneumococcal pneumonia,\" \"Staphylococcus aureus pneumonia,\" or \"influenza-associated pneumonia\"). Instead, select the organism-specifi...",
+      "status": "queued",
+      "host": "www.combinehealth.ai",
+      "page": null,
+      "assigned_agent_ids": [],
+      "opened_at_round": null,
+      "error": ""
+    },
+    {
+      "id": "S8",
+      "url": "https://www.mdclarity.com/icd-codes/j18-9",
+      "title": "ICD Diagnosis Code J18.9: What It Is & When to Use",
+      "snippet": "2. Physical Examination: Auscultation reveals abnormal lung sounds, such as crackles or wheezing, which are consistent with pneumonia. 3. Radiological Evidence: Chest X-ray or CT scan shows infiltrates or consolidation in the lungs, suppor...",
+      "status": "queued",
+      "host": "www.mdclarity.com",
+      "page": null,
+      "assigned_agent_ids": [],
+      "opened_at_round": null,
+      "error": ""
+    }
+  ],
+  "digs": [
+    {
+      "id": "D1",
+      "source_id": "S2",
+      "agent_id": "A2",
+      "query": "In adults hospitalized with community-acquired pneumonia of unspecified organism (ICD-10 J18.9), what is the evidence and current guideline consensus on the necessity, optimal timing, and modality (chest X‑ray vs CT) for routine follow‑up imaging at ~6 weeks after clinical impro...",
+      "best_score": 0.3069079518318176,
+      "p50_score": 0.3069079518318176,
+      "p90_score": 0.3069079518318176,
+      "strong_hits": 0,
+      "total_chunks": 1,
+      "hits": [
+        {
+          "chunk_id": "C1",
+          "heading": "ICD-10-CM Code for Pneumonia, unspecified organism J18.9 > ICD-10 code J18.9 for Pneumonia, unspecified organism is a medical classification as listed by WHO under the range - Diseases of the respiratory system .",
+          "score": 0.3069079518318176,
+          "text": "Start a FREE 2-WEEK TRIAL of Codify by AAPC. Excludes1: congenital pneumonia ( P23.0 ) drug-induced interstitial lung disorder ( J70.2 - J70.4 ) interstitial pneumonia NOS ( J84.9 ) neonatal aspiration pneumonia ( P24 .-) pneumonitis due to fumes and vapors ( J68.0 ) usual interstitial pneumonia ( J84.178 ) Excludes2: abscess of lung with pneumonia ( J85.1 ) aspiration pneumonia due to anesthesia during labor and delivery ( O74.0 ) aspiration pneumonia due to anesthesia during pregnancy ( O29 ) aspiration pneumonia due to anesthesia during puerperium ( O89.0 ) aspiration pneumonia due to solids and liquids ( J69 .-) aspiration pneumonia NOS ( J69.0 ) lipid pneumonia ( J69.1 ) pneumonitis due to external agents..."
+        }
+      ],
+      "links": [
+        {
+          "id": "L44",
+          "url": "https://www.aapc.com/blog/73594-conquer-coding-for-sepsis-and-sirs",
+          "text": "Conquer Coding for Sepsis and SIRS",
+          "context": "Conquer Coding for Sepsis and SIRS",
+          "score": 0.3589973747730255
+        },
+        {
+          "id": "L7",
+          "url": "https://www.aapc.com/codes/icd-10-codes-range/J00-J99/J09-J18",
+          "text": "Influenza and pneumonia",
+          "context": "Influenza and pneumonia",
+          "score": 0.2885734438896179
+        },
+        {
+          "id": "L8",
+          "url": "https://www.aapc.com/codes/icd-10-codes/J18",
+          "text": "Pneumonia, unspecified organism(J18)",
+          "context": "Pneumonia, unspecified organism(J18)",
+          "score": 0.24545174837112427
+        },
+        {
+          "id": "L4",
+          "url": "https://www.aapc.com/resources/what-is-icd-10",
+          "text": "ICD-10",
+          "context": "ICD-10",
+          "score": 0.24278637766838074
+        },
+        {
+          "id": "L6",
+          "url": "https://www.aapc.com/codes/icd-10-codes-range/J00-J99",
+          "text": "Diseases of the respiratory system",
+          "context": "Diseases of the respiratory system",
+          "score": 0.23683668673038483
+        },
+        {
+          "id": "L16",
+          "url": "https://www.aapc.com/codes/icd-10-codes/code_listing/J84.9",
+          "text": "J84.9",
+          "context": "drug-induced interstitial lung disorder ( J70.2 - J70.4 ) interstitial pneumonia NOS ( J84.9 ) neonatal aspiration pneumonia ( P24 .-) pneumonitis due to fumes and vapors ( J68.0 ) usual interstitial pneumonia ( J84.178...",
+          "score": 0.2318735420703888
+        },
+        {
+          "id": "L27",
+          "url": "https://www.aapc.com/codes/icd-10-codes/code_listing/J67",
+          "text": "J67",
+          "context": "Excludes2: abscess of lung with pneumonia ( J85.1 ) aspiration pneumonia due to anesthesia during labor and delivery ( O74.0 ) aspiration pneumonia due to anesthesia during pregnancy ( O29 ) aspiration pneumonia due to...",
+          "score": 0.2257499247789383
+        },
+        {
+          "id": "L28",
+          "url": "https://www.aapc.com/codes/icd-10-codes/code_listing/J70",
+          "text": "J70",
+          "context": "Excludes2: abscess of lung with pneumonia ( J85.1 ) aspiration pneumonia due to anesthesia during labor and delivery ( O74.0 ) aspiration pneumonia due to anesthesia during pregnancy ( O29 ) aspiration pneumonia due to...",
+          "score": 0.2195650041103363
+        }
+      ],
+      "created_at": "2026-06-07T13:10:31Z",
+      "status": "open"
+    },
+    {
+      "id": "D2",
+      "source_id": "S2",
+      "agent_id": "A2",
+      "query": "In adults hospitalized with community-acquired pneumonia of unspecified organism (ICD-10 J18.9), what is the evidence and current guideline consensus on the necessity, optimal timing, and modality (chest X‑ray vs CT) for routine follow‑up imaging at ~6 weeks after clinical impro...",
+      "best_score": 0.3069079518318176,
+      "p50_score": 0.3069079518318176,
+      "p90_score": 0.3069079518318176,
+      "strong_hits": 0,
+      "total_chunks": 1,
+      "hits": [
+        {
+          "chunk_id": "C1",
+          "heading": "ICD-10-CM Code for Pneumonia, unspecified organism J18.9 > ICD-10 code J18.9 for Pneumonia, unspecified organism is a medical classification as listed by WHO under the range - Diseases of the respiratory system .",
+          "score": 0.3069079518318176,
+          "text": "Start a FREE 2-WEEK TRIAL of Codify by AAPC. Excludes1: congenital pneumonia ( P23.0 ) drug-induced interstitial lung disorder ( J70.2 - J70.4 ) interstitial pneumonia NOS ( J84.9 ) neonatal aspiration pneumonia ( P24 .-) pneumonitis due to fumes and vapors ( J68.0 ) usual interstitial pneumonia ( J84.178 ) Excludes2: abscess of lung with pneumonia ( J85.1 ) aspiration pneumonia due to anesthesia during labor and delivery ( O74.0 ) aspiration pneumonia due to anesthesia during pregnancy ( O29 ) aspiration pneumonia due to anesthesia during puerperium ( O89.0 ) aspiration pneumonia due to solids and liquids ( J69 .-) aspiration pneumonia NOS ( J69.0 ) lipid pneumonia ( J69.1 ) pneumonitis due to external agents..."
+        }
+      ],
+      "links": [
+        {
+          "id": "L44",
+          "url": "https://www.aapc.com/blog/73594-conquer-coding-for-sepsis-and-sirs",
+          "text": "Conquer Coding for Sepsis and SIRS",
+          "context": "Conquer Coding for Sepsis and SIRS",
+          "score": 0.3589973747730255
+        },
+        {
+          "id": "L7",
+          "url": "https://www.aapc.com/codes/icd-10-codes-range/J00-J99/J09-J18",
+          "text": "Influenza and pneumonia",
+          "context": "Influenza and pneumonia",
+          "score": 0.2885734438896179
+        },
+        {
+          "id": "L8",
+          "url": "https://www.aapc.com/codes/icd-10-codes/J18",
+          "text": "Pneumonia, unspecified organism(J18)",
+          "context": "Pneumonia, unspecified organism(J18)",
+          "score": 0.24545174837112427
+        },
+        {
+          "id": "L4",
+          "url": "https://www.aapc.com/resources/what-is-icd-10",
+          "text": "ICD-10",
+          "context": "ICD-10",
+          "score": 0.24278637766838074
+        },
+        {
+          "id": "L6",
+          "url": "https://www.aapc.com/codes/icd-10-codes-range/J00-J99",
+          "text": "Diseases of the respiratory system",
+          "context": "Diseases of the respiratory system",
+          "score": 0.23683668673038483
+        },
+        {
+          "id": "L16",
+          "url": "https://www.aapc.com/codes/icd-10-codes/code_listing/J84.9",
+          "text": "J84.9",
+          "context": "drug-induced interstitial lung disorder ( J70.2 - J70.4 ) interstitial pneumonia NOS ( J84.9 ) neonatal aspiration pneumonia ( P24 .-) pneumonitis due to fumes and vapors ( J68.0 ) usual interstitial pneumonia ( J84.178...",
+          "score": 0.2318735420703888
+        },
+        {
+          "id": "L27",
+          "url": "https://www.aapc.com/codes/icd-10-codes/code_listing/J67",
+          "text": "J67",
+          "context": "Excludes2: abscess of lung with pneumonia ( J85.1 ) aspiration pneumonia due to anesthesia during labor and delivery ( O74.0 ) aspiration pneumonia due to anesthesia during pregnancy ( O29 ) aspiration pneumonia due to...",
+          "score": 0.2257499247789383
+        },
+        {
+          "id": "L28",
+          "url": "https://www.aapc.com/codes/icd-10-codes/code_listing/J70",
+          "text": "J70",
+          "context": "Excludes2: abscess of lung with pneumonia ( J85.1 ) aspiration pneumonia due to anesthesia during labor and delivery ( O74.0 ) aspiration pneumonia due to anesthesia during pregnancy ( O29 ) aspiration pneumonia due to...",
+          "score": 0.2195650041103363
+        }
+      ],
+      "created_at": "2026-06-07T13:10:42Z",
+      "status": "open"
+    },
+    {
+      "id": "D3",
+      "source_id": "S2",
+      "agent_id": "A2",
+      "query": "In adults hospitalized with community-acquired pneumonia of unspecified organism (ICD-10 J18.9), what is the evidence and current guideline consensus on the necessity, optimal timing, and modality (chest X‑ray vs CT) for routine follow‑up imaging at ~6 weeks after clinical impro...",
+      "best_score": 0.3069079518318176,
+      "p50_score": 0.3069079518318176,
+      "p90_score": 0.3069079518318176,
+      "strong_hits": 0,
+      "total_chunks": 1,
+      "hits": [
+        {
+          "chunk_id": "C1",
+          "heading": "ICD-10-CM Code for Pneumonia, unspecified organism J18.9 > ICD-10 code J18.9 for Pneumonia, unspecified organism is a medical classification as listed by WHO under the range - Diseases of the respiratory system .",
+          "score": 0.3069079518318176,
+          "text": "Start a FREE 2-WEEK TRIAL of Codify by AAPC. Excludes1: congenital pneumonia ( P23.0 ) drug-induced interstitial lung disorder ( J70.2 - J70.4 ) interstitial pneumonia NOS ( J84.9 ) neonatal aspiration pneumonia ( P24 .-) pneumonitis due to fumes and vapors ( J68.0 ) usual interstitial pneumonia ( J84.178 ) Excludes2: abscess of lung with pneumonia ( J85.1 ) aspiration pneumonia due to anesthesia during labor and delivery ( O74.0 ) aspiration pneumonia due to anesthesia during pregnancy ( O29 ) aspiration pneumonia due to anesthesia during puerperium ( O89.0 ) aspiration pneumonia due to solids and liquids ( J69 .-) aspiration pneumonia NOS ( J69.0 ) lipid pneumonia ( J69.1 ) pneumonitis due to external agents..."
+        }
+      ],
+      "links": [
+        {
+          "id": "L44",
+          "url": "https://www.aapc.com/blog/73594-conquer-coding-for-sepsis-and-sirs",
+          "text": "Conquer Coding for Sepsis and SIRS",
+          "context": "Conquer Coding for Sepsis and SIRS",
+          "score": 0.3589973747730255
+        },
+        {
+          "id": "L7",
+          "url": "https://www.aapc.com/codes/icd-10-codes-range/J00-J99/J09-J18",
+          "text": "Influenza and pneumonia",
+          "context": "Influenza and pneumonia",
+          "score": 0.2885734438896179
+        },
+        {
+          "id": "L8",
+          "url": "https://www.aapc.com/codes/icd-10-codes/J18",
+          "text": "Pneumonia, unspecified organism(J18)",
+          "context": "Pneumonia, unspecified organism(J18)",
+          "score": 0.24545174837112427
+        },
+        {
+          "id": "L4",
+          "url": "https://www.aapc.com/resources/what-is-icd-10",
+          "text": "ICD-10",
+          "context": "ICD-10",
+          "score": 0.24278637766838074
+        },
+        {
+          "id": "L6",
+          "url": "https://www.aapc.com/codes/icd-10-codes-range/J00-J99",
+          "text": "Diseases of the respiratory system",
+          "context": "Diseases of the respiratory system",
+          "score": 0.23683668673038483
+        },
+        {
+          "id": "L16",
+          "url": "https://www.aapc.com/codes/icd-10-codes/code_listing/J84.9",
+          "text": "J84.9",
+          "context": "drug-induced interstitial lung disorder ( J70.2 - J70.4 ) interstitial pneumonia NOS ( J84.9 ) neonatal aspiration pneumonia ( P24 .-) pneumonitis due to fumes and vapors ( J68.0 ) usual interstitial pneumonia ( J84.178...",
+          "score": 0.2318735420703888
+        },
+        {
+          "id": "L27",
+          "url": "https://www.aapc.com/codes/icd-10-codes/code_listing/J67",
+          "text": "J67",
+          "context": "Excludes2: abscess of lung with pneumonia ( J85.1 ) aspiration pneumonia due to anesthesia during labor and delivery ( O74.0 ) aspiration pneumonia due to anesthesia during pregnancy ( O29 ) aspiration pneumonia due to...",
+          "score": 0.2257499247789383
+        },
+        {
+          "id": "L28",
+          "url": "https://www.aapc.com/codes/icd-10-codes/code_listing/J70",
+          "text": "J70",
+          "context": "Excludes2: abscess of lung with pneumonia ( J85.1 ) aspiration pneumonia due to anesthesia during labor and delivery ( O74.0 ) aspiration pneumonia due to anesthesia during pregnancy ( O29 ) aspiration pneumonia due to...",
+          "score": 0.2195650041103363
+        }
+      ],
+      "created_at": "2026-06-07T13:10:52Z",
+      "status": "open"
+    },
+    {
+      "id": "D4",
+      "source_id": "S3",
+      "agent_id": "A3",
+      "query": "In adults hospitalized with community-acquired pneumonia of unspecified organism (ICD-10 J18.9), what is the evidence and current guideline consensus on the necessity, optimal timing, and modality (chest X‑ray vs CT) for routine follow‑up imaging at ~6 weeks after clinical impro...",
+      "best_score": 0.32004737854003906,
+      "p50_score": 0.2622431516647339,
+      "p90_score": 0.2891044020652771,
+      "strong_hits": 0,
+      "total_chunks": 7,
+      "hits": [
+        {
+          "chunk_id": "C2",
+          "heading": "J18.9 Pneumonia, unspecified organism...",
+          "score": 0.32004737854003906,
+          "text": "lso have Includes , Excludes , Notes, Guidelines, Examples and other information. Find-A-Code Professional/Premium/Elite Find-A-Code Facility Base/Plus/Complete Additional Code Information includes: APC Status Indicator Assistant Surgeon (80, 82) Bilateral Surgery (50) CCS Clinical Classification Co-Surgeons (62) Diagnostic Imaging Family Facility MUEs Global Days Hierarchical Condition Categories (HCC) Major Complications or Comorbidities (MCC/CC) Medicare Status Code Multiple Procedures (51) Non-Facility MUEs OTS Orthotic PC/TC Indicator (26) Physician Supervisions Team Surgery (66) Type Of Service (TOS) and more... Access to this feature is available in the following products: Find-A-Code Professional/Premi..."
+        },
+        {
+          "chunk_id": "C1",
+          "heading": "J18.9 Pneumonia, unspecified organism...",
+          "score": 0.26847580075263977,
+          "text": "The above description is abbreviated. This code description may also have Includes , Excludes , Notes, Guidelines, Examples and other information. Access to this feature is available in the following products: Find-A-Code Essentials Find-A-Code Professional/Premium/Elite Find-A-Code Facility Base/Plus/Complete HCC Standard/Pro The above description is abbreviated. This code description may also have Includes , Excludes , Notes, Guidelines, Examples and other information. sign IN sign UP The above description is abbreviated. This code description may also have Includes , Excludes , Notes, Guidelines, Examples and other information. Find-A-Code Professional/Premium/Elite Find-A-Code Facility Base/Plus/Complete"
+        },
+        {
+          "chunk_id": "C3",
+          "heading": "J18.9 Pneumonia, unspecified organism...",
+          "score": 0.26340222358703613,
+          "text": "products: Find-A-Code Professional/Premium/Elite Find-A-Code Facility Base/Plus/Complete HCC Standard/Pro sign IN sign UP Additional Code Information includes: APC Status Indicator Assistant Surgeon (80, 82) Bilateral Surgery (50) CCS Clinical Classification Co-Surgeons (62) Diagnostic Imaging Family Facility MUEs Global Days Hierarchical Condition Categories (HCC) Major Complications or Comorbidities (MCC/CC) Hierarchical Condition Categories (HCC) Major Complications or Comorbidities (MCC/CC) Medicare Status Code Multiple Procedures (51) Non-Facility MUEs OTS Orthotic PC/TC Indicator (26) Physician Supervisions Team Surgery (66) Type Of Service (TOS) and more... Find-A-Code Professional/Premium/Elite Find-A-..."
+        },
+        {
+          "chunk_id": "C6",
+          "heading": "J18.9 Pneumonia, unspecified organism...",
+          "score": 0.2622431516647339,
+          "text": "feature is available in the following products: Find-A-Code Professional/Premium/Elite Find-A-Code Facility Base/Plus/Complete HCC Standard/Pro sign IN sign UP Find-A-Code Professional/Premium/Elite Find-A-Code Facility Base/Plus/Complete View the general equivalency mappings (GEMs) between the ICD-9 and ICD-10 code sets. Access to this feature is available in the following products: Find-A-Code Professional/Premium/Elite Find-A-Code Facility Base/Plus/Complete HCC Standard/Pro sign IN sign UP View the general equivalency mappings (GEMs) between the ICD-9 and ICD-10 code sets. Find-A-Code Professional/Premium/Elite Find-A-Code Facility Base/Plus/Complete View relationships (or crosswalks) between code sets. Ac..."
+        },
+        {
+          "chunk_id": "C5",
+          "heading": "J18.9 Pneumonia, unspecified organism...",
+          "score": 0.22001053392887115,
+          "text": "al information about the code including when it was added, changed, deleted, etc. Find-A-Code Professional/Premium/Elite Find-A-Code Facility Base/Plus/Complete Subscribers may add their own notes as well as \"Admin Notes\" visible to all subscribers in their account. Access to this feature is available in the following products: Find-A-Code Essentials Find-A-Code Professional/Premium/Elite Find-A-Code Facility Base/Plus/Complete HCC Standard/Pro Subscribers may add their own notes as well as \"Admin Notes\" visible to all subscribers in their account. sign IN sign UP Subscribers may add their own notes as well as \"Admin Notes\" visible to all subscribers in their account. Find-A-Code Professional/Premium/Elite Fin..."
+        },
+        {
+          "chunk_id": "C4",
+          "heading": "J18.9 Pneumonia, unspecified organism...",
+          "score": 0.21064287424087524,
+          "text": "r (26) Physician Supervisions Team Surgery (66) Type Of Service (TOS) and more... Find-A-Code Professional/Premium/Elite Find-A-Code Facility Base/Plus/Complete View historical information about the code including when it was added, changed, deleted, etc. Access to this feature is available in the following products: Find-A-Code Professional/Premium/Elite Find-A-Code Facility Base/Plus/Complete HCC Standard/Pro sign IN sign UP View historical information about the code including when it was added, changed, deleted, etc. Find-A-Code Professional/Premium/Elite Find-A-Code Facility Base/Plus/Complete"
+        },
+        {
+          "chunk_id": "C7",
+          "heading": "J18.9 Pneumonia, unspecified organism...",
+          "score": 0.19188238680362701,
+          "text": "ility Base/Plus/Complete ASA CROSSWALK® +Base Units sign IN sign UP View relationships (or crosswalks) between code sets. Find-A-Code Professional/Premium/Elite Find-A-Code Facility Base/Plus/Complete Thank you for choosing Find-A-Code, please Sign In to remove ads."
+        }
+      ],
+      "links": [
+        {
+          "id": "L112",
+          "url": "https://www.findacode.com/code-set.php?set=ICD10CM&i=9619",
+          "text": "J09-J18 Influenza and pneumonia",
+          "context": "ICD-10-CM 10. Diseases of the respiratory system (J00-J99) J09-J18 Influenza and pneumonia J18 Pneumonia, unspecified organism",
+          "score": 0.395277738571167
+        },
+        {
+          "id": "L110",
+          "url": "https://www.findacode.com/code-set.php?set=ICD10CM",
+          "text": "ICD-10-CM",
+          "context": "ICD-10-CM 10. Diseases of the respiratory system (J00-J99) J09-J18 Influenza and pneumonia J18 Pneumonia, unspecified organism",
+          "score": 0.39273083209991455
+        },
+        {
+          "id": "L111",
+          "url": "https://www.findacode.com/code-set.php?set=ICD10CM&i=7861",
+          "text": "10. Diseases of the respiratory system (J00-J99)",
+          "context": "ICD-10-CM 10. Diseases of the respiratory system (J00-J99) J09-J18 Influenza and pneumonia J18 Pneumonia, unspecified organism",
+          "score": 0.38099437952041626
+        },
+        {
+          "id": "L113",
+          "url": "https://www.findacode.com/code-set.php?set=ICD10CM&i=23595",
+          "text": "J18 Pneumonia, unspecified organism",
+          "context": "ICD-10-CM 10. Diseases of the respiratory system (J00-J99) J09-J18 Influenza and pneumonia J18 Pneumonia, unspecified organism",
+          "score": 0.37603116035461426
+        },
+        {
+          "id": "L119",
+          "url": "https://www.findacode.com/newsletters/aha-coding-clinic/icd",
+          "text": "AHA Coding Clinic ® for ICD-10-CM and ICD-10-PCS - current + archives",
+          "context": "Find-A-Code News AHA Coding Clinic ® for HCPCS - current + archives AHA Coding Clinic ® for ICD-10-CM and ICD-10-PCS - current + archives AMA CPT ® Assistant - current + archives AMA CPT ® Knowledge Base Q/A BC Advantag...",
+          "score": 0.3527967929840088
+        },
+        {
+          "id": "L118",
+          "url": "https://www.findacode.com/newsletters/aha-coding-clinic/hcpcs",
+          "text": "AHA Coding Clinic ® for HCPCS - current + archives",
+          "context": "Find-A-Code News AHA Coding Clinic ® for HCPCS - current + archives AHA Coding Clinic ® for ICD-10-CM and ICD-10-PCS - current + archives AMA CPT ® Assistant - current + archives AMA CPT ® Knowledge Base Q/A BC Advantag...",
+          "score": 0.29162150621414185
+        },
+        {
+          "id": "L95",
+          "url": "https://www.findacode.com/marketplace/coding-courses-and-training.html",
+          "text": "Coding Courses",
+          "context": "Coding Courses",
+          "score": 0.28348812460899353
+        },
+        {
+          "id": "L41",
+          "url": "https://www.findacode.com/icd-10-cm/icd-10-cm-guidelines.html",
+          "text": "ICD-10-CM Official Guidelines",
+          "context": "ICD-10-CM Official Guidelines",
+          "score": 0.2757047712802887
+        }
+      ],
+      "created_at": "2026-06-07T13:11:02Z",
+      "status": "open"
+    }
+  ],
+  "accepted": []
+}

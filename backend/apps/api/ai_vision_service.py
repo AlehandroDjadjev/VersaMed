@@ -1,9 +1,13 @@
 import json
+import logging
+import mimetypes
+import time
+from base64 import b64encode
 
 from django.conf import settings
 from openai import OpenAI
 
-from .scan_service import scan_image_data_url
+logger = logging.getLogger(__name__)
 
 DISCLAIMER = "This is an AI-generated preliminary explanation and not a final diagnosis."
 FALLBACK = {
@@ -49,10 +53,27 @@ RESULT_SCHEMA = {
 }
 
 
-def analyze_scan_with_ai(scan):
+def image_data_url_from_upload(upload):
+    content_type = getattr(upload, "content_type", "") or ""
+    if not content_type:
+        guessed_type, _ = mimetypes.guess_type(getattr(upload, "name", ""))
+        content_type = guessed_type or "application/octet-stream"
+    payload = b64encode(upload.read()).decode("ascii")
+    if hasattr(upload, "seek"):
+        upload.seek(0)
+    return f"data:{content_type};base64,{payload}"
+
+
+def analyze_scan_with_ai(scan, image_upload):
     if not settings.OPENAI_API_KEY:
         raise RuntimeError("OPENAI_API_KEY is not configured.")
     client = OpenAI(api_key=settings.OPENAI_API_KEY)
+    started = time.perf_counter()
+    logger.warning(
+        "scan_vision.openai.start model=%s title=%s",
+        settings.OPENAI_MODEL,
+        scan.get("title", ""),
+    )
     response = client.responses.create(
         model=settings.OPENAI_MODEL,
         instructions=(
@@ -83,14 +104,28 @@ def analyze_scan_with_ai(scan):
                         f"Focus hint: {scan.get('focusHint', '')}"
                     ),
                 },
-                {"type": "input_image", "image_url": scan_image_data_url(scan), "detail": "high"},
+                {
+                    "type": "input_image",
+                    "image_url": image_data_url_from_upload(image_upload),
+                    "detail": "high",
+                },
             ],
         }],
         text={"format": {"type": "json_schema", "name": "scan_summary", "strict": True, "schema": RESULT_SCHEMA}},
     )
     try:
         result = json.loads(response.output_text)
+        logger.warning(
+            "scan_vision.openai.done model=%s elapsed_ms=%d parsed_json=true",
+            settings.OPENAI_MODEL,
+            int((time.perf_counter() - started) * 1000),
+        )
     except (json.JSONDecodeError, TypeError):
         result = FALLBACK.copy()
+        logger.warning(
+            "scan_vision.openai.done model=%s elapsed_ms=%d parsed_json=false_fallback",
+            settings.OPENAI_MODEL,
+            int((time.perf_counter() - started) * 1000),
+        )
     result["disclaimer"] = DISCLAIMER
     return result
