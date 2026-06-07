@@ -3,9 +3,15 @@ from django.db import models
 
 
 class User(AbstractUser):
-    email = models.EmailField(unique=True)
+    class Role(models.TextChoices):
+        PATIENT = "patient", "Patient"
+        DOCTOR = "doctor", "Doctor"
+        ADMIN = "admin", "Admin"
 
-    def save(self, *args, **kwargs):
-        if self.email:
-            self.email = self.email.strip().lower()
-        return super().save(*args, **kwargs)
+    middle_name = models.CharField(max_length=150, blank=True)
+    phone_number = models.CharField(max_length=32, blank=True)
+    role = models.CharField(max_length=16, choices=Role.choices, default=Role.PATIENT)
+    onboarding_completed = models.BooleanField(default=False)
+    onboarding_completed_at = models.DateTimeField(null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)

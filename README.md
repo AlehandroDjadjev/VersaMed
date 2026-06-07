@@ -1,37 +1,41 @@
-# VersaMed
+# VersaMed Backend
 
-Starter monorepo with a Flutter frontend and Django backend.
+Django API with token authentication, role-based users, synthetic hospital
+records, transactional onboarding, and a local XML HIS simulator.
 
-## Structure
-
-- `frontend/`: Flutter application scaffold
-- `backend/`: Django API scaffold with `core`, `users`, and `api` apps
-
-## Backend starter apps
-
-- `apps.core`: shared base code like abstract timestamped models
-- `apps.users`: custom user model from day one
-- `apps.api`: API-facing routes like the health check endpoint
-
-## Run locally
-
-### Frontend
-
-```powershell
-cd frontend
-flutter run
-```
-
-### Backend
+## Run
 
 ```powershell
 cd backend
-.\.venv\Scripts\Activate.ps1
+python -m venv venv
+.\venv\Scripts\Activate.ps1
+pip install -r requirements.txt
 python manage.py migrate
 python manage.py runserver
 ```
 
-Health check: `GET /api/health/`
+## Integration Flow
+
+1. `POST /api/auth/signup/` with `username`, `email`, `password`, and `role`.
+2. Save the returned token.
+3. `POST /api/onboarding/sync/` with `personal_identifier` for a patient or
+   `uin` for a doctor.
+4. Send `Authorization: Token <token>` to authenticated endpoints.
+5. `GET /api/dashboard/` returns persisted records plus mock-HIS status.
+
+Available synthetic onboarding identifiers:
+
+- Patients: `9001010000`, `8505120001`, `0203150002`
+- Doctors: `1234567890`, `2345678901`
+
+Auth endpoints:
+
+- `POST /api/auth/signup/`
+- `POST /api/auth/login/`
+- `POST /api/auth/logout/`
+- `GET /api/auth/me/`
+- `POST /api/onboarding/sync/`
+- `GET /api/dashboard/`
 
 ## Local HIS mock API
 
@@ -57,7 +61,7 @@ Example request:
 curl -X POST http://localhost:8001/v1/eimmunization/immunization/fetch \
   -H "Content-Type: application/xml" \
   -H "Authorization: Bearer mock-token" \
-  -d "<Request><PatientId>123</PatientId></Request>"
+  -d "<Request><PatientId>9001010000</PatientId></Request>"
 ```
 
 Configuration:
@@ -73,6 +77,6 @@ When `MOCK_AUTH_DISABLED=False`, requests to `/v1/...` must include an
 `Authorization` header. The mock accepts bearer tokens but never verifies them.
 Unknown `/v1/...` endpoints return an XML `501 MOCK_NOT_IMPLEMENTED` response.
 
-This mock uses hardcoded fake data and simple XML responses. It does not validate
+This mock uses synthetic data and XML responses. It does not validate
 certificates, signatures, real authentication, real HIS schemas, or real
 business rules. It is only for local development.

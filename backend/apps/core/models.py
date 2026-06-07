@@ -1,4 +1,5 @@
 from django.db import models
+from django.conf import settings
 
 
 class TimestampedModel(models.Model):
@@ -7,3 +8,55 @@ class TimestampedModel(models.Model):
 
     class Meta:
         abstract = True
+
+
+class MedicalInstitution(TimestampedModel):
+    name = models.CharField(max_length=255)
+    nhif_number = models.CharField(max_length=32, unique=True)
+    city = models.CharField(max_length=100)
+    address = models.CharField(max_length=255, blank=True)
+    phone_number = models.CharField(max_length=32, blank=True)
+
+
+class PatientProfile(TimestampedModel):
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="patient_profile")
+    personal_identifier = models.CharField(max_length=32, unique=True)
+    birth_date = models.DateField()
+    gender = models.CharField(max_length=16, blank=True)
+    blood_type = models.CharField(max_length=8, blank=True)
+    address = models.CharField(max_length=255, blank=True)
+
+
+class DoctorProfile(TimestampedModel):
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="doctor_profile")
+    uin = models.CharField(max_length=32, unique=True)
+    specialty = models.CharField(max_length=128)
+    medical_institution = models.ForeignKey(MedicalInstitution, on_delete=models.PROTECT, related_name="doctors")
+
+
+class Immunization(TimestampedModel):
+    patient = models.ForeignKey(PatientProfile, on_delete=models.CASCADE, related_name="immunizations")
+    medical_institution = models.ForeignKey(MedicalInstitution, on_delete=models.PROTECT)
+    his_document_id = models.CharField(max_length=64, unique=True)
+    vaccine_name = models.CharField(max_length=128)
+    lot_number = models.CharField(max_length=64)
+    dose_number = models.PositiveSmallIntegerField()
+    immunization_date = models.DateField()
+
+
+class Hospitalization(TimestampedModel):
+    patient = models.ForeignKey(PatientProfile, on_delete=models.CASCADE, related_name="hospitalizations")
+    medical_institution = models.ForeignKey(MedicalInstitution, on_delete=models.PROTECT)
+    his_document_id = models.CharField(max_length=64, unique=True)
+    admission_date = models.DateField()
+    discharge_date = models.DateField(null=True, blank=True)
+    department = models.CharField(max_length=128)
+    diagnosis_code = models.CharField(max_length=32)
+    diagnosis = models.CharField(max_length=255)
+
+
+class Epicrisis(TimestampedModel):
+    hospitalization = models.OneToOneField(Hospitalization, on_delete=models.CASCADE, related_name="epicrisis")
+    his_document_id = models.CharField(max_length=64, unique=True)
+    summary = models.TextField()
+    recommendations = models.TextField(blank=True)
