@@ -20,6 +20,10 @@ DEFAULT_CORS_ORIGINS = DEFAULT_DEV_ORIGINS if DEBUG else ""
 def split_csv(value):
     return [item.strip() for item in value.split(",") if item.strip()]
 
+
+def normalize_origins(value):
+    return [origin.rstrip("/") for origin in split_csv(value)]
+
 INSTALLED_APPS = [
     "corsheaders",
     "rest_framework",
@@ -45,6 +49,7 @@ MIDDLEWARE = [
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "apps.core.middleware.StaleSessionCleanupMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
@@ -111,10 +116,13 @@ REST_FRAMEWORK = {
         "rest_framework.permissions.IsAuthenticated",
     ),
 }
-CORS_ALLOWED_ORIGINS = split_csv(
-    os.getenv("DJANGO_CORS_ALLOWED_ORIGINS", DEFAULT_CORS_ORIGINS)
+CORS_ALLOWED_ORIGINS = normalize_origins(
+    os.getenv(
+        "CORS_ALLOWED_ORIGINS",
+        os.getenv("DJANGO_CORS_ALLOWED_ORIGINS", DEFAULT_CORS_ORIGINS),
+    )
 )
-CSRF_TRUSTED_ORIGINS = split_csv(
+CSRF_TRUSTED_ORIGINS = normalize_origins(
     os.getenv("DJANGO_CSRF_TRUSTED_ORIGINS", DEFAULT_CORS_ORIGINS)
 )
 CORS_ALLOW_CREDENTIALS = True
@@ -126,12 +134,7 @@ CSRF_COOKIE_SAMESITE = "Lax"
 SECURE_CONTENT_TYPE_NOSNIFF = True
 SECURE_REFERRER_POLICY = "same-origin"
 X_FRAME_OPTIONS = "DENY"
-CORS_ALLOW_ALL_ORIGINS = DEBUG
-CORS_ALLOWED_ORIGINS = [
-    origin.strip()
-    for origin in os.getenv("CORS_ALLOWED_ORIGINS", "http://localhost:3000").split(",")
-    if origin.strip()
-]
+CORS_ALLOW_ALL_ORIGINS = False
 
 SECURE_SSL_REDIRECT = env_bool("DJANGO_SECURE_SSL_REDIRECT", False)
 SESSION_COOKIE_SECURE = env_bool("DJANGO_SESSION_COOKIE_SECURE", False)
