@@ -10,7 +10,7 @@ def _add_mapping(parent, tag, values):
     return element
 
 
-def _response(status="SUCCESS", code="C002", message="Mock response generated successfully"):
+def _response(status="SUCCESS", code="MOCK_SUCCESS", message="Mock response generated successfully"):
     root = Element("Response")
     SubElement(root, "Status").text = status
     SubElement(root, "Code").text = code
@@ -38,7 +38,7 @@ def build_error_response(code, message, status=500):
 
 
 def build_nomenclature_response():
-    root = _response(message="Mock nomenclatures returned successfully")
+    root = _response(code="C002", message="Mock nomenclatures returned successfully")
     data = SubElement(root, "Data")
     items = SubElement(data, "Nomenclatures")
     for value in fake_data.NOMENCLATURES:
@@ -47,7 +47,7 @@ def build_nomenclature_response():
 
 
 def build_vaccine_lot_number_response():
-    root = _response(message="Mock vaccine lot numbers returned successfully")
+    root = _response(code="C004", message="Mock vaccine lot numbers returned successfully")
     data = SubElement(root, "Data")
     lots = SubElement(data, "VaccineLotNumbers")
     for value in fake_data.VACCINE_LOTS:
@@ -56,7 +56,7 @@ def build_vaccine_lot_number_response():
 
 
 def build_immunization_issue_response():
-    root = _response(message="Mock immunization issued successfully")
+    root = _response(code="I002", message="Mock immunization issued successfully")
     data = SubElement(root, "Data")
     SubElement(data, "DocumentId").text = fake_data.DOCUMENT_ID
     SubElement(data, "CertificateId").text = fake_data.CERTIFICATE_ID
@@ -64,7 +64,7 @@ def build_immunization_issue_response():
 
 
 def build_immunization_fetch_response():
-    root = _response(message="Mock immunization returned successfully")
+    root = _response(code="I004", message="Mock immunization returned successfully")
     data = SubElement(root, "Data")
     _add_mapping(data, "Patient", fake_data.PATIENT)
     _add_mapping(data, "Doctor", fake_data.DOCTOR)
@@ -74,7 +74,7 @@ def build_immunization_fetch_response():
 
 
 def build_immunization_certificate_response():
-    root = _response(message="Mock immunization certificate returned successfully")
+    root = _response(code="I014", message="Mock immunization certificate returned successfully")
     data = SubElement(root, "Data")
     SubElement(data, "CertificateId").text = fake_data.CERTIFICATE_ID
     SubElement(data, "DocumentId").text = fake_data.DOCUMENT_ID
@@ -83,7 +83,7 @@ def build_immunization_certificate_response():
 
 
 def build_hospitalization_fetch_response():
-    root = _response(message="Mock hospitalization returned successfully")
+    root = _response(code="H002", message="Mock hospitalization returned successfully")
     data = SubElement(root, "Data")
     _add_mapping(data, "Patient", fake_data.PATIENT)
     _add_mapping(data, "MedicalInstitution", fake_data.MEDICAL_INSTITUTION)
@@ -92,7 +92,7 @@ def build_hospitalization_fetch_response():
 
 
 def build_epicrisis_response():
-    root = _response(message="Mock epicrisis returned successfully")
+    root = _response(code="MOCK_EPICRISIS", message="Mock epicrisis returned successfully")
     data = SubElement(root, "Data")
     _add_mapping(data, "Patient", fake_data.PATIENT)
     _add_mapping(data, "Epicrisis", fake_data.EPICRISIS)
@@ -100,10 +100,10 @@ def build_epicrisis_response():
 
 
 def build_generic_mock_response(path):
-    root = _response(
-        status="ERROR",
-        code="MOCK_NOT_IMPLEMENTED",
-        message="This HIS mock endpoint is not implemented",
-    )
+    root = Element("Response")
+    SubElement(root, "Status").text = "ERROR"
+    SubElement(root, "Code").text = "MOCK_NOT_IMPLEMENTED"
+    SubElement(root, "Message").text = "This HIS mock endpoint is not implemented"
+    SubElement(root, "HttpStatus").text = "501"
     SubElement(root, "Path").text = path
     return _serialize(root)
