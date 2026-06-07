@@ -31,6 +31,15 @@ class DoctorRequiredMixin:
         return None
 
 
+@method_decorator(ensure_csrf_cookie, name="dispatch")
+class CsrfTokenView(APIView):
+    authentication_classes = []
+    permission_classes = [AllowAny]
+
+    def get(self, request):
+        return Response({"detail": "CSRF cookie set."})
+
+
 @method_decorator(csrf_protect, name="dispatch")
 @method_decorator(ensure_csrf_cookie, name="dispatch")
 class PatientSignUpView(APIView):
@@ -116,9 +125,12 @@ class LogoutView(APIView):
 
 
 class CurrentUserView(APIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
 
     def get(self, request):
+        if not request.user.is_authenticated:
+            return Response({"user": None})
+
         return Response({"user": UserSerializer(request.user).data})
 
 

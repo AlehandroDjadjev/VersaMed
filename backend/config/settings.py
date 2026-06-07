@@ -1,6 +1,5 @@
 import os
 from pathlib import Path
-
 from dotenv import load_dotenv
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -19,7 +18,11 @@ DEFAULT_CORS_ORIGINS = DEFAULT_DEV_ORIGINS if DEBUG else ""
 
 
 def split_csv(value):
-    return [item.strip().rstrip("/") for item in value.split(",") if item.strip()]
+    return [item.strip() for item in value.split(",") if item.strip()]
+
+
+def normalize_origins(value):
+    return [origin.rstrip("/") for origin in split_csv(value)]
 
 INSTALLED_APPS = [
     "corsheaders",
@@ -34,6 +37,7 @@ INSTALLED_APPS = [
     "apps.core",
     "apps.users",
     "apps.api",
+    "apps.medical",
     "his_mock",
 ]
 
@@ -45,6 +49,7 @@ MIDDLEWARE = [
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "apps.core.middleware.StaleSessionCleanupMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
@@ -111,10 +116,13 @@ REST_FRAMEWORK = {
         "rest_framework.permissions.IsAuthenticated",
     ),
 }
-CORS_ALLOWED_ORIGINS = split_csv(
-    os.getenv("DJANGO_CORS_ALLOWED_ORIGINS", DEFAULT_CORS_ORIGINS)
+CORS_ALLOWED_ORIGINS = normalize_origins(
+    os.getenv(
+        "CORS_ALLOWED_ORIGINS",
+        os.getenv("DJANGO_CORS_ALLOWED_ORIGINS", DEFAULT_CORS_ORIGINS),
+    )
 )
-CSRF_TRUSTED_ORIGINS = split_csv(
+CSRF_TRUSTED_ORIGINS = normalize_origins(
     os.getenv("DJANGO_CSRF_TRUSTED_ORIGINS", DEFAULT_CORS_ORIGINS)
 )
 CORS_ALLOW_CREDENTIALS = True
@@ -126,12 +134,7 @@ CSRF_COOKIE_SAMESITE = "Lax"
 SECURE_CONTENT_TYPE_NOSNIFF = True
 SECURE_REFERRER_POLICY = "same-origin"
 X_FRAME_OPTIONS = "DENY"
-CORS_ALLOW_ALL_ORIGINS = DEBUG
-CORS_ALLOWED_ORIGINS = [
-    origin.strip().rstrip("/")
-    for origin in os.getenv("CORS_ALLOWED_ORIGINS", "http://localhost:3000").split(",")
-    if origin.strip()
-]
+CORS_ALLOW_ALL_ORIGINS = False
 
 SECURE_SSL_REDIRECT = env_bool("DJANGO_SECURE_SSL_REDIRECT", False)
 SESSION_COOKIE_SECURE = env_bool("DJANGO_SESSION_COOKIE_SECURE", False)
@@ -142,7 +145,12 @@ MOCK_AUTH_DISABLED = env_bool("MOCK_AUTH_DISABLED", True)
 MOCK_LATENCY_MS = int(os.getenv("MOCK_LATENCY_MS", "0"))
 MOCK_FORCE_ERROR = env_bool("MOCK_FORCE_ERROR", False)
 MOCK_ERROR_STATUS = int(os.getenv("MOCK_ERROR_STATUS", "500"))
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY", "")
+OPENAI_MODEL = os.getenv("OPENAI_MODEL", "gpt-4.1-mini")
 
+CHAT_API_KEY = os.getenv("chat_api_key", "")
+CHAT_MODEL = os.getenv("CHAT_MODEL", "gpt-5.1")
+CHAT_API_TIMEOUT_SECONDS = int(os.getenv("CHAT_API_TIMEOUT_SECONDS", "60"))
 EMAIL_BACKEND = os.getenv(
     "EMAIL_BACKEND",
     os.getenv(

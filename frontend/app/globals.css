@@ -350,6 +350,7 @@ input {
   100% {
     transform: translateY(0);
   }
+
   50% {
     transform: translateY(-8px);
   }
@@ -360,6 +361,7 @@ input {
   100% {
     transform: translate3d(0, 0, 0) scale(1);
   }
+
   50% {
     transform: translate3d(1.2rem, -0.8rem, 0) scale(1.08);
   }
@@ -370,6 +372,7 @@ input {
     opacity: 0;
     transform: translateY(24px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -381,6 +384,7 @@ input {
     opacity: 0;
     transform: translateY(32px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);

@@ -54,8 +54,58 @@ export type DoctorPatientAssignment = {
   patient: AssignedPatient;
 };
 
-type AuthEnvelope = {
+export type PatientDashboardData = {
+  user: {
+    id: number;
+    username: string;
+    email: string;
+    role: UserRole;
+  };
+  patient: {
+    full_name: string;
+    birth_date: string;
+    gender: string;
+    blood_type: string;
+    address: string;
+  };
+  mock_hospital_api: {
+    status: string;
+    patient_found: boolean;
+    records_available: {
+      immunizations: number;
+      hospitalizations: number;
+      epicrises: number;
+    };
+  };
+  database: {
+    immunizations: Array<{
+      vaccine_name: string;
+      dose_number: number;
+      date: string;
+      institution: string;
+    }>;
+    hospitalizations: Array<{
+      department: string;
+      diagnosis_code: string;
+      diagnosis: string;
+      admission_date: string;
+      discharge_date: string | null;
+      institution: string;
+      epicrisis: {
+        summary: string;
+        recommendations: string;
+      } | null;
+    }>;
+  };
+};
+
+type SyncEnvelope = {
+  status: string;
   user: AuthUser;
+};
+
+type AuthEnvelope = {
+  user: AuthUser | null;
 };
 
 type AssignmentsEnvelope = {
@@ -162,7 +212,7 @@ function getBestErrorMessage(fieldErrors: FieldErrors, fallback: string) {
 }
 
 async function ensureCsrfCookie() {
-  await fetch(BACKEND_PREFIX, {
+  await fetch(`${BACKEND_PREFIX}/auth/csrf`, {
     method: "GET",
     cache: "no-store",
     credentials: "same-origin",
@@ -222,13 +272,11 @@ export async function fetchCurrentUser() {
 
 export async function requestLoginChallenge(payload: LoginPayload) {
   const loginId = payload.loginId.trim();
-  const usesEmail = loginId.includes("@");
 
   return request<LoginChallenge>("/auth/login/", {
     method: "POST",
     body: JSON.stringify({
-      email: usesEmail ? loginId : "",
-      username: usesEmail ? "" : loginId,
+      login_id: loginId,
       password: payload.password,
     }),
   });
@@ -242,6 +290,10 @@ export async function verifyLoginCode(payload: VerifyLoginPayload) {
       code: payload.code,
     }),
   });
+
+  if (!response.user) {
+    throw new ApiError("We could not complete the login session.", 500);
+  }
 
   return response.user;
 }
@@ -265,6 +317,10 @@ export async function signUpPatient(payload: PatientSignUpPayload) {
     }),
   });
 
+  if (!response.user) {
+    throw new ApiError("We could not create the patient account.", 500);
+  }
+
   return response.user;
 }
 
@@ -284,12 +340,29 @@ export async function signUpDoctor(payload: DoctorSignUpPayload) {
     }),
   });
 
+  if (!response.user) {
+    throw new ApiError("We could not create the doctor account.", 500);
+  }
+
   return response.user;
 }
 
 export async function fetchDoctorPatients() {
   const response = await request<AssignmentsEnvelope>("/auth/doctor/patients/");
   return response.assignments;
+}
+
+export async function fetchPatientDashboard() {
+  return request<PatientDashboardData>("/api/dashboard/");
+}
+
+export async function syncPatientFromHisApi(personalIdentifier: string) {
+  return request<SyncEnvelope>("/api/onboarding/sync/", {
+    method: "POST",
+    body: JSON.stringify({
+      personal_identifier: personalIdentifier,
+    }),
+  });
 }
 
 export async function assignDoctorPatient(payload: DoctorPatientLookupPayload) {

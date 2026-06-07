@@ -1,5 +1,6 @@
 from django.contrib.auth import authenticate, get_user_model
 from django.http import FileResponse
+from django.http import FileResponse
 from django.shortcuts import get_object_or_404
 from django.db.models import Q
 from django.db import IntegrityError
@@ -15,6 +16,8 @@ from apps.core.models import DoctorProfile, LaboratoryResultAttachment, PatientP
 from apps.core.email_notifications import send_email_notification
 from apps.core.services import sync_user_from_mock_hospital
 from his_mock.client import MockHospitalAPIClient
+from .ai_vision_service import analyze_scan_with_ai
+from .scan_service import ScanNotFoundError, get_scan, list_scans, scan_image_path
 from .laboratory import (
     LaboratoryResultInputSerializer,
     create_laboratory_result,
@@ -274,3 +277,55 @@ def doctor_dashboard(user):
             ]
         },
     })
+
+
+class ScanListView(APIView):
+    authentication_classes = []
+    permission_classes = []
+
+    def get(self, request):
+        return Response(list_scans())
+
+
+class ScanDetailView(APIView):
+    authentication_classes = []
+    permission_classes = []
+
+    def get(self, request, scan_id):
+        try:
+            return Response(get_scan(scan_id))
+        except ScanNotFoundError as error:
+            return Response({"error": str(error)}, status=404)
+
+
+class ScanImageView(APIView):
+    authentication_classes = []
+    permission_classes = []
+
+    def get(self, request, scan_id):
+        try:
+            scan = get_scan(scan_id)
+            return FileResponse(scan_image_path(scan).open("rb"), content_type="image/png")
+        except ScanNotFoundError as error:
+            return Response({"error": str(error)}, status=404)
+        except FileNotFoundError as error:
+            return Response({"error": str(error)}, status=404)
+
+
+class AnalyzeScanView(APIView):
+    authentication_classes = []
+    permission_classes = []
+
+    def post(self, request, scan_id):
+        try:
+            scan = get_scan(scan_id)
+            result = analyze_scan_with_ai(scan)
+        except ScanNotFoundError as error:
+            return Response({"error": str(error)}, status=404)
+        except FileNotFoundError as error:
+            return Response({"error": str(error)}, status=503)
+        except RuntimeError as error:
+            return Response({"error": str(error)}, status=503)
+        except Exception:
+            return Response({"error": "AI scan analysis failed. Try again later."}, status=502)
+        return Response({"scan": scan, "aiResult": result})

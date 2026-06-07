@@ -1,6 +1,7 @@
-from django.urls import path
+from django.urls import include, path
 
 from .views import (
+    AnalyzeScanView,
     DashboardView,
     EmailNotificationCreateView,
     HealthCheckView,
@@ -10,24 +11,62 @@ from .views import (
     LogoutView,
     MeView,
     OnboardingSyncView,
+    ScanDetailView,
+    ScanImageView,
+    ScanListView,
     SignupView,
 )
 
 app_name = "api"
 
+
+def slash_compatible(route, view, *, name=None):
+    route = route.rstrip("/")
+    patterns = [path(f"{route}/", view, name=name)]
+
+    if route:
+        patterns.append(path(route, view))
+
+    return patterns
+
+
 urlpatterns = [
-    path("health/", HealthCheckView.as_view(), name="health-check"),
-    path("auth/signup/", SignupView.as_view(), name="signup"),
-    path("auth/login/", LoginView.as_view(), name="login"),
-    path("auth/logout/", LogoutView.as_view(), name="logout"),
-    path("auth/me/", MeView.as_view(), name="me"),
-    path("dashboard/", DashboardView.as_view(), name="dashboard"),
-    path("onboarding/sync/", OnboardingSyncView.as_view(), name="onboarding-sync"),
-    path("laboratory/results/", LaboratoryResultCreateView.as_view(), name="laboratory-result-create"),
-    path("notifications/email/", EmailNotificationCreateView.as_view(), name="email-notification-create"),
-    path(
-        "laboratory/results/attachments/<uuid:attachment_id>/download/",
+    *slash_compatible("health", HealthCheckView.as_view(), name="health-check"),
+    *slash_compatible("auth/signup", SignupView.as_view(), name="signup"),
+    *slash_compatible("auth/login", LoginView.as_view(), name="login"),
+    *slash_compatible("auth/logout", LogoutView.as_view(), name="logout"),
+    *slash_compatible("auth/me", MeView.as_view(), name="me"),
+    *slash_compatible("dashboard", DashboardView.as_view(), name="dashboard"),
+    *slash_compatible(
+        "onboarding/sync",
+        OnboardingSyncView.as_view(),
+        name="onboarding-sync",
+    ),
+    *slash_compatible(
+        "laboratory/results",
+        LaboratoryResultCreateView.as_view(),
+        name="laboratory-result-create",
+    ),
+    *slash_compatible("scans", ScanListView.as_view(), name="scan-list"),
+    *slash_compatible(
+        "scans/<str:scan_id>",
+        ScanDetailView.as_view(),
+        name="scan-detail",
+    ),
+    *slash_compatible(
+        "scans/<str:scan_id>/image",
+        ScanImageView.as_view(),
+        name="scan-image",
+    ),
+    *slash_compatible(
+        "analyze-scan/<str:scan_id>",
+        AnalyzeScanView.as_view(),
+        name="analyze-scan",
+    ),
+    *slash_compatible(
+        "laboratory/results/attachments/<uuid:attachment_id>/download",
         LaboratoryResultAttachmentDownloadView.as_view(),
         name="laboratory-result-attachment-download",
     ),
+    path("", include("apps.medical.urls")),
 ]
