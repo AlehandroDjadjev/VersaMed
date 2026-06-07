@@ -68,7 +68,7 @@ class AuthenticationFlowTests(TestCase):
         challenge_response = self.client.post(
             reverse("users:login"),
             {
-                "username": username,
+                "login_id": username,
                 "password": password,
             },
             format="json",
@@ -194,7 +194,8 @@ class AuthenticationFlowTests(TestCase):
 
         self.assertEqual(me_response.status_code, 200)
         self.assertEqual(logout_response.status_code, 204)
-        self.assertEqual(post_logout_me_response.status_code, 403)
+        self.assertEqual(post_logout_me_response.status_code, 200)
+        self.assertIsNone(post_logout_me_response.json()["user"])
 
     def test_login_accepts_email_identifier(self):
         user = User.objects.create_user(
@@ -215,7 +216,7 @@ class AuthenticationFlowTests(TestCase):
         challenge_response = self.client.post(
             reverse("users:login"),
             {
-                "email": "byemail@example.com",
+                "login_id": "byemail@example.com",
                 "password": "VerySecurePass123",
             },
             format="json",
@@ -225,11 +226,74 @@ class AuthenticationFlowTests(TestCase):
         self.assertEqual(challenge_response.status_code, 202)
         self.assertEqual(challenge_response.json()["email"], "byemail@example.com")
 
+    def test_login_accepts_patient_egn_identifier(self):
+        user = User.objects.create_user(
+            username="byegn",
+            email="byegn@example.com",
+            password="VerySecurePass123",
+            role=User.Role.PATIENT,
+        )
+        PatientProfile.objects.create(
+            user=user,
+            personal_identifier="8101010000",
+            birth_date=date(1981, 1, 1),
+            gender="female",
+            blood_type="B+",
+            address="Plovdiv",
+        )
+
+        challenge_response = self.client.post(
+            reverse("users:login"),
+            {
+                "login_id": "8101010000",
+                "password": "VerySecurePass123",
+            },
+            format="json",
+            HTTP_X_CSRFTOKEN=self.csrf_token(),
+        )
+
+        self.assertEqual(challenge_response.status_code, 202)
+        self.assertEqual(challenge_response.json()["email"], "byegn@example.com")
+
+    def test_login_accepts_doctor_uin_identifier(self):
+        institution = MedicalInstitution.objects.create(
+            name="Doctor Login Clinic",
+            nhif_number="220019999",
+            city="Sofia",
+            address="Doctor St 9",
+            phone_number="",
+        )
+        user = User.objects.create_user(
+            username="byuin",
+            email="byuin@example.com",
+            password="VerySecurePass123",
+            role=User.Role.DOCTOR,
+        )
+        DoctorProfile.objects.create(
+            user=user,
+            uin="9988776655",
+            specialty="Cardiology",
+            medical_institution=institution,
+        )
+
+        challenge_response = self.client.post(
+            reverse("users:login"),
+            {
+                "login_id": "9988776655",
+                "password": "VerySecurePass123",
+            },
+            format="json",
+            HTTP_X_CSRFTOKEN=self.csrf_token(),
+        )
+
+        self.assertEqual(challenge_response.status_code, 202)
+        self.assertEqual(challenge_response.json()["email"], "byuin@example.com")
+
     def test_login_rejects_invalid_credentials(self):
         response = self.client.post(
             reverse("users:login"),
             {
-                "username": "missing",
+                "login_id": "missing",
                 "password": "wrongpass123",
             },
             format="json",
@@ -239,7 +303,7 @@ class AuthenticationFlowTests(TestCase):
         self.assertEqual(response.status_code, 400)
         self.assertEqual(
             response.json()["non_field_errors"],
-            ["Invalid email or password."],
+            ["Invalid login or password."],
         )
 
 
@@ -295,7 +359,7 @@ class DoctorAssignmentTests(TestCase):
         challenge_response = self.client.post(
             reverse("users:login"),
             {
-                "username": "doctorone",
+                "login_id": "doctorone",
                 "password": "VerySecurePass123",
             },
             format="json",
@@ -358,7 +422,7 @@ class DoctorAssignmentTests(TestCase):
         challenge_response = self.client.post(
             reverse("users:login"),
             {
-                "username": "patientone",
+                "login_id": "patientone",
                 "password": "VerySecurePass123",
             },
             format="json",

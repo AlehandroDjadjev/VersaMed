@@ -7,7 +7,12 @@ export function proxy(request: NextRequest) {
   const { pathname, search } = request.nextUrl;
   const isGuestOnlyPath = pathname === "/login" || pathname.startsWith("/signup");
 
-  if ((pathname.startsWith("/account") || pathname.startsWith("/doctor")) && !isAuthenticated) {
+  if (
+    (pathname.startsWith("/account") ||
+      pathname.startsWith("/doctor") ||
+      pathname.startsWith("/patient")) &&
+    !isAuthenticated
+  ) {
     const loginUrl = new URL("/login", request.url);
     loginUrl.searchParams.set("next", `${pathname}${search}`);
     return NextResponse.redirect(loginUrl);
@@ -24,6 +29,7 @@ export const config = {
   matcher: [
     "/account/:path*",
     "/doctor/:path*",
+    "/patient/:path*",
     "/login",
     "/signup",
     "/signup/:path*",

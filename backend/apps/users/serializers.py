@@ -1,6 +1,7 @@
 from django.contrib.auth import authenticate, get_user_model
 from django.contrib.auth.password_validation import validate_password
 from django.core.exceptions import ValidationError as DjangoValidationError
+from django.db.models import Q
 from rest_framework import serializers
 
 from apps.core.models import DoctorProfile, MedicalInstitution, PatientProfile
@@ -266,35 +267,47 @@ class DoctorSignUpSerializer(BaseSignUpSerializer):
 
 
 class LoginSerializer(serializers.Serializer):
+    login_id = serializers.CharField(required=False, write_only=True)
     email = serializers.EmailField(required=False)
     username = serializers.CharField(required=False, write_only=True)
     password = serializers.CharField(write_only=True, trim_whitespace=False)
 
     def validate(self, attrs):
         request = self.context["request"]
+        login_id = (attrs.get("login_id") or "").strip()
         email = (attrs.get("email") or "").strip().lower()
         username = (attrs.get("username") or "").strip()
+        identifier = login_id or email or username
 
-        if not email and not username:
+        if not identifier:
             raise serializers.ValidationError(
-                {"email": ["Enter the email address for this account."]}
+                {"login_id": ["Enter your username, email, EGN, or UIN."]}
             )
 
-        matched_user = User.objects.filter(email__iexact=email).first() if email else None
+        matched_user = (
+            User.objects.filter(
+                Q(username__iexact=identifier)
+                | Q(email__iexact=identifier.lower())
+                | Q(patient_profile__personal_identifier=identifier)
+                | Q(doctor_profile__uin=identifier)
+            )
+            .distinct()
+            .first()
+        )
         user = authenticate(
             request=request,
-            username=matched_user.username if matched_user else username or email,
+            username=matched_user.username if matched_user else identifier,
             password=attrs["password"],
         )
 
         if user is None:
             raise serializers.ValidationError(
-                {"non_field_errors": ["Invalid email or password."]}
+                {"non_field_errors": ["Invalid login or password."]}
             )
 
         if not user.is_active:
             raise serializers.ValidationError(
-                {"email": ["This account is inactive."]}
+                {"login_id": ["This account is inactive."]}
             )
 
         attrs["user"] = user

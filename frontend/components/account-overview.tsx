@@ -190,14 +190,14 @@ export function AccountOverview() {
 
             <article className="glass-panel p-6">
               <p className="text-xs uppercase tracking-[0.28em] text-slate-500">
-                Role-aware setup
+                HIS records
               </p>
               <h2 className="mt-4 text-2xl font-semibold tracking-tight text-slate-950">
-                The user model now supports roles.
+                Open your organized patient data.
               </h2>
               <p className="mt-3 text-sm leading-7 text-slate-600">
-                VersaMed can distinguish patient and doctor accounts while still
-                using one central custom user model.
+                View synced immunizations, hospitalizations, and epicrisis notes
+                from the HIS-backed patient dashboard.
               </p>
             </article>
 
@@ -206,12 +206,18 @@ export function AccountOverview() {
                 Quick actions
               </p>
               <div className="mt-4 flex flex-col gap-3">
+                <Link
+                  href="/patient/records"
+                  className="primary-button px-5 py-3 text-center"
+                >
+                  Open records
+                </Link>
                 <Link href="/" className="secondary-button px-5 py-3 text-center">
                   Return home
                 </Link>
                 <button
                   type="button"
-                  className="primary-button px-5 py-3 disabled:cursor-not-allowed disabled:opacity-70"
+                  className="secondary-button px-5 py-3 disabled:cursor-not-allowed disabled:opacity-70"
                   onClick={() => void handleLogout()}
                   disabled={isPending}
                 >

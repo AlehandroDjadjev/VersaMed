@@ -3,6 +3,7 @@ from django.core.management.base import BaseCommand, CommandError
 from django.db import OperationalError
 
 from apps.core.models import DoctorProfile, MedicalInstitution, PatientProfile
+from apps.core.services import sync_user_from_mock_hospital
 from apps.users.models import DoctorPatientAssignment
 
 
@@ -48,14 +49,7 @@ class Command(BaseCommand):
         doctor_user.set_password("DemoDoctor123!")
         doctor_user.save()
 
-        doctor_profile, _ = DoctorProfile.objects.update_or_create(
-            user=doctor_user,
-            defaults={
-                "uin": "1234567890",
-                "specialty": "General Practice",
-                "medical_institution": institution,
-            },
-        )
+        doctor_profile = sync_user_from_mock_hospital(doctor_user, "1234567890")
 
         patient_user, patient_created = User.objects.get_or_create(
             username="demo_patient",
@@ -77,16 +71,7 @@ class Command(BaseCommand):
         patient_user.set_password("DemoPatient123!")
         patient_user.save()
 
-        patient_profile, _ = PatientProfile.objects.update_or_create(
-            user=patient_user,
-            defaults={
-                "personal_identifier": "9001010000",
-                "birth_date": "1990-01-01",
-                "gender": "male",
-                "blood_type": "A+",
-                "address": "Sofia, Synthetic District",
-            },
-        )
+        patient_profile = sync_user_from_mock_hospital(patient_user, "9001010000")
 
         assignment, assignment_created = DoctorPatientAssignment.objects.get_or_create(
             doctor=doctor_profile,
