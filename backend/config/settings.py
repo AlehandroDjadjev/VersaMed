@@ -3,8 +3,13 @@ from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+
+def env_bool(name, default):
+    return os.getenv(name, str(default)).lower() in {"1", "true", "yes", "on"}
+
+
 SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", "django-insecure-change-me")
-DEBUG = os.getenv("DJANGO_DEBUG", "true").lower() == "true"
+DEBUG = env_bool("DJANGO_DEBUG", True)
 ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "127.0.0.1,localhost").split(",")
 DEFAULT_DEV_ORIGINS = "http://127.0.0.1:3000,http://localhost:3000"
 DEFAULT_CORS_ORIGINS = DEFAULT_DEV_ORIGINS if DEBUG else ""
@@ -25,9 +30,11 @@ INSTALLED_APPS = [
     "apps.core",
     "apps.users",
     "apps.api",
+    "his_mock",
 ]
 
 MIDDLEWARE = [
+    "his_mock.middleware.HisMockMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "corsheaders.middleware.CorsMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
@@ -112,3 +119,9 @@ CSRF_COOKIE_SAMESITE = "Lax"
 SECURE_CONTENT_TYPE_NOSNIFF = True
 SECURE_REFERRER_POLICY = "same-origin"
 X_FRAME_OPTIONS = "DENY"
+CORS_ALLOW_ALL_ORIGINS = DEBUG
+
+MOCK_AUTH_DISABLED = env_bool("MOCK_AUTH_DISABLED", True)
+MOCK_LATENCY_MS = int(os.getenv("MOCK_LATENCY_MS", "0"))
+MOCK_FORCE_ERROR = env_bool("MOCK_FORCE_ERROR", False)
+MOCK_ERROR_STATUS = int(os.getenv("MOCK_ERROR_STATUS", "500"))
