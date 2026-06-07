@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useEffect, useMemo, useState } from "react";
+import { startTransition, useEffect, useMemo, useState } from "react";
 
 import { useAuth } from "@/components/auth-provider";
 import type { SyncEnvelope } from "@/lib/auth-client";

@@ -70,8 +70,10 @@ export function DemoLab() {
           <div className="mt-5 space-y-3 text-sm text-slate-600">
             <Detail label="Username" value={demoPatient.username} />
             <Detail label="Password" value={demoPatient.password} />
+            <Detail label="Email" value={demoPatient.email} />
             <Detail label="EGN" value={demoPatient.egn} />
             <Detail label="Birth date" value={demoPatient.birthDate} />
+            <Detail label="Coverage" value={demoPatient.coverage} />
           </div>
         </article>
       </section>

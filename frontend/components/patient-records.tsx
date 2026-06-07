@@ -122,6 +122,7 @@ export function PatientRecords() {
   const immunizations = dashboard?.database.immunizations ?? [];
   const hospitalizations = dashboard?.database.hospitalizations ?? [];
   const laboratoryResults = dashboard?.database.laboratory_results ?? [];
+  const laboratoryResults = dashboard?.database.laboratory_results ?? [];
   const patient = dashboard?.patient;
   const apiStatus = dashboard?.mock_hospital_api;
 
@@ -229,6 +230,7 @@ export function PatientRecords() {
               <div className="mt-4 space-y-2 text-sm text-slate-600">
                 <Detail label="Immunizations" value={String(immunizations.length)} />
                 <Detail label="Hospitalizations" value={String(hospitalizations.length)} />
+                <Detail label="Lab and scan uploads" value={String(laboratoryResults.length)} />
                 <Detail
                   label="Epicrises"
                   value={String(hospitalizations.filter((item) => item.epicrisis).length)}
