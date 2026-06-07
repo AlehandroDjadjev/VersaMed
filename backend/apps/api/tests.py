@@ -5,11 +5,58 @@ from pathlib import Path
 from unittest.mock import patch
 
 from django.core.files.uploadedfile import SimpleUploadedFile
+from django.conf import settings
 from django.test import override_settings
 from rest_framework.test import APITestCase
 
 from apps.core.models import EmailNotification, LaboratoryResult, LaboratoryResultAttachment
 from apps.users.models import User
+
+
+class AnalyzeScanApiTests(APITestCase):
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.scan_id = json.loads((settings.BASE_DIR / "scans.json").read_text())[0]["id"]
+        cls.endpoint = f"/api/analyze-scan/{cls.scan_id}"
+
+    def test_requires_patient_symptoms(self):
+        response = self.client.post(self.endpoint, {}, format="json")
+
+        self.assertEqual(response.status_code, 400)
+        self.assertIn("patient_symptoms", response.data)
+
+    def test_rejects_blank_patient_symptoms(self):
+        response = self.client.post(self.endpoint, {"patient_symptoms": "   "}, format="json")
+
+        self.assertEqual(response.status_code, 400)
+        self.assertIn("patient_symptoms", response.data)
+
+    @patch("apps.api.views.analyze_scan_with_ai")
+    def test_passes_patient_symptoms_to_ai_service(self, analyze_scan):
+        analyze_scan.return_value = {
+            "scanType": "CT",
+            "bodyPart": "Chest",
+            "imageQuality": "Adequate",
+            "visibleAnatomy": [],
+            "possibleFindings": [],
+            "simpleExplanation": "Mock result.",
+            "recommendedDepartment": "Radiology",
+            "urgency": "low",
+            "limitations": [],
+            "disclaimer": "Mock disclaimer.",
+        }
+
+        response = self.client.post(
+            self.endpoint,
+            {"patient_symptoms": "  Cough and chest tightness for three days.  "},
+            format="json",
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data["patientSymptoms"], "Cough and chest tightness for three days.")
+        analyze_scan.assert_called_once()
+        self.assertEqual(analyze_scan.call_args.args[1], "Cough and chest tightness for three days.")
 
 
 class LaboratoryResultApiTests(APITestCase):
