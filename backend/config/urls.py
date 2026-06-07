@@ -8,5 +8,5 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("api/", include("apps.api.urls")),
     path("auth/", include("apps.users.urls")),
-    path("/his_mock", include("his_mock.urls")),
+    path("his_mock/", include("his_mock.urls")),
 ]

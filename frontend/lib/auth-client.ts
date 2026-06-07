@@ -1,28 +1,115 @@
+export type UserRole = "patient" | "doctor" | "admin";
+
+export type PatientProfile = {
+  egn: string;
+  first_name: string;
+  middle_name: string;
+  last_name: string;
+  birth_date: string;
+  gender: string;
+  blood_type: string;
+  address: string;
+};
+
+export type DoctorProfile = {
+  first_name: string;
+  middle_name: string;
+  last_name: string;
+  uin: string;
+  specialty: string;
+  assigned_patients_count: number;
+};
+
 export type AuthUser = {
   id: number;
   username: string;
   email: string;
   first_name: string;
+  middle_name: string;
   last_name: string;
+  role: UserRole;
+  patient_profile: PatientProfile | null;
+  doctor_profile: DoctorProfile | null;
+};
+
+export type LoginChallenge = {
+  challenge_id: string;
+  expires_in: number;
+  email: string;
+  dev_code?: string;
+};
+
+export type AssignedPatient = {
+  egn: string;
+  first_name: string;
+  middle_name: string;
+  last_name: string;
+  birth_date: string;
+  user: AuthUser;
+};
+
+export type DoctorPatientAssignment = {
+  id: number;
+  assigned_at: string;
+  patient: AssignedPatient;
 };
 
 type AuthEnvelope = {
   user: AuthUser;
 };
 
+type AssignmentsEnvelope = {
+  assignments: DoctorPatientAssignment[];
+};
+
+type AssignmentEnvelope = {
+  assignment: DoctorPatientAssignment;
+  created: boolean;
+};
+
 type FieldErrors = Record<string, string[]>;
 
-type LoginPayload = {
-  username: string;
+export type LoginPayload = {
+  loginId: string;
   password: string;
 };
 
-type SignUpPayload = {
+export type VerifyLoginPayload = {
+  challengeId: string;
+  code: string;
+};
+
+export type PatientSignUpPayload = {
   username: string;
   email: string;
   password: string;
   passwordConfirm: string;
   firstName: string;
+  middleName: string;
+  lastName: string;
+  egn: string;
+  birthDate: string;
+  gender: string;
+  bloodType: string;
+  address: string;
+};
+
+export type DoctorSignUpPayload = {
+  username: string;
+  email: string;
+  password: string;
+  passwordConfirm: string;
+  firstName: string;
+  middleName: string;
+  lastName: string;
+  uin: string;
+  specialty: string;
+};
+
+export type DoctorPatientLookupPayload = {
+  egn: string;
+  firstName: string;
+  middleName: string;
   lastName: string;
 };
 
@@ -133,17 +220,34 @@ export async function fetchCurrentUser() {
   return payload.user;
 }
 
-export async function loginUser(payload: LoginPayload) {
-  const response = await request<AuthEnvelope>("/auth/login/", {
+export async function requestLoginChallenge(payload: LoginPayload) {
+  const loginId = payload.loginId.trim();
+  const usesEmail = loginId.includes("@");
+
+  return request<LoginChallenge>("/auth/login/", {
     method: "POST",
-    body: JSON.stringify(payload),
+    body: JSON.stringify({
+      email: usesEmail ? loginId : "",
+      username: usesEmail ? "" : loginId,
+      password: payload.password,
+    }),
+  });
+}
+
+export async function verifyLoginCode(payload: VerifyLoginPayload) {
+  const response = await request<AuthEnvelope>("/auth/login/verify/", {
+    method: "POST",
+    body: JSON.stringify({
+      challenge_id: payload.challengeId,
+      code: payload.code,
+    }),
   });
 
   return response.user;
 }
 
-export async function signUpUser(payload: SignUpPayload) {
-  const response = await request<AuthEnvelope>("/auth/signup/", {
+export async function signUpPatient(payload: PatientSignUpPayload) {
+  const response = await request<AuthEnvelope>("/auth/signup/patient/", {
     method: "POST",
     body: JSON.stringify({
       username: payload.username,
@@ -151,11 +255,53 @@ export async function signUpUser(payload: SignUpPayload) {
       password: payload.password,
       password_confirm: payload.passwordConfirm,
       first_name: payload.firstName,
+      middle_name: payload.middleName,
       last_name: payload.lastName,
+      egn: payload.egn,
+      birth_date: payload.birthDate,
+      gender: payload.gender,
+      blood_type: payload.bloodType,
+      address: payload.address,
     }),
   });
 
   return response.user;
+}
+
+export async function signUpDoctor(payload: DoctorSignUpPayload) {
+  const response = await request<AuthEnvelope>("/auth/signup/doctor/", {
+    method: "POST",
+    body: JSON.stringify({
+      username: payload.username,
+      email: payload.email,
+      password: payload.password,
+      password_confirm: payload.passwordConfirm,
+      first_name: payload.firstName,
+      middle_name: payload.middleName,
+      last_name: payload.lastName,
+      uin: payload.uin,
+      specialty: payload.specialty,
+    }),
+  });
+
+  return response.user;
+}
+
+export async function fetchDoctorPatients() {
+  const response = await request<AssignmentsEnvelope>("/auth/doctor/patients/");
+  return response.assignments;
+}
+
+export async function assignDoctorPatient(payload: DoctorPatientLookupPayload) {
+  return request<AssignmentEnvelope>("/auth/doctor/patients/", {
+    method: "POST",
+    body: JSON.stringify({
+      egn: payload.egn,
+      first_name: payload.firstName,
+      middle_name: payload.middleName,
+      last_name: payload.lastName,
+    }),
+  });
 }
 
 export async function logoutUser() {

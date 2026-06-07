@@ -1,15 +1,20 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useTransition } from "react";
 
 import { useAuth } from "@/components/auth-provider";
 
 export function AppChrome() {
+  const pathname = usePathname();
   const router = useRouter();
   const { isAuthenticated, isLoading, logout, user } = useAuth();
   const [isPending, startTransition] = useTransition();
+
+  if (pathname === "/login" || pathname.startsWith("/signup")) {
+    return null;
+  }
 
   async function handleLogout() {
     await logout();
@@ -38,6 +43,9 @@ export function AppChrome() {
           </Link>
 
           <div className="flex items-center gap-2 sm:gap-3">
+            <Link href="/demo" className="secondary-button px-4 py-2">
+              Demo
+            </Link>
             {isLoading ? (
               <span className="chip animate-pulse">Checking session</span>
             ) : isAuthenticated ? (

@@ -1,8 +1,10 @@
 # Python
 backend/.venv/
+**/.venv/
 backend/db.sqlite3
-backend/**/__pycache__/
-backend/**/*.pyc
+backend/*.bak
+**/__pycache__/
+**/*.pyc
 
 # IDE / OS
 .idea/
@@ -11,3 +13,12 @@ backend/**/*.pyc
 Thumbs.db
 
 .env
+
+# Frontend / Node
+**/node_modules/
+**/.next/
+**/.turbo/
+**/.vercel/
+frontend/package-lock.json
+**/package-lock.json
+**/tsconfig.tsbuildinfo

@@ -9,45 +9,44 @@ import {
 } from "react";
 
 import {
+  assignDoctorPatient,
   fetchCurrentUser,
-  loginUser,
+  fetchDoctorPatients,
   logoutUser,
   primeSecurityContext,
-  signUpUser,
+  requestLoginChallenge,
+  signUpDoctor,
+  signUpPatient,
   type AuthUser,
+  type DoctorPatientAssignment,
+  type DoctorPatientLookupPayload,
+  type DoctorSignUpPayload,
+  type LoginChallenge,
+  type LoginPayload,
+  type PatientSignUpPayload,
+  type VerifyLoginPayload,
+  verifyLoginCode,
 } from "@/lib/auth-client";
-
-type LoginInput = {
-  username: string;
-  password: string;
-};
-
-type SignUpInput = {
-  username: string;
-  email: string;
-  password: string;
-  passwordConfirm: string;
-  firstName: string;
-  lastName: string;
-};
 
 type AuthContextValue = {
   user: AuthUser | null;
   isAuthenticated: boolean;
   isLoading: boolean;
-  login: (payload: LoginInput) => Promise<AuthUser>;
+  beginLogin: (payload: LoginPayload) => Promise<LoginChallenge>;
+  verifyLogin: (payload: VerifyLoginPayload) => Promise<AuthUser>;
+  signupPatient: (payload: PatientSignUpPayload) => Promise<AuthUser>;
+  signupDoctor: (payload: DoctorSignUpPayload) => Promise<AuthUser>;
+  fetchAssignedPatients: () => Promise<DoctorPatientAssignment[]>;
+  assignPatientToDoctor: (
+    payload: DoctorPatientLookupPayload,
+  ) => Promise<{ assignment: DoctorPatientAssignment; created: boolean }>;
   logout: () => Promise<void>;
   refreshUser: () => Promise<void>;
-  signup: (payload: SignUpInput) => Promise<AuthUser>;
 };
 
 const AuthContext = createContext<AuthContextValue | null>(null);
 
-type AuthProviderProps = {
-  children: ReactNode;
-};
-
-export function AuthProvider({ children }: AuthProviderProps) {
+export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<AuthUser | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -95,16 +94,34 @@ export function AuthProvider({ children }: AuthProviderProps) {
     }
   }
 
-  async function login(payload: LoginInput) {
-    const nextUser = await loginUser(payload);
+  async function beginLogin(payload: LoginPayload) {
+    return requestLoginChallenge(payload);
+  }
+
+  async function verifyLogin(payload: VerifyLoginPayload) {
+    const nextUser = await verifyLoginCode(payload);
     setUser(nextUser);
     return nextUser;
   }
 
-  async function signup(payload: SignUpInput) {
-    const nextUser = await signUpUser(payload);
+  async function signupPatientAction(payload: PatientSignUpPayload) {
+    const nextUser = await signUpPatient(payload);
     setUser(nextUser);
     return nextUser;
+  }
+
+  async function signupDoctorAction(payload: DoctorSignUpPayload) {
+    const nextUser = await signUpDoctor(payload);
+    setUser(nextUser);
+    return nextUser;
+  }
+
+  async function fetchAssignedPatients() {
+    return fetchDoctorPatients();
+  }
+
+  async function assignPatientToDoctor(payload: DoctorPatientLookupPayload) {
+    return assignDoctorPatient(payload);
   }
 
   async function logout() {
@@ -119,10 +136,14 @@ export function AuthProvider({ children }: AuthProviderProps) {
         user,
         isAuthenticated: Boolean(user),
         isLoading,
-        login,
+        beginLogin,
+        verifyLogin,
+        signupPatient: signupPatientAction,
+        signupDoctor: signupDoctorAction,
+        fetchAssignedPatients,
+        assignPatientToDoctor,
         logout,
         refreshUser,
-        signup,
       }}
     >
       {children}

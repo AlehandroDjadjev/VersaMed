@@ -136,3 +136,15 @@ MOCK_AUTH_DISABLED = env_bool("MOCK_AUTH_DISABLED", True)
 MOCK_LATENCY_MS = int(os.getenv("MOCK_LATENCY_MS", "0"))
 MOCK_FORCE_ERROR = env_bool("MOCK_FORCE_ERROR", False)
 MOCK_ERROR_STATUS = int(os.getenv("MOCK_ERROR_STATUS", "500"))
+
+EMAIL_BACKEND = os.getenv(
+    "DJANGO_EMAIL_BACKEND",
+    "django.core.mail.backends.console.EmailBackend" if DEBUG else "django.core.mail.backends.smtp.EmailBackend",
+)
+DEFAULT_FROM_EMAIL = os.getenv("DJANGO_DEFAULT_FROM_EMAIL", "no-reply@versamed.local")
+LOGIN_VERIFICATION_CODE_TTL_SECONDS = int(
+    os.getenv("LOGIN_VERIFICATION_CODE_TTL_SECONDS", "600")
+)
+LOGIN_VERIFICATION_MAX_ATTEMPTS = int(
+    os.getenv("LOGIN_VERIFICATION_MAX_ATTEMPTS", "5")
+)
