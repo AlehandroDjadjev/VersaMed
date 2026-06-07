@@ -39,7 +39,8 @@ Routes:
 - `GET /api/scans`
 - `GET /api/scans/<scan_id>`
 - `GET /api/scans/<scan_id>/image`
-- `POST /api/analyze-scan/<scan_id>`
+- `POST /api/analyze-scan/<scan_id>` with JSON body
+  `{"patient_symptoms":"Describe what the patient feels or reports"}`
 
 The provider-specific implementation is isolated in the AI vision service, so
 another model provider can replace it without changing the API routes.

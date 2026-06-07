@@ -1,9 +1,9 @@
 from django.contrib.auth import authenticate, get_user_model
 from django.http import FileResponse
-from django.http import FileResponse
 from django.shortcuts import get_object_or_404
 from django.db.models import Q
 from django.db import IntegrityError
+from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
 from rest_framework.authtoken.models import Token
 from rest_framework.parsers import FormParser, JSONParser, MultiPartParser
@@ -25,6 +25,15 @@ from .laboratory import (
     validate_attachments,
 )
 from .notifications import CanSendEmailNotification, EmailNotificationSerializer
+
+
+class AnalyzeScanInputSerializer(serializers.Serializer):
+    patient_symptoms = serializers.CharField(
+        allow_blank=False,
+        trim_whitespace=True,
+        max_length=2000,
+        help_text="Patient-reported symptoms or complaint to include in the AI scan analysis.",
+    )
 
 
 def user_data(user):
@@ -331,9 +340,12 @@ class AnalyzeScanView(APIView):
     permission_classes = []
 
     def post(self, request, scan_id):
+        serializer = AnalyzeScanInputSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        patient_symptoms = serializer.validated_data["patient_symptoms"]
         try:
             scan = get_scan(scan_id)
-            result = analyze_scan_with_ai(scan)
+            result = analyze_scan_with_ai(scan, patient_symptoms)
         except ScanNotFoundError as error:
             return Response({"error": str(error)}, status=404)
         except FileNotFoundError as error:
@@ -342,4 +354,4 @@ class AnalyzeScanView(APIView):
             return Response({"error": str(error)}, status=503)
         except Exception:
             return Response({"error": "AI scan analysis failed. Try again later."}, status=502)
-        return Response({"scan": scan, "aiResult": result})
+        return Response({"scan": scan, "patientSymptoms": patient_symptoms, "aiResult": result})
