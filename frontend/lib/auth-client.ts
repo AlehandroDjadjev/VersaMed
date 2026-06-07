@@ -54,6 +54,21 @@ export type DoctorPatientAssignment = {
   patient: AssignedPatient;
 };
 
+export type LaboratoryAttachment = {
+  id: string;
+  file_type: string;
+  title: string;
+};
+
+export type LaboratoryResultSummary = {
+  id: string;
+  status: string;
+  patient_egn: string | null;
+  summary: string;
+  test_results: Array<Record<string, unknown>>;
+  attachments: LaboratoryAttachment[];
+};
+
 export type PatientDashboardData = {
   user: {
     id: number;
@@ -67,6 +82,7 @@ export type PatientDashboardData = {
     gender: string;
     blood_type: string;
     address: string;
+    egn?: string;
   };
   mock_hospital_api: {
     status: string;
@@ -96,12 +112,85 @@ export type PatientDashboardData = {
         recommendations: string;
       } | null;
     }>;
+    laboratory_results?: LaboratoryResultSummary[];
   };
 };
 
-type SyncEnvelope = {
+export type MedicalProblem = {
+  id: number;
+  title: string;
+  summary: string;
+  body_area: string;
+  keywords: string[];
+  created_at: string;
+  updated_at: string;
+};
+
+export type MedicalDiagnosis = {
+  id: number;
+  kind: string;
+  title: string;
+  raw_text: string;
+  raw_json: Record<string, unknown>;
+  happened_at: string | null;
+  summary: string;
+  description: string;
+  extracted_findings: Array<Record<string, unknown>>;
+  keywords: string[];
+  body_areas: string[];
+  created_at: string;
+};
+
+export type DoctorPatientWorkspace = {
+  assignment: DoctorPatientAssignment;
+  patient_dashboard: PatientDashboardData;
+  medical_workspace: {
+    patient_id: number;
+    problems: MedicalProblem[];
+    diagnoses: MedicalDiagnosis[];
+  };
+};
+
+export type DiagnosisProblemLink = {
+  id: number;
+  problem: MedicalProblem;
+  strength: "weak" | "moderate" | "strong";
+  reason: string;
+  created_at: string;
+};
+
+export type AnalyzedDiagnosis = {
+  source_id: string;
+  diagnosis: {
+    id: number;
+    kind: string;
+    title: string;
+    raw_text: string;
+    raw_json: Record<string, unknown>;
+    happened_at: string | null;
+    summary: string;
+    description: string;
+    extracted_findings: Array<Record<string, string | number | null>>;
+    keywords: string[];
+    body_areas: string[];
+    created_at: string;
+  };
+  problem_links: DiagnosisProblemLink[];
+};
+
+export type SyncEnvelope = {
   status: string;
   user: AuthUser;
+  new_records: {
+    hospitalizations: number;
+  };
+  analyzed_diagnoses: AnalyzedDiagnosis[];
+  latest_diagnosis: AnalyzedDiagnosis | null;
+  analysis_errors: Array<{
+    source_id: string;
+    message: string;
+  }>;
+  new_problem: MedicalProblem | null;
 };
 
 type AuthEnvelope = {
@@ -161,6 +250,11 @@ export type DoctorPatientLookupPayload = {
   firstName: string;
   middleName: string;
   lastName: string;
+};
+
+export type PatientLaboratoryUploadPayload = {
+  userId: number;
+  files: File[];
 };
 
 const SAFE_METHODS = new Set(["GET", "HEAD", "OPTIONS", "TRACE"]);
@@ -352,8 +446,16 @@ export async function fetchDoctorPatients() {
   return response.assignments;
 }
 
+export async function fetchDoctorPatientWorkspace(assignmentId: number) {
+  return request<DoctorPatientWorkspace>(`/auth/doctor/patients/${assignmentId}/`);
+}
+
 export async function fetchPatientDashboard() {
   return request<PatientDashboardData>("/api/dashboard/");
+}
+
+export async function fetchMedicalProblem(problemId: string | number) {
+  return request<MedicalProblem>(`/api/problems/${problemId}/`);
 }
 
 export async function syncPatientFromHisApi(personalIdentifier: string) {
@@ -375,6 +477,30 @@ export async function assignDoctorPatient(payload: DoctorPatientLookupPayload) {
       last_name: payload.lastName,
     }),
   });
+}
+
+export async function uploadPatientLaboratoryFiles(
+  payload: PatientLaboratoryUploadPayload,
+) {
+  const formData = new FormData();
+  formData.set("user_id", String(payload.userId));
+
+  for (const file of payload.files) {
+    formData.append("file", file);
+  }
+
+  return request<LaboratoryResultSummary>("/api/laboratory/results/", {
+    method: "POST",
+    body: formData,
+  });
+}
+
+export function laboratoryAttachmentDownloadUrl(attachmentId: string) {
+  return `${BACKEND_PREFIX}/api/laboratory/results/attachments/${attachmentId}/download/`;
+}
+
+export function laboratoryAttachmentPreviewUrl(attachmentId: string) {
+  return `${laboratoryAttachmentDownloadUrl(attachmentId)}?preview=1`;
 }
 
 export async function logoutUser() {

@@ -9,10 +9,12 @@ import {
 } from "react";
 
 import { useAuth } from "@/components/auth-provider";
+import { LaboratoryAttachmentPreview } from "@/components/laboratory-attachment-preview";
 import {
   ApiError,
   fetchPatientDashboard,
   syncPatientFromHisApi,
+  type LaboratoryResultSummary,
   type PatientDashboardData,
 } from "@/lib/auth-client";
 
@@ -85,10 +87,15 @@ export function PatientRecords() {
     setPageError(null);
 
     try {
-      await syncPatientFromHisApi(user.patient_profile.egn);
+      const syncResult = await syncPatientFromHisApi(user.patient_profile.egn);
       await refreshUser();
-      const nextDashboard = await fetchPatientDashboard();
-      setDashboard(nextDashboard);
+      if (typeof window !== "undefined") {
+        window.sessionStorage.setItem(
+          "latest_patient_sync_result",
+          JSON.stringify(syncResult),
+        );
+      }
+      router.push("/patient/sync-results");
     } catch (error) {
       setPageError(
         error instanceof ApiError
@@ -114,6 +121,7 @@ export function PatientRecords() {
 
   const immunizations = dashboard?.database.immunizations ?? [];
   const hospitalizations = dashboard?.database.hospitalizations ?? [];
+  const laboratoryResults = dashboard?.database.laboratory_results ?? [];
   const patient = dashboard?.patient;
   const apiStatus = dashboard?.mock_hospital_api;
 
@@ -225,6 +233,7 @@ export function PatientRecords() {
                   label="Epicrises"
                   value={String(hospitalizations.filter((item) => item.epicrisis).length)}
                 />
+                <Detail label="Laboratory uploads" value={String(laboratoryResults.length)} />
               </div>
             </article>
           </section>
@@ -330,9 +339,59 @@ export function PatientRecords() {
               )}
             </article>
           </section>
+
+          <section className="glass-panel p-8 sm:p-10">
+            <div className="flex items-center justify-between gap-4">
+              <div>
+                <p className="text-xs uppercase tracking-[0.28em] text-slate-500">
+                  Laboratory files
+                </p>
+                <h2 className="mt-3 text-3xl font-semibold tracking-tight text-slate-950">
+                  Saved reports and scans
+                </h2>
+              </div>
+              <span className="chip">{laboratoryResults.length} results</span>
+            </div>
+
+            {laboratoryResults.length ? (
+              <div className="mt-8 grid gap-4 md:grid-cols-2">
+                {laboratoryResults.map((result) => (
+                  <PatientLaboratoryResult key={result.id} result={result} />
+                ))}
+              </div>
+            ) : (
+              <EmptyState text="No laboratory files are currently saved for this patient." />
+            )}
+          </section>
         </>
       )}
     </main>
+  );
+}
+
+function PatientLaboratoryResult({ result }: { result: LaboratoryResultSummary }) {
+  return (
+    <article className="rounded-[28px] border border-white/60 bg-white/72 p-6 shadow-[inset_0_1px_0_rgba(255,255,255,0.88)]">
+      <div className="flex items-center justify-between gap-3">
+        <h3 className="text-lg font-semibold tracking-tight text-slate-950">
+          Laboratory result {result.id.slice(0, 8)}
+        </h3>
+        <span className="chip">{result.status}</span>
+      </div>
+      <p className="mt-3 text-sm leading-7 text-slate-600">{result.summary}</p>
+      {result.attachments.length ? (
+        <div className="mt-4 grid gap-4">
+          {result.attachments.map((attachment) => (
+            <LaboratoryAttachmentPreview
+              key={attachment.id}
+              attachment={attachment}
+            />
+          ))}
+        </div>
+      ) : (
+        <p className="mt-4 text-sm text-slate-500">No files attached.</p>
+      )}
+    </article>
   );
 }
 

@@ -19,12 +19,13 @@ class HisMockMiddleware:
             for key, value in request.headers.items()
             if key.lower() != "authorization"
         }
+        content_length = request.META.get("CONTENT_LENGTH") or "0"
         logger.info(
-            "HIS mock request method=%s path=%s headers=%s body_bytes=%s",
+            "HIS mock request method=%s path=%s headers=%s content_length=%s",
             request.method,
             request.path,
             headers,
-            len(request.body),
+            content_length,
         )
 
         if not request.path.startswith("/v1/"):

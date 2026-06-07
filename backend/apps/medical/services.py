@@ -1,8 +1,34 @@
+import concurrent.futures as futures
+import json
+import logging
+import time
+
+from django.conf import settings
+from django.core.files.uploadedfile import SimpleUploadedFile
 from django.db import transaction
 
-from apps.medical.ai_client import call_medical_model
+from apps.api.ai_vision_service import analyze_scan_with_ai
+from apps.api.scan_service import get_scan, scan_image_path
+from apps.medical.ai_client import call_medical_model, generate_research_query
 from apps.medical.models import AIRun, Diagnosis, DiagnosisProblemLink, Patient, Problem
 from apps.medical.prompts import build_diagnosis_analysis_prompt
+from apps.medical.research import run_medical_research
+
+logger = logging.getLogger(__name__)
+
+
+def ensure_medical_patient(user):
+    patient, created = Patient.objects.get_or_create(
+        user=user,
+        defaults={"name": user.get_full_name().strip() or user.username},
+    )
+
+    desired_name = user.get_full_name().strip() or user.username
+    if not created and patient.name != desired_name:
+        patient.name = desired_name
+        patient.save(update_fields=["name"])
+
+    return patient
 
 
 class DiagnosisAnalysisService:
@@ -15,9 +41,17 @@ class DiagnosisAnalysisService:
         raw_text="",
         raw_json=None,
         happened_at=None,
+        include_enrichment=True,
     ):
+        started = time.perf_counter()
         raw_json = raw_json or {}
         patient = Patient.objects.get(id=patient_id)
+        logger.warning(
+            "diagnosis_pipeline.start patient_id=%s kind=%s title=%s",
+            patient_id,
+            kind,
+            title,
+        )
 
         diagnosis = Diagnosis.objects.create(
             patient=patient,
@@ -27,13 +61,61 @@ class DiagnosisAnalysisService:
             raw_json=raw_json,
             happened_at=happened_at,
         )
+        logger.warning(
+            "diagnosis_pipeline.created diagnosis_id=%s patient_id=%s",
+            diagnosis.id,
+            patient_id,
+        )
+
+        enrichment_started = time.perf_counter()
+        enrichment = self.enrich_diagnosis(diagnosis) if include_enrichment else None
+        logger.warning(
+            "diagnosis_pipeline.enrichment.done diagnosis_id=%s elapsed_ms=%d errors=%s",
+            diagnosis.id,
+            int((time.perf_counter() - enrichment_started) * 1000),
+            len(enrichment.get("errors", [])) if enrichment else 0,
+        )
+        if enrichment:
+            diagnosis.raw_json = {
+                **diagnosis.raw_json,
+                "agent_enrichment": enrichment,
+            }
+            diagnosis.raw_text = self.build_enriched_raw_text(diagnosis.raw_text, enrichment)
+            diagnosis.save(update_fields=["raw_text", "raw_json"])
+
+            AIRun.objects.create(
+                patient=patient,
+                diagnosis=diagnosis,
+                task="diagnosis_enrichment",
+                input_context={
+                    "title": diagnosis.title,
+                    "kind": diagnosis.kind,
+                    "raw_text": raw_text,
+                    "raw_json": raw_json,
+                },
+                output_json=enrichment,
+                prompt=enrichment.get("research_query", ""),
+                raw_response=enrichment.get("research_query_raw_response", ""),
+                error="; ".join(enrichment.get("errors", [])),
+            )
 
         context = self.build_context(diagnosis)
         prompt = build_diagnosis_analysis_prompt(context)
 
         try:
+            analysis_started = time.perf_counter()
             model_output, raw_response = call_medical_model(prompt)
+            logger.warning(
+                "diagnosis_pipeline.model.done diagnosis_id=%s elapsed_ms=%d",
+                diagnosis.id,
+                int((time.perf_counter() - analysis_started) * 1000),
+            )
         except Exception as exc:
+            logger.exception(
+                "diagnosis_pipeline.model.error diagnosis_id=%s error=%s",
+                diagnosis.id,
+                str(exc),
+            )
             AIRun.objects.create(
                 patient=patient,
                 diagnosis=diagnosis,
@@ -58,7 +140,143 @@ class DiagnosisAnalysisService:
             self.apply_model_output(diagnosis, model_output)
 
         diagnosis.refresh_from_db()
+        logger.warning(
+            "diagnosis_pipeline.done diagnosis_id=%s total_ms=%d",
+            diagnosis.id,
+            int((time.perf_counter() - started) * 1000),
+        )
         return diagnosis
+
+    def enrich_diagnosis(self, diagnosis):
+        started = time.perf_counter()
+        raw_json = diagnosis.raw_json or {}
+        scan_id = raw_json.get("scan_id")
+        query_payload = {
+            "title": diagnosis.title,
+            "kind": diagnosis.kind,
+            "raw_text": diagnosis.raw_text,
+            "raw_json": raw_json,
+        }
+        enrichment = {
+            "research_query": "",
+            "research_query_raw_response": "",
+            "research": None,
+            "scan_analysis": None,
+            "errors": [],
+        }
+
+        try:
+            query_started = time.perf_counter()
+            query, query_raw_response = generate_research_query(query_payload)
+            enrichment["research_query"] = query
+            enrichment["research_query_raw_response"] = query_raw_response
+            logger.warning(
+                "diagnosis_enrichment.query.done diagnosis_id=%s elapsed_ms=%d",
+                diagnosis.id,
+                int((time.perf_counter() - query_started) * 1000),
+            )
+        except Exception as exc:
+            enrichment["errors"].append(f"research_query: {exc}")
+            logger.exception(
+                "diagnosis_enrichment.query.error diagnosis_id=%s error=%s",
+                diagnosis.id,
+                str(exc),
+            )
+            return enrichment
+
+        tasks = {}
+        with futures.ThreadPoolExecutor(max_workers=2) as executor:
+            tasks[executor.submit(run_medical_research, enrichment["research_query"])] = "research"
+
+            # Prefer scan analysis already generated during upload processing.
+            if raw_json.get("scan_analysis"):
+                enrichment["scan_analysis"] = {
+                    "scan": raw_json.get("scan", {}),
+                    "ai_result": raw_json.get("scan_analysis"),
+                }
+            elif scan_id:
+                tasks[executor.submit(self.analyze_scan, scan_id)] = "scan_analysis"
+
+            timeout_seconds = getattr(settings, "TEXT_RESEARCH_TIMEOUT_SECONDS", 120)
+            try:
+                for future in futures.as_completed(tasks, timeout=timeout_seconds):
+                    task_name = tasks[future]
+                    try:
+                        enrichment[task_name] = future.result()
+                        logger.warning(
+                            "diagnosis_enrichment.task.done diagnosis_id=%s task=%s",
+                            diagnosis.id,
+                            task_name,
+                        )
+                    except Exception as exc:
+                        enrichment["errors"].append(f"{task_name}: {exc}")
+                        logger.exception(
+                            "diagnosis_enrichment.task.error diagnosis_id=%s task=%s error=%s",
+                            diagnosis.id,
+                            task_name,
+                            str(exc),
+                        )
+            except futures.TimeoutError:
+                logger.warning(
+                    "diagnosis_enrichment.task.timeout diagnosis_id=%s timeout_s=%s",
+                    diagnosis.id,
+                    timeout_seconds,
+                )
+                enrichment["errors"].append(
+                    f"research: timed out after {timeout_seconds} seconds"
+                )
+                for future in tasks:
+                    future.cancel()
+
+        logger.warning(
+            "diagnosis_enrichment.done diagnosis_id=%s total_ms=%d",
+            diagnosis.id,
+            int((time.perf_counter() - started) * 1000),
+        )
+        return enrichment
+
+    def analyze_scan(self, scan_id):
+        scan = get_scan(scan_id)
+        image_path = scan_image_path(scan)
+        upload = SimpleUploadedFile(
+            image_path.name,
+            image_path.read_bytes(),
+            content_type="image/png",
+        )
+        return {
+            "scan": {
+                "id": scan["id"],
+                "title": scan["title"],
+                "modality": scan["modality"],
+                "bodyPart": scan["bodyPart"],
+                "symptoms": scan.get("symptoms", []),
+                "userComplaint": scan.get("userComplaint", ""),
+                "clinicalContext": scan.get("clinicalContext", ""),
+            },
+            "ai_result": analyze_scan_with_ai(scan, upload),
+        }
+
+    def build_enriched_raw_text(self, raw_text, enrichment):
+        sections = [raw_text.strip()] if raw_text else []
+
+        if enrichment.get("scan_analysis"):
+            sections.append(
+                "SCAN IMAGE ANALYSIS JSON:\n"
+                + json.dumps(enrichment["scan_analysis"], indent=2, default=str)
+            )
+
+        if enrichment.get("research"):
+            research = enrichment["research"]
+            sections.append(
+                "RESEARCH SUMMARY:\n"
+                f"Query: {research.get('query', enrichment.get('research_query', ''))}\n"
+                f"{research.get('answer', '')}"
+            )
+
+        if enrichment.get("errors"):
+            sections.append("ENRICHMENT ERRORS:\n" + "\n".join(enrichment["errors"]))
+
+        return "\n\n".join(section for section in sections if section)
 
     def build_context(self, diagnosis):
         patient = diagnosis.patient

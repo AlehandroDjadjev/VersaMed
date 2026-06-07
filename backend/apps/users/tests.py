@@ -5,9 +5,11 @@ from django.contrib.auth import get_user_model
 from django.core import mail
 from django.test import TestCase, override_settings
 from django.urls import reverse
+from django.core.files.uploadedfile import SimpleUploadedFile
 from rest_framework.test import APIClient
 
-from apps.core.models import DoctorProfile, MedicalInstitution, PatientProfile
+from apps.core.models import DoctorProfile, LaboratoryResult, MedicalInstitution, PatientProfile
+from apps.medical.models import Patient
 
 from .models import DoctorPatientAssignment
 
@@ -443,3 +445,54 @@ class DoctorAssignmentTests(TestCase):
         response = self.client.get(reverse("users:doctor-patients"))
 
         self.assertEqual(response.status_code, 403)
+
+    def test_doctor_can_load_assigned_patient_workspace(self):
+        assignment = DoctorPatientAssignment.objects.create(
+            doctor=self.doctor_profile,
+            patient=self.patient_profile,
+        )
+        self.login_doctor()
+
+        response = self.client.get(
+            reverse(
+                "users:doctor-patient-workspace",
+                kwargs={"assignment_id": assignment.id},
+            )
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(
+            response.json()["patient_dashboard"]["patient"]["egn"],
+            "9001010000",
+        )
+        self.assertIn("medical_workspace", response.json())
+        self.assertTrue(Patient.objects.filter(user=self.patient_user).exists())
+
+    def test_doctor_can_upload_lab_file_for_selected_patient(self):
+        assignment = DoctorPatientAssignment.objects.create(
+            doctor=self.doctor_profile,
+            patient=self.patient_profile,
+        )
+        csrf_token = self.login_doctor()
+
+        response = self.client.post(
+            reverse("api:laboratory-result-create"),
+            {
+                "user_id": assignment.patient.user_id,
+                "file": SimpleUploadedFile(
+                    "result.pdf",
+                    b"%PDF-1.4 mock",
+                    content_type="application/pdf",
+                ),
+            },
+            format="multipart",
+            HTTP_X_CSRFTOKEN=csrf_token,
+        )
+
+        self.assertEqual(response.status_code, 201)
+        self.assertEqual(LaboratoryResult.objects.count(), 1)
+        self.assertEqual(LaboratoryResult.objects.get().patient, self.patient_profile)
+        self.assertEqual(
+            response.json()["patient_egn"],
+            "9001010000",
+        )
