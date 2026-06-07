@@ -105,6 +105,12 @@ STATIC_ROOT = BASE_DIR / "staticfiles"
 PRIVATE_MEDIA_ROOT = Path(os.getenv("PRIVATE_MEDIA_ROOT") or BASE_DIR / "private_media")
 LAB_RESULT_MAX_FILE_SIZE = int(os.getenv("LAB_RESULT_MAX_FILE_SIZE", str(10 * 1024 * 1024)))
 LAB_RESULT_ALLOW_DICOM = env_bool("LAB_RESULT_ALLOW_DICOM", False)
+DATA_UPLOAD_MAX_MEMORY_SIZE = int(
+    os.getenv("DATA_UPLOAD_MAX_MEMORY_SIZE", str(15 * 1024 * 1024))
+)
+FILE_UPLOAD_MAX_MEMORY_SIZE = int(
+    os.getenv("FILE_UPLOAD_MAX_MEMORY_SIZE", str(15 * 1024 * 1024))
+)
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 AUTH_USER_MODEL = "users.User"

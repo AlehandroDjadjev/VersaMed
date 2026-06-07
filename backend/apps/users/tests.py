@@ -1,15 +1,15 @@
 from datetime import date
 import re
-from unittest.mock import patch
 
 from django.contrib.auth import get_user_model
 from django.core import mail
 from django.test import TestCase, override_settings
 from django.urls import reverse
+from django.core.files.uploadedfile import SimpleUploadedFile
 from rest_framework.test import APIClient
 
 from apps.core.models import DoctorProfile, LaboratoryResult, MedicalInstitution, PatientProfile
-from apps.medical.models import Diagnosis, Patient, Problem
+from apps.medical.models import Patient
 
 from .models import DoctorPatientAssignment
 
@@ -468,33 +468,7 @@ class DoctorAssignmentTests(TestCase):
         self.assertIn("medical_workspace", response.json())
         self.assertTrue(Patient.objects.filter(user=self.patient_user).exists())
 
-    @patch("apps.medical.services.call_medical_model")
-    def test_doctor_can_submit_lab_run_for_selected_patient(self, call_medical_model):
-        call_medical_model.return_value = (
-            {
-                "diagnosis": {
-                    "title": "Inflammatory marker elevation",
-                    "summary": "CRP is elevated.",
-                    "description": "Raised CRP may support an inflammatory process.",
-                    "extracted_findings": [],
-                    "keywords": ["crp", "inflammation"],
-                    "body_areas": [],
-                },
-                "problem_action": {
-                    "action": "create_problem",
-                    "target_problem_id": None,
-                    "problem": {
-                        "title": "Possible inflammatory pattern",
-                        "summary": "Elevated CRP may reflect inflammation.",
-                        "body_area": "",
-                        "keywords": ["inflammation"],
-                    },
-                    "reasoning": "New lab pattern.",
-                },
-                "links": [],
-            },
-            "{}",
-        )
+    def test_doctor_can_upload_lab_file_for_selected_patient(self):
         assignment = DoctorPatientAssignment.objects.create(
             doctor=self.doctor_profile,
             patient=self.patient_profile,
@@ -502,35 +476,23 @@ class DoctorAssignmentTests(TestCase):
         csrf_token = self.login_doctor()
 
         response = self.client.post(
-            reverse(
-                "users:doctor-patient-submit",
-                kwargs={"assignment_id": assignment.id},
-            ),
+            reverse("api:laboratory-result-create"),
             {
-                "laboratory_request": "lab-001",
-                "laboratory_name": "VersaMed Lab",
-                "collected_at": "2026-06-07T08:00:00Z",
-                "reported_at": "2026-06-07T10:00:00Z",
-                "diagnosis_kind": "blood_test",
-                "title": "CRP Panel",
-                "test_results": [
-                    {"test_name": "CRP", "value": 18, "unit": "mg/L", "flag": "HIGH"}
-                ],
-                "raw_text": "CRP is elevated.",
-                "raw_json": {},
+                "user_id": assignment.patient.user_id,
+                "file": SimpleUploadedFile(
+                    "result.pdf",
+                    b"%PDF-1.4 mock",
+                    content_type="application/pdf",
+                ),
             },
-            format="json",
+            format="multipart",
             HTTP_X_CSRFTOKEN=csrf_token,
         )
 
         self.assertEqual(response.status_code, 201)
         self.assertEqual(LaboratoryResult.objects.count(), 1)
         self.assertEqual(LaboratoryResult.objects.get().patient, self.patient_profile)
-        self.assertEqual(Diagnosis.objects.count(), 1)
-        self.assertEqual(Problem.objects.count(), 1)
         self.assertEqual(
-            response.json()["patient_dashboard"]["database"]["laboratory_results"][0][
-                "patient_egn"
-            ],
+            response.json()["patient_egn"],
             "9001010000",
         )

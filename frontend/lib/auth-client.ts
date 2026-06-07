@@ -215,26 +215,9 @@ export type DoctorPatientLookupPayload = {
   lastName: string;
 };
 
-export type DoctorPatientSubmissionPayload = {
-  assignmentId: number;
-  laboratoryRequest: string;
-  laboratoryName: string;
-  collectedAt: string;
-  reportedAt: string;
-  diagnosisKind: string;
-  title: string;
-  happenedAt?: string;
-  rawText?: string;
-  rawJson?: string;
-  testResults?: string;
-  attachments: File[];
-};
-
-export type DoctorPatientSubmissionResponse = {
-  laboratory_result: LaboratoryResultSummary;
-  diagnosis: MedicalDiagnosis;
-  patient_dashboard: PatientDashboardData;
-  medical_workspace: DoctorPatientWorkspace["medical_workspace"];
+export type PatientLaboratoryUploadPayload = {
+  userId: number;
+  files: File[];
 };
 
 const SAFE_METHODS = new Set(["GET", "HEAD", "OPTIONS", "TRACE"]);
@@ -455,35 +438,20 @@ export async function assignDoctorPatient(payload: DoctorPatientLookupPayload) {
   });
 }
 
-export async function submitDoctorPatientWorkspace(
-  payload: DoctorPatientSubmissionPayload,
+export async function uploadPatientLaboratoryFiles(
+  payload: PatientLaboratoryUploadPayload,
 ) {
   const formData = new FormData();
-  formData.set("laboratory_request", payload.laboratoryRequest);
-  formData.set("laboratory_name", payload.laboratoryName);
-  formData.set("collected_at", payload.collectedAt);
-  formData.set("reported_at", payload.reportedAt);
-  formData.set("diagnosis_kind", payload.diagnosisKind);
-  formData.set("title", payload.title);
-  formData.set("test_results", payload.testResults ?? "[]");
-  formData.set("raw_text", payload.rawText ?? "");
-  formData.set("raw_json", payload.rawJson ?? "{}");
+  formData.set("user_id", String(payload.userId));
 
-  if (payload.happenedAt) {
-    formData.set("happened_at", payload.happenedAt);
+  for (const file of payload.files) {
+    formData.append("file", file);
   }
 
-  for (const attachment of payload.attachments) {
-    formData.append("attachments[]", attachment);
-  }
-
-  return request<DoctorPatientSubmissionResponse>(
-    `/auth/doctor/patients/${payload.assignmentId}/submit/`,
-    {
-      method: "POST",
-      body: formData,
-    },
-  );
+  return request<LaboratoryResultSummary>("/api/laboratory/results/", {
+    method: "POST",
+    body: formData,
+  });
 }
 
 export async function logoutUser() {

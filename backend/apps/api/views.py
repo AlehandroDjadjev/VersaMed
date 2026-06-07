@@ -220,7 +220,7 @@ class LaboratoryResultCreateView(APIView):
     parser_classes = [MultiPartParser, FormParser, JSONParser]
 
     def post(self, request):
-        serializer = LaboratoryResultInputSerializer(
+        serializer = LaboratoryFileUploadSerializer(
             data=request.data,
             context={"request": request},
         )

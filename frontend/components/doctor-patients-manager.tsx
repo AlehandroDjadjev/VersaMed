@@ -6,7 +6,6 @@ import {
   useState,
   type FormEvent,
   type HTMLAttributes,
-  type InputHTMLAttributes,
   type ReactNode,
 } from "react";
 
@@ -14,7 +13,7 @@ import { useAuth } from "@/components/auth-provider";
 import {
   ApiError,
   fetchDoctorPatientWorkspace,
-  submitDoctorPatientWorkspace,
+  uploadPatientLaboratoryFiles,
   type DoctorPatientAssignment,
   type DoctorPatientWorkspace,
   type LaboratoryResultSummary,
@@ -37,26 +36,6 @@ function inputClassName(hasError: boolean) {
   return `field-input ${hasError ? "border-rose-300 shadow-[0_0_0_4px_rgba(244,63,94,0.08)]" : ""}`;
 }
 
-const defaultSubmissionState = {
-  laboratoryRequest: "",
-  laboratoryName: "",
-  collectedAt: "",
-  reportedAt: "",
-  diagnosisKind: "blood_test",
-  title: "",
-  happenedAt: "",
-  rawText: "",
-  testResults: `[
-  {
-    "test_name": "CRP",
-    "value": 18,
-    "unit": "mg/L",
-    "flag": "HIGH"
-  }
-]`,
-  rawJson: "{}",
-};
-
 export function DoctorPatientsManager() {
   const router = useRouter();
   const {
@@ -74,13 +53,12 @@ export function DoctorPatientsManager() {
   const [fieldErrors, setFieldErrors] = useState<FieldErrors>({});
   const [formError, setFormError] = useState<string | null>(null);
   const [workspaceError, setWorkspaceError] = useState<string | null>(null);
-  const [submissionError, setSubmissionError] = useState<string | null>(null);
-  const [submissionSuccess, setSubmissionSuccess] = useState<string | null>(null);
+  const [uploadError, setUploadError] = useState<string | null>(null);
+  const [uploadSuccess, setUploadSuccess] = useState<string | null>(null);
   const [isSubmittingAssignment, setIsSubmittingAssignment] = useState(false);
-  const [isSubmittingWorkspace, setIsSubmittingWorkspace] = useState(false);
+  const [isUploading, setIsUploading] = useState(false);
   const [isFetchingAssignments, setIsFetchingAssignments] = useState(true);
   const [isFetchingWorkspace, setIsFetchingWorkspace] = useState(false);
-  const [submissionState, setSubmissionState] = useState(defaultSubmissionState);
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
 
   useEffect(() => {
@@ -213,60 +191,42 @@ export function DoctorPatientsManager() {
     }
   }
 
-  async function handleWorkspaceSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleUpload(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
-    if (!selectedAssignmentId) {
-      setSubmissionError("Select a patient before submitting lab data.");
+    if (!workspace?.assignment.patient.user.id) {
+      setUploadError("Select an assigned patient before uploading.");
       return;
     }
 
-    setSubmissionError(null);
-    setSubmissionSuccess(null);
-    setIsSubmittingWorkspace(true);
+    if (!selectedFiles.length) {
+      setUploadError("Choose at least one file to upload.");
+      return;
+    }
+
+    setUploadError(null);
+    setUploadSuccess(null);
+    setIsUploading(true);
 
     try {
-      const response = await submitDoctorPatientWorkspace({
-        assignmentId: selectedAssignmentId,
-        laboratoryRequest: submissionState.laboratoryRequest,
-        laboratoryName: submissionState.laboratoryName,
-        collectedAt: submissionState.collectedAt,
-        reportedAt: submissionState.reportedAt,
-        diagnosisKind: submissionState.diagnosisKind,
-        title: submissionState.title,
-        happenedAt: submissionState.happenedAt || undefined,
-        rawText: submissionState.rawText,
-        rawJson: submissionState.rawJson,
-        testResults: submissionState.testResults,
-        attachments: selectedFiles,
+      const result = await uploadPatientLaboratoryFiles({
+        userId: workspace.assignment.patient.user.id,
+        files: selectedFiles,
       });
 
-      setWorkspace((current) =>
-        current
-          ? {
-              ...current,
-              patient_dashboard: response.patient_dashboard,
-              medical_workspace: response.medical_workspace,
-            }
-          : null,
-      );
-      setSubmissionSuccess(
-        `Submitted ${response.laboratory_result.summary} The analyzer stored a new ${response.diagnosis.kind.replaceAll("_", " ")} diagnosis.`,
-      );
+      const nextWorkspace = await fetchDoctorPatientWorkspace(workspace.assignment.id);
+      setWorkspace(nextWorkspace);
       setSelectedFiles([]);
-      setSubmissionState((current) => ({
-        ...current,
-        rawText: "",
-        rawJson: "{}",
-      }));
+      event.currentTarget.reset();
+      setUploadSuccess(`Stored ${result.attachments.length} file(s) for this patient.`);
     } catch (error) {
-      setSubmissionError(
+      setUploadError(
         error instanceof Error
           ? error.message
-          : "We could not submit the patient data right now.",
+          : "We could not upload the files right now.",
       );
     } finally {
-      setIsSubmittingWorkspace(false);
+      setIsUploading(false);
     }
   }
 
@@ -288,20 +248,19 @@ export function DoctorPatientsManager() {
     workspace?.patient_dashboard.database.hospitalizations ?? [];
   const laboratoryResults =
     workspace?.patient_dashboard.database.laboratory_results ?? [];
-  const diagnoses = workspace?.medical_workspace.diagnoses ?? [];
-  const problems = workspace?.medical_workspace.problems ?? [];
 
   return (
     <main className="mx-auto flex w-full max-w-7xl flex-1 flex-col gap-6 px-5 py-12 sm:px-8">
       <section className="glass-panel p-8 sm:p-10">
         <span className="chip">Doctor workspace</span>
         <h1 className="mt-6 font-[family:var(--font-versa-display)] text-5xl leading-[0.96] tracking-tight text-slate-950">
-          Manage assigned patients with records, history, and analyzer runs.
+          Open a patient and upload files directly to their record.
         </h1>
         <p className="mt-5 max-w-3xl text-lg leading-8 text-slate-600">
-          Click a patient to review their HIS-backed record, longitudinal medical
-          history, and upload new lab data or files into the diagnosis analysis
-          pipeline.
+          The selected patient upload now goes straight to
+          <span className="font-medium text-slate-900"> /api/laboratory/results/</span>,
+          where the backend validates attachment type and securely stores the file
+          against that patient.
         </p>
       </section>
 
@@ -387,8 +346,8 @@ export function DoctorPatientsManager() {
                       type="button"
                       onClick={() => {
                         setSelectedAssignmentId(assignment.id);
-                        setSubmissionError(null);
-                        setSubmissionSuccess(null);
+                        setUploadError(null);
+                        setUploadSuccess(null);
                       }}
                       className={`w-full rounded-[24px] border p-5 text-left transition ${
                         isSelected
@@ -426,8 +385,8 @@ export function DoctorPatientsManager() {
                 Select a patient to open the workspace.
               </h2>
               <p className="mt-4 max-w-2xl text-base leading-8 text-slate-600">
-                Once a patient is assigned, you can open their HIS record,
-                medical history, and submission panel from here.
+                Once a patient is assigned, you can review their record and upload
+                files to their database entry from here.
               </p>
             </div>
           ) : isFetchingWorkspace || !workspace ? (
@@ -447,8 +406,8 @@ export function DoctorPatientsManager() {
                     {selectedPatient?.full_name}
                   </h2>
                   <p className="mt-4 max-w-2xl text-base leading-8 text-slate-600">
-                    HIS-linked identity, medical history, and new submissions for{" "}
-                    {selectedPatient?.full_name} live in this workspace.
+                    Files uploaded here are stored against this patient through the
+                    laboratory results backend flow.
                   </p>
                   <div className="mt-6 grid gap-3 md:grid-cols-2">
                     <StatCard label="EGN" value={selectedPatient?.egn ?? "Not available"} />
@@ -472,24 +431,13 @@ export function DoctorPatientsManager() {
                     Coverage
                   </p>
                   <div className="mt-5 space-y-3 text-sm text-slate-600">
-                    <Detail
-                      label="Immunizations"
-                      value={String(immunizations.length)}
-                    />
+                    <Detail label="Immunizations" value={String(immunizations.length)} />
                     <Detail
                       label="Hospitalizations"
                       value={String(hospitalizations.length)}
                     />
                     <Detail
-                      label="Diagnoses"
-                      value={String(diagnoses.length)}
-                    />
-                    <Detail
-                      label="Tracked problems"
-                      value={String(problems.length)}
-                    />
-                    <Detail
-                      label="Lab submissions"
+                      label="Stored lab uploads"
                       value={String(laboratoryResults.length)}
                     />
                   </div>
@@ -521,11 +469,7 @@ export function DoctorPatientsManager() {
                         <HistoryCard
                           key={`${item.vaccine_name}-${item.date}-${item.dose_number}`}
                           title={item.vaccine_name}
-                          lines={[
-                            `Dose ${item.dose_number}`,
-                            item.date,
-                            item.institution,
-                          ]}
+                          lines={[`Dose ${item.dose_number}`, item.date, item.institution]}
                         />
                       ))}
                     </HistoryGroup>
@@ -548,26 +492,7 @@ export function DoctorPatientsManager() {
                           <p className="mt-3 text-sm text-slate-700">
                             {item.admission_date} to {item.discharge_date ?? "ongoing"}
                           </p>
-                          {item.epicrisis ? (
-                            <div className="mt-4 rounded-[20px] bg-teal-50/80 p-4">
-                              <p className="text-xs uppercase tracking-[0.22em] text-teal-700">
-                                Epicrisis summary
-                              </p>
-                              <p className="mt-2 text-sm leading-7 text-slate-700">
-                                {item.epicrisis.summary}
-                              </p>
-                            </div>
-                          ) : null}
                         </div>
-                      ))}
-                    </HistoryGroup>
-
-                    <HistoryGroup
-                      title="Lab submissions"
-                      emptyText="No doctor-submitted laboratory runs are linked yet."
-                    >
-                      {laboratoryResults.map((result) => (
-                        <LabRunCard key={result.id} result={result} />
                       ))}
                     </HistoryGroup>
                   </div>
@@ -578,157 +503,18 @@ export function DoctorPatientsManager() {
                     <div className="flex items-center justify-between gap-4">
                       <div>
                         <p className="text-xs uppercase tracking-[0.28em] text-slate-500">
-                          Analyzer submission
+                          Patient file upload
                         </p>
                         <h2 className="mt-3 text-3xl font-semibold tracking-tight text-slate-950">
-                          Submit a new lab run
+                          Upload files to this patient
                         </h2>
                       </div>
-                      <span className="chip">AI-ready</span>
+                      <span className="chip">/api/laboratory/results/</span>
                     </div>
 
-                    <form
-                      className="mt-8 space-y-4"
-                      onSubmit={handleWorkspaceSubmit}
-                      noValidate
-                    >
-                      <div className="grid gap-4 md:grid-cols-2">
-                        <Field
-                          name="laboratoryRequest"
-                          label="Lab request ID"
-                          value={submissionState.laboratoryRequest}
-                          onChange={(value) =>
-                            setSubmissionState((current) => ({
-                              ...current,
-                              laboratoryRequest: value,
-                            }))
-                          }
-                        />
-                        <Field
-                          name="laboratoryName"
-                          label="Laboratory name"
-                          value={submissionState.laboratoryName}
-                          onChange={(value) =>
-                            setSubmissionState((current) => ({
-                              ...current,
-                              laboratoryName: value,
-                            }))
-                          }
-                        />
-                      </div>
-
-                      <div className="grid gap-4 md:grid-cols-2">
-                        <Field
-                          name="collectedAt"
-                          label="Collected at"
-                          type="datetime-local"
-                          value={submissionState.collectedAt}
-                          onChange={(value) =>
-                            setSubmissionState((current) => ({
-                              ...current,
-                              collectedAt: value,
-                            }))
-                          }
-                        />
-                        <Field
-                          name="reportedAt"
-                          label="Reported at"
-                          type="datetime-local"
-                          value={submissionState.reportedAt}
-                          onChange={(value) =>
-                            setSubmissionState((current) => ({
-                              ...current,
-                              reportedAt: value,
-                            }))
-                          }
-                        />
-                      </div>
-
-                      <div className="grid gap-4 md:grid-cols-2">
-                        <SelectField
-                          label="Diagnosis kind"
-                          value={submissionState.diagnosisKind}
-                          onChange={(value) =>
-                            setSubmissionState((current) => ({
-                              ...current,
-                              diagnosisKind: value,
-                            }))
-                          }
-                          options={[
-                            ["blood_test", "Blood test"],
-                            ["radiology", "Radiology"],
-                            ["physical_exam", "Physical exam"],
-                            ["doctor_diagnosis", "Doctor diagnosis"],
-                            ["user_note", "Clinical note"],
-                            ["other", "Other"],
-                          ]}
-                        />
-                        <Field
-                          name="happenedAt"
-                          label="Clinical date"
-                          type="date"
-                          value={submissionState.happenedAt}
-                          required={false}
-                          onChange={(value) =>
-                            setSubmissionState((current) => ({
-                              ...current,
-                              happenedAt: value,
-                            }))
-                          }
-                        />
-                      </div>
-
-                      <Field
-                        name="title"
-                        label="Submission title"
-                        value={submissionState.title}
-                        onChange={(value) =>
-                          setSubmissionState((current) => ({
-                            ...current,
-                            title: value,
-                          }))
-                        }
-                      />
-
-                      <TextAreaField
-                        label="Structured test results JSON"
-                        value={submissionState.testResults}
-                        onChange={(value) =>
-                          setSubmissionState((current) => ({
-                            ...current,
-                            testResults: value,
-                          }))
-                        }
-                      />
-
-                      <TextAreaField
-                        label="Clinical note or interpretation"
-                        value={submissionState.rawText}
-                        onChange={(value) =>
-                          setSubmissionState((current) => ({
-                            ...current,
-                            rawText: value,
-                          }))
-                        }
-                        rows={5}
-                      />
-
-                      <TextAreaField
-                        label="Extra raw JSON context"
-                        value={submissionState.rawJson}
-                        onChange={(value) =>
-                          setSubmissionState((current) => ({
-                            ...current,
-                            rawJson: value,
-                          }))
-                        }
-                        rows={4}
-                      />
-
+                    <form className="mt-8 space-y-4" onSubmit={handleUpload} noValidate>
                       <label className="space-y-2">
-                        <span className="text-sm font-medium text-slate-700">
-                          Attachments
-                        </span>
+                        <span className="text-sm font-medium text-slate-700">Files</span>
                         <input
                           type="file"
                           multiple
@@ -740,96 +526,44 @@ export function DoctorPatientsManager() {
                         />
                         <p className="text-sm text-slate-500">
                           {selectedFiles.length
-                            ? `${selectedFiles.length} file(s) selected`
-                            : "Upload scans, PDFs, or supporting lab images."}
+                            ? `${selectedFiles.length} file(s) ready for upload`
+                            : "Choose one or more result files, scans, or PDFs."}
                         </p>
                       </label>
 
-                      {submissionError ? (
-                        <p className="error-banner">{submissionError}</p>
-                      ) : null}
-                      {submissionSuccess ? (
+                      {uploadError ? <p className="error-banner">{uploadError}</p> : null}
+                      {uploadSuccess ? (
                         <p className="rounded-[20px] border border-teal-200 bg-teal-50/85 p-4 text-sm text-teal-800">
-                          {submissionSuccess}
+                          {uploadSuccess}
                         </p>
                       ) : null}
 
                       <button
                         type="submit"
                         className="primary-button w-full px-6 py-3 text-base disabled:cursor-not-allowed disabled:opacity-70"
-                        disabled={isSubmittingWorkspace}
+                        disabled={isUploading}
                       >
-                        {isSubmittingWorkspace
-                          ? "Submitting to analyzer..."
-                          : "Submit run and analyze"}
+                        {isUploading ? "Uploading files..." : "Upload to patient record"}
                       </button>
                     </form>
                   </article>
 
                   <article className="glass-panel p-8 sm:p-10">
                     <p className="text-xs uppercase tracking-[0.28em] text-slate-500">
-                      Analysis memory
+                      Stored uploads
                     </p>
                     <h2 className="mt-3 text-3xl font-semibold tracking-tight text-slate-950">
-                      Diagnoses and tracked problems
+                      Patient laboratory files
                     </h2>
 
-                    <div className="mt-8 space-y-6">
-                      <HistoryGroup
-                        title="Diagnoses"
-                        emptyText="No analyzed diagnoses have been stored yet."
-                      >
-                        {diagnoses.map((diagnosis) => (
-                          <div
-                            key={diagnosis.id}
-                            className="rounded-[24px] border border-white/60 bg-white/74 p-5"
-                          >
-                            <div className="flex items-center justify-between gap-4">
-                              <h3 className="text-lg font-semibold text-slate-950">
-                                {diagnosis.title}
-                              </h3>
-                              <span className="chip">
-                                {diagnosis.kind.replaceAll("_", " ")}
-                              </span>
-                            </div>
-                            <p className="mt-3 text-sm leading-7 text-slate-700">
-                              {diagnosis.summary || diagnosis.description || "No summary yet."}
-                            </p>
-                            {diagnosis.keywords.length ? (
-                              <div className="mt-4 flex flex-wrap gap-2">
-                                {diagnosis.keywords.map((keyword) => (
-                                  <span
-                                    key={`${diagnosis.id}-${keyword}`}
-                                    className="rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-slate-700"
-                                  >
-                                    {keyword}
-                                  </span>
-                                ))}
-                              </div>
-                            ) : null}
-                          </div>
-                        ))}
-                      </HistoryGroup>
-
-                      <HistoryGroup
-                        title="Tracked problems"
-                        emptyText="No persistent problems have been linked yet."
-                      >
-                        {problems.map((problem) => (
-                          <div
-                            key={problem.id}
-                            className="rounded-[24px] border border-white/60 bg-white/74 p-5"
-                          >
-                            <h3 className="text-lg font-semibold text-slate-950">
-                              {problem.title}
-                            </h3>
-                            <p className="mt-3 text-sm leading-7 text-slate-700">
-                              {problem.summary}
-                            </p>
-                          </div>
-                        ))}
-                      </HistoryGroup>
-                    </div>
+                    <HistoryGroup
+                      title="Uploaded files"
+                      emptyText="No laboratory file uploads are stored for this patient yet."
+                    >
+                      {laboratoryResults.map((result) => (
+                        <LabRunCard key={result.id} result={result} />
+                      ))}
+                    </HistoryGroup>
                   </article>
                 </div>
               </section>
@@ -847,88 +581,25 @@ function Field({
   error,
   placeholder,
   inputMode,
-  type = "text",
-  value,
-  onChange,
-  required,
 }: {
   name: string;
   label: string;
   error?: string | null;
   placeholder?: string;
   inputMode?: HTMLAttributes<HTMLInputElement>["inputMode"];
-  type?: InputHTMLAttributes<HTMLInputElement>["type"];
-  value?: string;
-  onChange?: (value: string) => void;
-  required?: boolean;
 }) {
   return (
     <label className="space-y-2">
       <span className="text-sm font-medium text-slate-700">{label}</span>
       <input
         name={name}
-        type={type}
+        type="text"
         className={inputClassName(Boolean(error))}
         placeholder={placeholder}
         inputMode={inputMode}
-        required={required ?? true}
-        value={value}
-        onChange={onChange ? (event) => onChange(event.target.value) : undefined}
+        required
       />
       {error ? <p className="error-text">{error}</p> : null}
-    </label>
-  );
-}
-
-function SelectField({
-  label,
-  value,
-  onChange,
-  options,
-}: {
-  label: string;
-  value: string;
-  onChange: (value: string) => void;
-  options: Array<[string, string]>;
-}) {
-  return (
-    <label className="space-y-2">
-      <span className="text-sm font-medium text-slate-700">{label}</span>
-      <select
-        className="field-input"
-        value={value}
-        onChange={(event) => onChange(event.target.value)}
-      >
-        {options.map(([optionValue, optionLabel]) => (
-          <option key={optionValue} value={optionValue}>
-            {optionLabel}
-          </option>
-        ))}
-      </select>
-    </label>
-  );
-}
-
-function TextAreaField({
-  label,
-  value,
-  onChange,
-  rows = 7,
-}: {
-  label: string;
-  value: string;
-  onChange: (value: string) => void;
-  rows?: number;
-}) {
-  return (
-    <label className="space-y-2">
-      <span className="text-sm font-medium text-slate-700">{label}</span>
-      <textarea
-        className="field-input min-h-[8rem] resize-y"
-        rows={rows}
-        value={value}
-        onChange={(event) => onChange(event.target.value)}
-      />
     </label>
   );
 }
@@ -1000,13 +671,15 @@ function LabRunCard({ result }: { result: LaboratoryResultSummary }) {
   return (
     <div className="rounded-[24px] border border-white/60 bg-white/74 p-5">
       <div className="flex items-center justify-between gap-4">
-        <h4 className="text-lg font-semibold text-slate-950">Run {result.id.slice(0, 8)}</h4>
+        <h4 className="text-lg font-semibold text-slate-950">
+          Upload {result.id.slice(0, 8)}
+        </h4>
         <span className="chip">{result.status}</span>
       </div>
       <p className="mt-3 text-sm leading-7 text-slate-700">{result.summary}</p>
       {result.attachments.length ? (
         <p className="mt-3 text-sm text-slate-500">
-          Attachments: {result.attachments.map((item) => item.title).join(", ")}
+          Files: {result.attachments.map((item) => item.title).join(", ")}
         </p>
       ) : null}
     </div>
