@@ -1,3 +1,10 @@
-from django.shortcuts import render
+from django.http import HttpResponse
+from django.utils.decorators import method_decorator
+from django.views import View
+from django.views.decorators.csrf import ensure_csrf_cookie
 
-# Create your views here.
+
+@method_decorator(ensure_csrf_cookie, name="dispatch")
+class EmptyHomeView(View):
+    def get(self, request):
+        return HttpResponse("", content_type="text/plain")

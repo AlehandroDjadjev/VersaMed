@@ -1,18 +1,28 @@
 from django.contrib.auth import authenticate, get_user_model
 from django.http import FileResponse
+from django.http import FileResponse
+from django.shortcuts import get_object_or_404
 from django.db.models import Q
 from django.db import IntegrityError
+from rest_framework.exceptions import ValidationError
 from rest_framework.authtoken.models import Token
+from rest_framework.parsers import FormParser, JSONParser, MultiPartParser
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.views import APIView
 
-from apps.core.models import DoctorProfile, PatientProfile
+from apps.core.models import DoctorProfile, LaboratoryResultAttachment, PatientProfile
 from apps.core.services import sync_user_from_mock_hospital
 from his_mock.client import MockHospitalAPIClient
 from .ai_vision_service import analyze_scan_with_ai
 from .scan_service import ScanNotFoundError, get_scan, list_scans, scan_image_path
+from .laboratory import (
+    LaboratoryResultInputSerializer,
+    create_laboratory_result,
+    laboratory_result_data,
+    validate_attachments,
+)
 
 
 def user_data(user):
@@ -186,6 +196,38 @@ class OnboardingSyncView(APIView):
         except ValueError as error:
             return Response({"error": str(error)}, status=404)
         return Response({"status": "synced", "user": user_data(request.user)})
+
+
+class LaboratoryResultCreateView(APIView):
+    permission_classes = [IsAuthenticated]
+    parser_classes = [MultiPartParser, FormParser, JSONParser]
+
+    def post(self, request):
+        serializer = LaboratoryResultInputSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        uploads = request.FILES.getlist("attachments[]") or request.FILES.getlist("attachments")
+        attachments = validate_attachments(uploads)
+        if not serializer.validated_data["test_results"] and not attachments:
+            raise ValidationError(
+                {"detail": "At least one structured test result or attachment is required."}
+            )
+        result = create_laboratory_result(serializer.validated_data, attachments, request.user)
+        return Response(laboratory_result_data(result), status=status.HTTP_201_CREATED)
+
+
+class LaboratoryResultAttachmentDownloadView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request, attachment_id):
+        attachments = LaboratoryResultAttachment.objects.all()
+        if not request.user.is_staff:
+            attachments = attachments.filter(laboratory_result__created_by=request.user)
+        attachment = get_object_or_404(attachments, id=attachment_id)
+        return FileResponse(
+            attachment.file.open("rb"),
+            as_attachment=True,
+            filename=attachment.title,
+        )
 
 
 def doctor_dashboard(user):

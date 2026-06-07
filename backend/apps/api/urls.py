@@ -1,6 +1,17 @@
 from django.urls import path
 
 from .views import AnalyzeScanView, DashboardView, HealthCheckView, LoginView, LogoutView, MeView, OnboardingSyncView, ScanDetailView, ScanImageView, ScanListView, SignupView
+from .views import (
+    DashboardView,
+    HealthCheckView,
+    LaboratoryResultAttachmentDownloadView,
+    LaboratoryResultCreateView,
+    LoginView,
+    LogoutView,
+    MeView,
+    OnboardingSyncView,
+    SignupView,
+)
 
 app_name = "api"
 
@@ -16,4 +27,10 @@ urlpatterns = [
     path("scans/<str:scan_id>", ScanDetailView.as_view(), name="scan-detail"),
     path("scans/<str:scan_id>/image", ScanImageView.as_view(), name="scan-image"),
     path("analyze-scan/<str:scan_id>", AnalyzeScanView.as_view(), name="analyze-scan"),
+    path("laboratory/results/", LaboratoryResultCreateView.as_view(), name="laboratory-result-create"),
+    path(
+        "laboratory/results/attachments/<uuid:attachment_id>/download/",
+        LaboratoryResultAttachmentDownloadView.as_view(),
+        name="laboratory-result-attachment-download",
+    ),
 ]

@@ -1,0 +1,26 @@
+huggingface-cli download Octen/Octen-Embedding-0.6B --local-dir C:\models\Octen-Embedding-0.6B `
+
+python text_researcher.py "1. Resistant Hypertension + HypokalemiaA 42-year-old man presents with resistant hypertension despite treatment with amlodipine, losartan, and hydrochlorothiazide. Blood pressure is 170/100 mmHg. Laboratory studies show potassium 2.9 mmol/L, bicarbonate 31 mmol/L, sodium 145 mmol/L. Renin is suppressed and aldosterone is elevated." --embedding C:\models\Octen-Embedding-0.6B
+
+setup:
+wsl bash -lc "source ~/venvs/qwen-vllm/bin/activate && cd /mnt/c/Users/marti/allFolder/code/Digithon && python qwen_vllm_server.py"
+
+wsl --install -d Ubuntu-24.04
+wsl --update
+wsl -l -v
+
+sudo apt update
+sudo apt upgrade -y
+
+sudo apt install -y \
+  python3 python3-venv python3-pip \
+  git curl build-essential
+
+mkdir -p ~/venvs
+python3 -m venv ~/venvs/qwen-vllm
+
+source ~/venvs/qwen-vllm/bin/activate
+python -m pip install --upgrade pip setuptools wheel
+
+pip install uv
+uv pip install vllm fastapi uvicorn pydantic transformers pillow requests huggingface_hub

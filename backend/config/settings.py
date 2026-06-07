@@ -13,6 +13,12 @@ def env_bool(name, default):
 SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", "django-insecure-change-me")
 DEBUG = env_bool("DJANGO_DEBUG", True)
 ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "127.0.0.1,localhost").split(",")
+DEFAULT_DEV_ORIGINS = "http://127.0.0.1:3000,http://localhost:3000"
+DEFAULT_CORS_ORIGINS = DEFAULT_DEV_ORIGINS if DEBUG else ""
+
+
+def split_csv(value):
+    return [item.strip() for item in value.split(",") if item.strip()]
 
 INSTALLED_APPS = [
     "corsheaders",
@@ -90,20 +96,41 @@ USE_TZ = True
 
 STATIC_URL = "static/"
 STATIC_ROOT = BASE_DIR / "staticfiles"
+PRIVATE_MEDIA_ROOT = Path(os.getenv("PRIVATE_MEDIA_ROOT") or BASE_DIR / "private_media")
+LAB_RESULT_MAX_FILE_SIZE = int(os.getenv("LAB_RESULT_MAX_FILE_SIZE", str(10 * 1024 * 1024)))
+LAB_RESULT_ALLOW_DICOM = env_bool("LAB_RESULT_ALLOW_DICOM", False)
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 AUTH_USER_MODEL = "users.User"
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework.authentication.SessionAuthentication",
+    ),
+    "DEFAULT_PERMISSION_CLASSES": (
+        "rest_framework.permissions.IsAuthenticated",
+    ),
+}
+CORS_ALLOWED_ORIGINS = split_csv(
+    os.getenv("DJANGO_CORS_ALLOWED_ORIGINS", DEFAULT_CORS_ORIGINS)
+)
+CSRF_TRUSTED_ORIGINS = split_csv(
+    os.getenv("DJANGO_CSRF_TRUSTED_ORIGINS", DEFAULT_CORS_ORIGINS)
+)
+CORS_ALLOW_CREDENTIALS = True
+SESSION_COOKIE_SECURE = not DEBUG
+CSRF_COOKIE_SECURE = not DEBUG
+SESSION_COOKIE_HTTPONLY = True
+SESSION_COOKIE_SAMESITE = "Lax"
+CSRF_COOKIE_SAMESITE = "Lax"
+SECURE_CONTENT_TYPE_NOSNIFF = True
+SECURE_REFERRER_POLICY = "same-origin"
+X_FRAME_OPTIONS = "DENY"
+CORS_ALLOW_ALL_ORIGINS = DEBUG
 CORS_ALLOWED_ORIGINS = [
     origin.strip()
     for origin in os.getenv("CORS_ALLOWED_ORIGINS", "http://localhost:3000").split(",")
     if origin.strip()
 ]
-
-REST_FRAMEWORK = {
-    "DEFAULT_AUTHENTICATION_CLASSES": [
-        "rest_framework.authentication.TokenAuthentication",
-    ],
-}
 
 SECURE_SSL_REDIRECT = env_bool("DJANGO_SECURE_SSL_REDIRECT", False)
 SESSION_COOKIE_SECURE = env_bool("DJANGO_SESSION_COOKIE_SECURE", False)
@@ -116,3 +143,15 @@ MOCK_FORCE_ERROR = env_bool("MOCK_FORCE_ERROR", False)
 MOCK_ERROR_STATUS = int(os.getenv("MOCK_ERROR_STATUS", "500"))
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY", "")
 OPENAI_MODEL = os.getenv("OPENAI_MODEL", "gpt-4.1-mini")
+
+EMAIL_BACKEND = os.getenv(
+    "DJANGO_EMAIL_BACKEND",
+    "django.core.mail.backends.console.EmailBackend" if DEBUG else "django.core.mail.backends.smtp.EmailBackend",
+)
+DEFAULT_FROM_EMAIL = os.getenv("DJANGO_DEFAULT_FROM_EMAIL", "no-reply@versamed.local")
+LOGIN_VERIFICATION_CODE_TTL_SECONDS = int(
+    os.getenv("LOGIN_VERIFICATION_CODE_TTL_SECONDS", "600")
+)
+LOGIN_VERIFICATION_MAX_ATTEMPTS = int(
+    os.getenv("LOGIN_VERIFICATION_MAX_ATTEMPTS", "5")
+)

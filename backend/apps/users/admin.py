@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 
-from .models import User
+from .models import DoctorPatientAssignment, User
 
 
 @admin.register(User)
@@ -21,4 +21,18 @@ class UserAdmin(BaseUserAdmin):
                 )
             },
         ),
+    )
+
+
+@admin.register(DoctorPatientAssignment)
+class DoctorPatientAssignmentAdmin(admin.ModelAdmin):
+    list_display = ("doctor", "patient", "assigned_at")
+    search_fields = (
+        "doctor__uin",
+        "doctor__user__first_name",
+        "doctor__user__last_name",
+        "patient__personal_identifier",
+        "patient__user__first_name",
+        "patient__user__middle_name",
+        "patient__user__last_name",
     )

@@ -40,4 +40,15 @@ yarn-error.log*
 .vscode/
 .DS_Store
 Thumbs.db
+
+.env
+
+# Frontend / Node
+**/node_modules/
+**/.next/
+**/.turbo/
+**/.vercel/
+frontend/package-lock.json
+**/package-lock.json
+**/tsconfig.tsbuildinfo
 Desktop.ini
