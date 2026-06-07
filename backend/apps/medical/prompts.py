@@ -18,6 +18,8 @@ Your task:
 4. Avoid duplicate problems.
 5. Prefer updating an existing problem if it describes the same underlying issue.
 6. Use previous problems and previous diagnoses as context.
+7. Use enrichment.research and enrichment.scan_analysis as supporting context when present.
+8. Preserve clear provenance: scan analysis and research are supporting evidence, while raw_text/raw_json are the saved source record.
 
 Allowed problem actions:
 - create_problem

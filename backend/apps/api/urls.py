@@ -11,9 +11,6 @@ from .views import (
     LogoutView,
     MeView,
     OnboardingSyncView,
-    ScanDetailView,
-    ScanImageView,
-    ScanListView,
     SignupView,
 )
 
@@ -51,25 +48,16 @@ urlpatterns = [
         LaboratoryResultCreateView.as_view(),
         name="laboratory-result-create",
     ),
-
-    *slash_compatible("scans", ScanListView.as_view(), name="scan-list"),
-
     *slash_compatible(
-        "scans/<str:scan_id>",
-        ScanDetailView.as_view(),
-        name="scan-detail",
-    ),
-
-    *slash_compatible(
-        "scans/<str:scan_id>/image",
-        ScanImageView.as_view(),
-        name="scan-image",
+        "analyze-scan",
+        AnalyzeScanView.as_view(),
+        name="analyze-scan",
     ),
 
     *slash_compatible(
         "analyze-scan/<str:scan_id>",
         AnalyzeScanView.as_view(),
-        name="analyze-scan",
+        name="analyze-scan-by-id",
     ),
 
     *slash_compatible(

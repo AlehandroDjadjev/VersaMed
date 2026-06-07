@@ -1,23 +1,30 @@
+import json
+import logging
+import time
+
 from django.contrib.auth import authenticate, get_user_model
+from django.core.files.uploadedfile import SimpleUploadedFile
 from django.http import FileResponse
 from django.shortcuts import get_object_or_404
 from django.db.models import Q
 from django.db import IntegrityError
-from rest_framework import serializers
+from rest_framework import serializers, status
 from rest_framework.exceptions import ValidationError
 from rest_framework.authtoken.models import Token
 from rest_framework.parsers import FormParser, JSONParser, MultiPartParser
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
-from rest_framework import status
 from rest_framework.views import APIView
 
 from apps.core.models import DoctorProfile, LaboratoryResultAttachment, PatientProfile
 from apps.core.email_notifications import send_email_notification
 from apps.core.services import sync_user_from_mock_hospital
+from apps.medical.models import Diagnosis, Patient as MedicalPatient
+from apps.medical.serializers import DiagnosisProblemLinkSerializer, DiagnosisSerializer
+from apps.medical.services import DiagnosisAnalysisService
 from his_mock.client import MockHospitalAPIClient
 from .ai_vision_service import analyze_scan_with_ai
-from .scan_service import ScanNotFoundError, get_scan, list_scans, scan_image_path
+from .scan_service import ScanNotFoundError, get_scan, scan_image_path
 from .laboratory import (
     LaboratoryFileUploadSerializer,
     LaboratoryResultInputSerializer,
@@ -29,13 +36,7 @@ from .laboratory import (
 from .notifications import CanSendEmailNotification, EmailNotificationSerializer
 
 
-class AnalyzeScanInputSerializer(serializers.Serializer):
-    patient_symptoms = serializers.CharField(
-        allow_blank=False,
-        trim_whitespace=True,
-        max_length=2000,
-        help_text="Patient-reported symptoms or complaint to include in the AI scan analysis.",
-    )
+logger = logging.getLogger(__name__)
 
 
 def user_data(user):
@@ -147,6 +148,11 @@ class DashboardView(APIView):
         except PatientProfile.DoesNotExist:
             return Response({"error": "No hospital record is linked to this account."}, status=404)
         mock = MockHospitalAPIClient().fetch_patient(profile.personal_identifier)
+        records_available = {
+            "immunizations": len(mock["immunizations"]) if mock else 0,
+            "hospitalizations": len(mock["hospitalizations"]) if mock else 0,
+            "epicrises": len(mock["epicrises"]) if mock else 0,
+        }
         hospitalizations = [
             {
                 "department": item.department,
@@ -174,11 +180,7 @@ class DashboardView(APIView):
             "mock_hospital_api": {
                 "status": "connected",
                 "patient_found": bool(mock),
-                "records_available": {
-                    "immunizations": len(mock["immunizations"]),
-                    "hospitalizations": len(mock["hospitalizations"]),
-                    "epicrises": len(mock["epicrises"]),
-                },
+                "records_available": records_available,
             },
             "database": {
                 "immunizations": [
@@ -206,13 +208,175 @@ class OnboardingSyncView(APIView):
         identifier = request.data.get("personal_identifier") or request.data.get("uin")
         if not identifier:
             return Response({"error": "personal_identifier or uin is required."}, status=400)
+        previous_hospitalization_ids = self.get_existing_hospitalization_ids(request.user)
+
         try:
-            sync_user_from_mock_hospital(request.user, identifier)
+            profile = sync_user_from_mock_hospital(request.user, identifier)
         except IntegrityError:
             return Response({"error": "This hospital identifier is already linked to another account."}, status=409)
         except ValueError as error:
             return Response({"error": str(error)}, status=404)
-        return Response({"status": "synced", "user": user_data(request.user)})
+
+        analyzed = []
+        analysis_errors = []
+
+        if request.user.role == "patient":
+            candidate_hospitalizations = []
+            hospitalizations = profile.hospitalizations.select_related(
+                "medical_institution",
+                "epicrisis",
+            )
+
+            for hospitalization in hospitalizations:
+                is_new_source = hospitalization.his_document_id not in previous_hospitalization_ids
+                if is_new_source or self.needs_his_analysis(request.user, hospitalization):
+                    candidate_hospitalizations.append(hospitalization)
+
+            for hospitalization in candidate_hospitalizations:
+                try:
+                    result = self.analyze_hospitalization(request.user, hospitalization)
+                    if result:
+                        analyzed.append(result)
+                except Exception as error:
+                    analysis_errors.append(
+                        {
+                            "source_id": hospitalization.his_document_id,
+                            "message": str(error),
+                        }
+                    )
+
+        new_problem = None
+        for item in analyzed:
+            if item["problem_links"]:
+                new_problem = item["problem_links"][0]["problem"]
+                break
+
+        return Response(
+            {
+                "status": "synced",
+                "user": user_data(request.user),
+                "new_records": {
+                    "hospitalizations": len(analyzed) + len(analysis_errors),
+                },
+                "analyzed_diagnoses": analyzed,
+                "latest_diagnosis": self.get_latest_diagnosis(request.user),
+                "analysis_errors": analysis_errors,
+                "new_problem": new_problem,
+            }
+        )
+
+    def get_existing_hospitalization_ids(self, user):
+        if user.role != "patient":
+            return set()
+
+        try:
+            profile = user.patient_profile
+        except PatientProfile.DoesNotExist:
+            return set()
+
+        return set(profile.hospitalizations.values_list("his_document_id", flat=True))
+
+    def needs_his_analysis(self, user, hospitalization):
+        medical_patient = MedicalPatient.objects.filter(user=user).first()
+        if not medical_patient:
+            return True
+
+        diagnosis = Diagnosis.objects.filter(
+            patient=medical_patient,
+            raw_json__source="his_hospitalization",
+            raw_json__source_id=hospitalization.his_document_id,
+        ).first()
+
+        if not diagnosis:
+            return True
+
+        return not diagnosis.description and not diagnosis.problem_links.exists()
+
+    def analyze_hospitalization(self, user, hospitalization):
+        medical_patient, _ = MedicalPatient.objects.get_or_create(
+            user=user,
+            defaults={"name": user.get_full_name() or user.username},
+        )
+
+        existing_diagnosis = Diagnosis.objects.filter(
+            patient=medical_patient,
+            raw_json__source="his_hospitalization",
+            raw_json__source_id=hospitalization.his_document_id,
+        ).first()
+
+        if existing_diagnosis:
+            if existing_diagnosis.description or existing_diagnosis.problem_links.exists():
+                return None
+
+            existing_diagnosis.delete()
+
+        raw_text = self.hospitalization_raw_text(hospitalization)
+        diagnosis = DiagnosisAnalysisService().analyze_and_save(
+            patient_id=medical_patient.id,
+            kind=Diagnosis.Kind.DOCTOR_DIAGNOSIS,
+            title=f"{hospitalization.diagnosis} ({hospitalization.diagnosis_code})",
+            happened_at=hospitalization.admission_date,
+            raw_text=raw_text,
+            raw_json={
+                "source": "his_hospitalization",
+                "source_id": hospitalization.his_document_id,
+                "diagnosis_code": hospitalization.diagnosis_code,
+                "department": hospitalization.department,
+                "institution": hospitalization.medical_institution.name,
+                "admission_date": hospitalization.admission_date.isoformat(),
+                "discharge_date": hospitalization.discharge_date.isoformat()
+                if hospitalization.discharge_date
+                else None,
+            },
+            include_enrichment=False,
+        )
+        links = diagnosis.problem_links.select_related("problem").all()
+
+        return {
+            "source_id": hospitalization.his_document_id,
+            "diagnosis": DiagnosisSerializer(diagnosis).data,
+            "problem_links": DiagnosisProblemLinkSerializer(links, many=True).data,
+        }
+
+    def get_latest_diagnosis(self, user):
+        medical_patient = MedicalPatient.objects.filter(user=user).first()
+        if not medical_patient:
+            return None
+
+        diagnosis = (
+            medical_patient.diagnoses.order_by("-happened_at", "-created_at")
+            .prefetch_related("problem_links__problem")
+            .first()
+        )
+        if not diagnosis:
+            return None
+
+        links = diagnosis.problem_links.select_related("problem").all()
+        return {
+            "source_id": diagnosis.raw_json.get("source_id", "") if diagnosis.raw_json else "",
+            "diagnosis": DiagnosisSerializer(diagnosis).data,
+            "problem_links": DiagnosisProblemLinkSerializer(links, many=True).data,
+        }
+
+    def hospitalization_raw_text(self, hospitalization):
+        lines = [
+            f"HIS hospitalization document: {hospitalization.his_document_id}",
+            f"Diagnosis: {hospitalization.diagnosis} ({hospitalization.diagnosis_code})",
+            f"Department: {hospitalization.department}",
+            f"Institution: {hospitalization.medical_institution.name}",
+            f"Admission date: {hospitalization.admission_date}",
+            f"Discharge date: {hospitalization.discharge_date or 'not recorded'}",
+        ]
+
+        if hasattr(hospitalization, "epicrisis"):
+            lines.extend(
+                [
+                    f"Epicrisis summary: {hospitalization.epicrisis.summary}",
+                    f"Recommendations: {hospitalization.epicrisis.recommendations}",
+                ]
+            )
+
+        return "\n".join(lines)
 
 
 class LaboratoryResultCreateView(APIView):
@@ -311,56 +475,194 @@ def doctor_dashboard(user):
     })
 
 
-class ScanListView(APIView):
-    authentication_classes = []
-    permission_classes = []
-
-    def get(self, request):
-        return Response(list_scans())
-
-
-class ScanDetailView(APIView):
-    authentication_classes = []
-    permission_classes = []
-
-    def get(self, request, scan_id):
-        try:
-            return Response(get_scan(scan_id))
-        except ScanNotFoundError as error:
-            return Response({"error": str(error)}, status=404)
-
-
-class ScanImageView(APIView):
-    authentication_classes = []
-    permission_classes = []
-
-    def get(self, request, scan_id):
-        try:
-            scan = get_scan(scan_id)
-            return FileResponse(scan_image_path(scan).open("rb"), content_type="image/png")
-        except ScanNotFoundError as error:
-            return Response({"error": str(error)}, status=404)
-        except FileNotFoundError as error:
-            return Response({"error": str(error)}, status=404)
-
-
 class AnalyzeScanView(APIView):
-    authentication_classes = []
-    permission_classes = []
+    permission_classes = [IsAuthenticated]
+    parser_classes = [MultiPartParser, FormParser, JSONParser]
 
-    def post(self, request, scan_id):
-        serializer = AnalyzeScanInputSerializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        patient_symptoms = serializer.validated_data["patient_symptoms"]
+    class InputSerializer(serializers.Serializer):
+        patient_id = serializers.IntegerField(required=False)
+        title = serializers.CharField(max_length=255, required=False, allow_blank=True)
+        modality = serializers.CharField(max_length=64, required=False, allow_blank=True)
+        body_part = serializers.CharField(max_length=128, required=False, allow_blank=True)
+        user_complaint = serializers.CharField(required=False, allow_blank=True)
+        patient_symptoms = serializers.CharField(required=False, allow_blank=True)
+        clinical_context = serializers.CharField(required=False, allow_blank=True)
+        focus_hint = serializers.CharField(required=False, allow_blank=True)
+        happened_at = serializers.DateField(required=False, allow_null=True)
+        symptoms = serializers.CharField(required=False, allow_blank=True)
+        image = serializers.FileField(required=False)
+
+    def _resolve_patient(self, request, patient_id):
+        if patient_id is not None:
+            patient = get_object_or_404(MedicalPatient, id=patient_id)
+            if patient.user != request.user and not request.user.is_staff:
+                raise ValidationError({"patient_id": ["You cannot use this patient record."]})
+            return patient
+        if request.user.is_staff:
+            raise ValidationError({"patient_id": ["patient_id is required for staff users."]})
+        patient, _ = MedicalPatient.objects.get_or_create(
+            user=request.user,
+            defaults={"name": request.user.get_full_name() or request.user.username},
+        )
+        return patient
+
+    def _parse_symptoms(self, raw_value):
+        if not raw_value:
+            return []
+        text = raw_value.strip()
+        if not text:
+            return []
         try:
-            scan = get_scan(scan_id)
-            result = analyze_scan_with_ai(scan, patient_symptoms)
-        except ScanNotFoundError as error:
-            return Response({"error": str(error)}, status=404)
-        except FileNotFoundError as error:
-            return Response({"error": str(error)}, status=503)
+            parsed = json.loads(text)
+            if isinstance(parsed, list):
+                return [str(item).strip() for item in parsed if str(item).strip()]
+        except json.JSONDecodeError:
+            pass
+        return [item.strip() for item in text.split(",") if item.strip()]
+
+    def post(self, request, scan_id=None):
+        request_started = time.perf_counter()
+        logger.warning(
+            "scan_pipeline.start user_id=%s scan_id=%s",
+            getattr(request.user, "id", None),
+            scan_id or "",
+        )
+        serializer = self.InputSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        payload = serializer.validated_data
+        logger.warning(
+            "scan_pipeline.input_valid user_id=%s has_image=%s title=%s",
+            getattr(request.user, "id", None),
+            bool(payload.get("image")),
+            payload.get("title", ""),
+        )
+        patient = self._resolve_patient(request, payload.get("patient_id"))
+        logger.warning(
+            "scan_pipeline.patient_resolved user_id=%s patient_id=%s",
+            getattr(request.user, "id", None),
+            patient.id,
+        )
+        image_upload = payload.get("image")
+        patient_symptoms = payload.get("patient_symptoms", "").strip()
+
+        if scan_id:
+            try:
+                scan = get_scan(scan_id)
+                image_path = scan_image_path(scan)
+            except ScanNotFoundError as error:
+                return Response({"error": str(error)}, status=404)
+            except FileNotFoundError as error:
+                return Response({"error": str(error)}, status=404)
+            image_upload = SimpleUploadedFile(
+                image_path.name,
+                image_path.read_bytes(),
+                content_type="image/png",
+            )
+            if not patient_symptoms:
+                raise ValidationError(
+                    {"patient_symptoms": ["This field is required for scan-id analysis."]}
+                )
+        else:
+            if not image_upload:
+                raise ValidationError({"image": ["This field is required."]})
+            if not payload.get("title"):
+                raise ValidationError({"title": ["This field is required."]})
+            if not patient_symptoms:
+                patient_symptoms = (
+                    payload.get("user_complaint", "").strip()
+                    or ", ".join(self._parse_symptoms(payload.get("symptoms", "")))
+                )
+            scan = {
+                "id": "",
+                "title": payload["title"],
+                "modality": payload.get("modality", ""),
+                "bodyPart": payload.get("body_part", ""),
+                "symptoms": self._parse_symptoms(payload.get("symptoms", "")),
+                "symptomsSource": "uploaded_by_user",
+                "userComplaint": payload.get("user_complaint", ""),
+                "clinicalContext": payload.get("clinical_context", ""),
+                "focusHint": payload.get("focus_hint", ""),
+            }
+        try:
+            vision_started = time.perf_counter()
+            logger.warning(
+                "scan_pipeline.vision.start user_id=%s patient_id=%s",
+                getattr(request.user, "id", None),
+                patient.id,
+            )
+            result = analyze_scan_with_ai(
+                scan,
+                image_upload,
+                patient_symptoms=patient_symptoms,
+            )
+            logger.warning(
+                "scan_pipeline.vision.done user_id=%s patient_id=%s elapsed_ms=%d",
+                getattr(request.user, "id", None),
+                patient.id,
+                int((time.perf_counter() - vision_started) * 1000),
+            )
         except RuntimeError as error:
+            logger.warning(
+                "scan_pipeline.vision.runtime_error user_id=%s patient_id=%s error=%s",
+                getattr(request.user, "id", None),
+                patient.id,
+                str(error),
+            )
             return Response({"error": str(error)}, status=503)
-        except Exception:
+        except Exception as exc:
+            logger.exception(
+                "scan_pipeline.vision.unhandled_error user_id=%s patient_id=%s error=%s",
+                getattr(request.user, "id", None),
+                patient.id,
+                str(exc),
+            )
             return Response({"error": "AI scan analysis failed. Try again later."}, status=502)
-        return Response({"scan": scan, "patientSymptoms": patient_symptoms, "aiResult": result})
+        diagnosis_raw_text = "\n".join(
+            [
+                f"Scan title: {scan['title']}",
+                f"Modality: {scan['modality']}",
+                f"Body part: {scan['bodyPart']}",
+                f"Symptoms: {', '.join(scan.get('symptoms', [])) or 'not provided'}",
+                f"User complaint: {scan.get('userComplaint', '')}",
+                f"Clinical context: {scan.get('clinicalContext', '')}",
+                "Preliminary scan analysis:",
+                json.dumps(result, indent=2),
+            ]
+        )
+        diagnosis_started = time.perf_counter()
+        logger.warning(
+            "scan_pipeline.diagnosis.start user_id=%s patient_id=%s",
+            getattr(request.user, "id", None),
+            patient.id,
+        )
+        diagnosis = DiagnosisAnalysisService().analyze_and_save(
+            patient_id=patient.id,
+            kind=Diagnosis.Kind.RADIOLOGY,
+            title=f"{scan['title']} image analysis",
+            raw_text=diagnosis_raw_text,
+            raw_json={
+                "source": "scan_image_analysis" if scan_id else "uploaded_scan_analysis",
+                "scan_id": scan_id or "",
+                "scan": scan,
+                "scan_analysis": result,
+            },
+            happened_at=payload.get("happened_at"),
+        )
+        links = diagnosis.problem_links.select_related("problem").all()
+        logger.warning(
+            "scan_pipeline.done user_id=%s patient_id=%s diagnosis_id=%s links=%s diagnosis_ms=%d total_ms=%d",
+            getattr(request.user, "id", None),
+            patient.id,
+            diagnosis.id,
+            links.count(),
+            int((time.perf_counter() - diagnosis_started) * 1000),
+            int((time.perf_counter() - request_started) * 1000),
+        )
+        return Response(
+            {
+                "scan": scan,
+                "aiResult": result,
+                "diagnosis": DiagnosisSerializer(diagnosis).data,
+                "problem_links": DiagnosisProblemLinkSerializer(links, many=True).data,
+            }
+        )

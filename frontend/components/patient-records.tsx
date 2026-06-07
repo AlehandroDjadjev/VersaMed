@@ -85,10 +85,15 @@ export function PatientRecords() {
     setPageError(null);
 
     try {
-      await syncPatientFromHisApi(user.patient_profile.egn);
+      const syncResult = await syncPatientFromHisApi(user.patient_profile.egn);
       await refreshUser();
-      const nextDashboard = await fetchPatientDashboard();
-      setDashboard(nextDashboard);
+      if (typeof window !== "undefined") {
+        window.sessionStorage.setItem(
+          "latest_patient_sync_result",
+          JSON.stringify(syncResult),
+        );
+      }
+      router.push("/patient/sync-results");
     } catch (error) {
       setPageError(
         error instanceof ApiError
