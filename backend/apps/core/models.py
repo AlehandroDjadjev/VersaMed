@@ -107,3 +107,26 @@ class LaboratoryResultAttachment(models.Model):
         related_name="laboratory_result_attachments",
     )
     created_at = models.DateTimeField(auto_now_add=True)
+
+
+class EmailNotification(models.Model):
+    class Status(models.TextChoices):
+        PENDING = "PENDING", "Pending"
+        SENT = "SENT", "Sent"
+        FAILED = "FAILED", "Failed"
+
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.SET_NULL,
+        related_name="email_notifications",
+        null=True,
+        blank=True,
+    )
+    to_email = models.EmailField()
+    subject = models.CharField(max_length=255)
+    message = models.TextField()
+    status = models.CharField(max_length=16, choices=Status.choices, default=Status.PENDING)
+    error_message = models.TextField(blank=True, null=True)
+    sent_at = models.DateTimeField(blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)

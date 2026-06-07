@@ -2,6 +2,7 @@ from django.urls import path
 
 from .views import (
     DashboardView,
+    EmailNotificationCreateView,
     HealthCheckView,
     LaboratoryResultAttachmentDownloadView,
     LaboratoryResultCreateView,
@@ -23,6 +24,7 @@ urlpatterns = [
     path("dashboard/", DashboardView.as_view(), name="dashboard"),
     path("onboarding/sync/", OnboardingSyncView.as_view(), name="onboarding-sync"),
     path("laboratory/results/", LaboratoryResultCreateView.as_view(), name="laboratory-result-create"),
+    path("notifications/email/", EmailNotificationCreateView.as_view(), name="email-notification-create"),
     path(
         "laboratory/results/attachments/<uuid:attachment_id>/download/",
         LaboratoryResultAttachmentDownloadView.as_view(),

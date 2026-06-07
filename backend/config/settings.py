@@ -1,7 +1,10 @@
 import os
 from pathlib import Path
 
+from dotenv import load_dotenv
+
 BASE_DIR = Path(__file__).resolve().parent.parent
+load_dotenv(BASE_DIR / ".env")
 
 
 def env_bool(name, default):
@@ -16,7 +19,7 @@ DEFAULT_CORS_ORIGINS = DEFAULT_DEV_ORIGINS if DEBUG else ""
 
 
 def split_csv(value):
-    return [item.strip() for item in value.split(",") if item.strip()]
+    return [item.strip().rstrip("/") for item in value.split(",") if item.strip()]
 
 INSTALLED_APPS = [
     "corsheaders",
@@ -68,7 +71,7 @@ WSGI_APPLICATION = "config.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
-        "NAME": os.getenv("DATABASE_NAME", BASE_DIR / "db.sqlite3"),
+        "NAME": os.getenv("DATABASE_NAME") or BASE_DIR / "db.sqlite3",
     }
 }
 
@@ -125,7 +128,7 @@ SECURE_REFERRER_POLICY = "same-origin"
 X_FRAME_OPTIONS = "DENY"
 CORS_ALLOW_ALL_ORIGINS = DEBUG
 CORS_ALLOWED_ORIGINS = [
-    origin.strip()
+    origin.strip().rstrip("/")
     for origin in os.getenv("CORS_ALLOWED_ORIGINS", "http://localhost:3000").split(",")
     if origin.strip()
 ]
@@ -141,10 +144,21 @@ MOCK_FORCE_ERROR = env_bool("MOCK_FORCE_ERROR", False)
 MOCK_ERROR_STATUS = int(os.getenv("MOCK_ERROR_STATUS", "500"))
 
 EMAIL_BACKEND = os.getenv(
-    "DJANGO_EMAIL_BACKEND",
-    "django.core.mail.backends.console.EmailBackend" if DEBUG else "django.core.mail.backends.smtp.EmailBackend",
+    "EMAIL_BACKEND",
+    os.getenv(
+        "DJANGO_EMAIL_BACKEND",
+        "django.core.mail.backends.console.EmailBackend" if DEBUG else "django.core.mail.backends.smtp.EmailBackend",
+    ),
 )
-DEFAULT_FROM_EMAIL = os.getenv("DJANGO_DEFAULT_FROM_EMAIL", "no-reply@versamed.local")
+EMAIL_HOST = os.getenv("EMAIL_HOST", "smtp.gmail.com")
+EMAIL_PORT = int(os.getenv("EMAIL_PORT", "587"))
+EMAIL_USE_TLS = env_bool("EMAIL_USE_TLS", True)
+EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER", "")
+EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD", "")
+DEFAULT_FROM_EMAIL = os.getenv(
+    "DEFAULT_FROM_EMAIL",
+    os.getenv("DJANGO_DEFAULT_FROM_EMAIL", "VersaMed <versamedvm@gmail.com>"),
+)
 LOGIN_VERIFICATION_CODE_TTL_SECONDS = int(
     os.getenv("LOGIN_VERIFICATION_CODE_TTL_SECONDS", "600")
 )

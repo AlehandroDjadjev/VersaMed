@@ -108,3 +108,34 @@ and staff can download an attachment through:
 ```text
 GET /api/laboratory/results/attachments/{attachment_id}/download/
 ```
+
+## Email notifications
+
+Doctors, admins, and Django staff can send an email notification through:
+
+```text
+POST /api/notifications/email/
+```
+
+Configure Gmail SMTP in `backend/.env`:
+
+```env
+EMAIL_BACKEND=django.core.mail.backends.smtp.EmailBackend
+EMAIL_HOST=smtp.gmail.com
+EMAIL_PORT=587
+EMAIL_USE_TLS=True
+EMAIL_HOST_USER=versamedvm@gmail.com
+EMAIL_HOST_PASSWORD=<google_app_password>
+DEFAULT_FROM_EMAIL=VersaMed <versamedvm@gmail.com>
+```
+
+Developer setup:
+
+1. Enable Google 2-Step Verification for `versamedvm@gmail.com`.
+2. Create a Google App Password.
+3. Place the App Password in `EMAIL_HOST_PASSWORD`.
+4. Restart the backend.
+
+SMTP credentials must never be committed. Notification delivery status and
+internal failures are stored in the database, while API failure responses remain
+generic.

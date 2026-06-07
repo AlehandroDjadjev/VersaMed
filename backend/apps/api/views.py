@@ -12,6 +12,7 @@ from rest_framework import status
 from rest_framework.views import APIView
 
 from apps.core.models import DoctorProfile, LaboratoryResultAttachment, PatientProfile
+from apps.core.email_notifications import send_email_notification
 from apps.core.services import sync_user_from_mock_hospital
 from his_mock.client import MockHospitalAPIClient
 from .laboratory import (
@@ -20,6 +21,7 @@ from .laboratory import (
     laboratory_result_data,
     validate_attachments,
 )
+from .notifications import CanSendEmailNotification, EmailNotificationSerializer
 
 
 def user_data(user):
@@ -225,6 +227,24 @@ class LaboratoryResultAttachmentDownloadView(APIView):
             as_attachment=True,
             filename=attachment.title,
         )
+
+
+class EmailNotificationCreateView(APIView):
+    permission_classes = [IsAuthenticated, CanSendEmailNotification]
+
+    def post(self, request):
+        serializer = EmailNotificationSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        result = send_email_notification(
+            user=request.user,
+            **serializer.validated_data,
+        )
+        if not result["success"]:
+            return Response(
+                {"success": False, "message": "Failed to send email."},
+                status=status.HTTP_502_BAD_GATEWAY,
+            )
+        return Response({"success": True, "message": "Email sent successfully."})
 
 
 def doctor_dashboard(user):

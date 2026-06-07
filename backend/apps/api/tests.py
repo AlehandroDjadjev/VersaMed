@@ -2,12 +2,13 @@ import json
 import shutil
 import tempfile
 from pathlib import Path
+from unittest.mock import patch
 
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test import override_settings
 from rest_framework.test import APITestCase
 
-from apps.core.models import LaboratoryResult, LaboratoryResultAttachment
+from apps.core.models import EmailNotification, LaboratoryResult, LaboratoryResultAttachment
 from apps.users.models import User
 
 
@@ -39,7 +40,11 @@ class LaboratoryResultApiTests(APITestCase):
         super().tearDownClass()
 
     def setUp(self):
-        self.user = User.objects.create_user(username="lab-user", password="password123")
+        self.user = User.objects.create_user(
+            username="lab-user",
+            email="lab-user@example.com",
+            password="password123",
+        )
         self.client.force_authenticate(self.user)
 
     def upload(self, name="report.pdf", content=b"%PDF-1.4 mock", content_type="application/pdf"):
@@ -160,7 +165,7 @@ class LaboratoryResultApiTests(APITestCase):
         self.client.force_authenticate(self.user)
         authorized = self.client.get(download_path)
 
-        self.assertEqual(unauthorized.status_code, 401)
+        self.assertEqual(unauthorized.status_code, 403)
         self.assertEqual(authorized.status_code, 200)
         self.assertIn("attachment;", authorized.headers["Content-Disposition"])
 
@@ -171,7 +176,11 @@ class LaboratoryResultApiTests(APITestCase):
             format="multipart",
         )
         attachment_id = create_response.data["attachments"][0]["id"]
-        other_user = User.objects.create_user(username="other-user", password="password123")
+        other_user = User.objects.create_user(
+            username="other-user",
+            email="other-user@example.com",
+            password="password123",
+        )
         self.client.force_authenticate(other_user)
 
         response = self.client.get(f"{self.endpoint}attachments/{attachment_id}/download/")
@@ -187,4 +196,141 @@ class LaboratoryResultApiTests(APITestCase):
             format="json",
         )
 
-        self.assertEqual(response.status_code, 401)
+        self.assertEqual(response.status_code, 403)
+
+
+class EmailNotificationApiTests(APITestCase):
+    endpoint = "/api/notifications/email/"
+    payload = {
+        "to_email": "patient@example.com",
+        "subject": "Your VersaMed notification",
+        "message": "Your lab result is ready.",
+    }
+
+    def setUp(self):
+        self.doctor = User.objects.create_user(
+            username="notification-doctor",
+            email="doctor-notifications@example.com",
+            password="password123",
+            role=User.Role.DOCTOR,
+        )
+
+    @patch("apps.core.email_notifications.send_mail", return_value=1)
+    def test_authenticated_doctor_request_succeeds(self, mocked_send_mail):
+        self.client.force_authenticate(self.doctor)
+
+        response = self.client.post(self.endpoint, self.payload, format="json")
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data, {"success": True, "message": "Email sent successfully."})
+        mocked_send_mail.assert_called_once()
+
+    def test_unauthenticated_request_fails(self):
+        response = self.client.post(self.endpoint, self.payload, format="json")
+
+        self.assertIn(response.status_code, {401, 403})
+        self.assertEqual(EmailNotification.objects.count(), 0)
+
+    def test_patient_role_cannot_send_notifications(self):
+        patient = User.objects.create_user(
+            username="notification-patient",
+            email="notification-patient@example.com",
+            password="password123",
+            role=User.Role.PATIENT,
+        )
+        self.client.force_authenticate(patient)
+
+        response = self.client.post(self.endpoint, self.payload, format="json")
+
+        self.assertEqual(response.status_code, 403)
+        self.assertEqual(EmailNotification.objects.count(), 0)
+
+    def test_invalid_email_fails_validation(self):
+        self.client.force_authenticate(self.doctor)
+
+        response = self.client.post(
+            self.endpoint,
+            {**self.payload, "to_email": "not-an-email"},
+            format="json",
+        )
+
+        self.assertEqual(response.status_code, 400)
+        self.assertIn("to_email", response.data)
+        self.assertEqual(EmailNotification.objects.count(), 0)
+
+    def test_empty_subject_and_message_fail_validation(self):
+        self.client.force_authenticate(self.doctor)
+
+        response = self.client.post(
+            self.endpoint,
+            {**self.payload, "subject": " ", "message": " "},
+            format="json",
+        )
+
+        self.assertEqual(response.status_code, 400)
+        self.assertIn("subject", response.data)
+        self.assertIn("message", response.data)
+        self.assertEqual(EmailNotification.objects.count(), 0)
+
+    def test_subject_header_injection_fails_validation(self):
+        self.client.force_authenticate(self.doctor)
+
+        response = self.client.post(
+            self.endpoint,
+            {**self.payload, "subject": "Valid subject\r\nBcc: attacker@example.com"},
+            format="json",
+        )
+
+        self.assertEqual(response.status_code, 400)
+        self.assertIn("subject", response.data)
+        self.assertEqual(EmailNotification.objects.count(), 0)
+
+    @patch("apps.core.email_notifications.send_mail", side_effect=RuntimeError("SMTP secret detail"))
+    def test_smtp_failure_sets_failed_status_and_returns_generic_error(self, mocked_send_mail):
+        self.client.force_authenticate(self.doctor)
+
+        response = self.client.post(self.endpoint, self.payload, format="json")
+
+        self.assertEqual(response.status_code, 502)
+        self.assertEqual(response.data, {"success": False, "message": "Failed to send email."})
+        self.assertNotIn("SMTP secret detail", str(response.data))
+        notification = EmailNotification.objects.get()
+        self.assertEqual(notification.status, EmailNotification.Status.FAILED)
+        self.assertIsNone(notification.sent_at)
+        self.assertIn("RuntimeError", notification.error_message)
+        mocked_send_mail.assert_called_once()
+
+    @patch("apps.core.email_notifications.send_mail", return_value=1)
+    def test_successful_send_sets_sent_status_and_creates_correct_record(self, mocked_send_mail):
+        self.client.force_authenticate(self.doctor)
+
+        response = self.client.post(self.endpoint, self.payload, format="json")
+
+        self.assertEqual(response.status_code, 200)
+        notification = EmailNotification.objects.get()
+        self.assertEqual(notification.user, self.doctor)
+        self.assertEqual(notification.to_email, self.payload["to_email"])
+        self.assertEqual(notification.subject, self.payload["subject"])
+        self.assertEqual(notification.message, self.payload["message"])
+        self.assertEqual(notification.status, EmailNotification.Status.SENT)
+        self.assertIsNotNone(notification.sent_at)
+        self.assertIsNone(notification.error_message)
+        mocked_send_mail.assert_called_once_with(
+            subject=self.payload["subject"],
+            message=self.payload["message"],
+            from_email="VersaMed <versamedvm@gmail.com>",
+            recipient_list=[self.payload["to_email"]],
+            fail_silently=False,
+        )
+
+    @patch("apps.core.email_notifications.send_mail")
+    @override_settings(EMAIL_HOST_PASSWORD="super-secret-app-password")
+    def test_failure_record_redacts_email_password(self, mocked_send_mail):
+        mocked_send_mail.side_effect = RuntimeError("super-secret-app-password was rejected")
+        self.client.force_authenticate(self.doctor)
+
+        self.client.post(self.endpoint, self.payload, format="json")
+
+        error_message = EmailNotification.objects.get().error_message
+        self.assertNotIn("super-secret-app-password", error_message)
+        self.assertIn("[REDACTED]", error_message)
