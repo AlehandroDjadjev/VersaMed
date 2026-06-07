@@ -80,3 +80,31 @@ Unknown `/v1/...` endpoints return an XML `501 MOCK_NOT_IMPLEMENTED` response.
 This mock uses synthetic data and XML responses. It does not validate
 certificates, signatures, real authentication, real HIS schemas, or real
 business rules. It is only for local development.
+
+## Laboratory result uploads
+
+Authenticated users can create laboratory results containing structured values,
+private file attachments, or both:
+
+```bash
+curl -X POST http://localhost:8000/api/laboratory/results/ \
+  -H "Authorization: Token YOUR_TOKEN" \
+  -F "laboratory_request=lab-request-123" \
+  -F "laboratory_name=Example Laboratory" \
+  -F "collected_at=2026-06-07T08:00:00Z" \
+  -F "reported_at=2026-06-07T10:00:00Z" \
+  -F 'test_results=[{"test_name":"CRP","value":18,"unit":"mg/L","flag":"HIGH"}]' \
+  -F "attachments[]=@lab-report.pdf"
+```
+
+Allowed attachment extensions are PDF, JPG, JPEG, PNG, and WEBP. DICOM `.dcm`
+uploads can be enabled with `LAB_RESULT_ALLOW_DICOM=True`. Configure the maximum
+file size in bytes with `LAB_RESULT_MAX_FILE_SIZE`.
+
+Files are stored under `PRIVATE_MEDIA_ROOT`. Creation responses contain only
+attachment metadata and never expose a file path or public URL. Result owners
+and staff can download an attachment through:
+
+```text
+GET /api/laboratory/results/attachments/{attachment_id}/download/
+```

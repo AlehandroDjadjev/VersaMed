@@ -1,6 +1,16 @@
 from django.urls import path
 
-from .views import DashboardView, HealthCheckView, LoginView, LogoutView, MeView, OnboardingSyncView, SignupView
+from .views import (
+    DashboardView,
+    HealthCheckView,
+    LaboratoryResultAttachmentDownloadView,
+    LaboratoryResultCreateView,
+    LoginView,
+    LogoutView,
+    MeView,
+    OnboardingSyncView,
+    SignupView,
+)
 
 app_name = "api"
 
@@ -12,4 +22,10 @@ urlpatterns = [
     path("auth/me/", MeView.as_view(), name="me"),
     path("dashboard/", DashboardView.as_view(), name="dashboard"),
     path("onboarding/sync/", OnboardingSyncView.as_view(), name="onboarding-sync"),
+    path("laboratory/results/", LaboratoryResultCreateView.as_view(), name="laboratory-result-create"),
+    path(
+        "laboratory/results/attachments/<uuid:attachment_id>/download/",
+        LaboratoryResultAttachmentDownloadView.as_view(),
+        name="laboratory-result-attachment-download",
+    ),
 ]

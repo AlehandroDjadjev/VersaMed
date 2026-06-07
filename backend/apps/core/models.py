@@ -1,5 +1,9 @@
+import uuid
+
 from django.db import models
 from django.conf import settings
+
+from .storage import PrivateMediaStorage
 
 
 class TimestampedModel(models.Model):
@@ -60,3 +64,46 @@ class Epicrisis(TimestampedModel):
     his_document_id = models.CharField(max_length=64, unique=True)
     summary = models.TextField()
     recommendations = models.TextField(blank=True)
+
+
+class LaboratoryResult(TimestampedModel):
+    class Status(models.TextChoices):
+        COMPLETED = "completed", "Completed"
+
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    laboratory_request = models.CharField(max_length=128)
+    laboratory_name = models.CharField(max_length=255)
+    collected_at = models.DateTimeField()
+    reported_at = models.DateTimeField()
+    status = models.CharField(max_length=16, choices=Status.choices, default=Status.COMPLETED)
+    test_results = models.JSONField(default=list, blank=True)
+    created_by = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.PROTECT,
+        related_name="laboratory_results",
+    )
+
+
+class LaboratoryResultAttachment(models.Model):
+    class FileType(models.TextChoices):
+        PDF = "pdf", "PDF"
+        IMAGE = "image", "Image"
+        DICOM = "dicom", "DICOM"
+        OTHER = "other", "Other"
+
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    laboratory_result = models.ForeignKey(
+        LaboratoryResult,
+        on_delete=models.CASCADE,
+        related_name="attachments",
+    )
+    file = models.FileField(storage=PrivateMediaStorage(), upload_to="laboratory_results/attachments/")
+    file_type = models.CharField(max_length=16, choices=FileType.choices)
+    title = models.CharField(max_length=255)
+    description = models.TextField(blank=True, null=True)
+    uploaded_by = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.PROTECT,
+        related_name="laboratory_result_attachments",
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
