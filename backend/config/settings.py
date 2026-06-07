@@ -1,7 +1,9 @@
 import os
 from pathlib import Path
+from dotenv import load_dotenv
 
 BASE_DIR = Path(__file__).resolve().parent.parent
+load_dotenv(BASE_DIR / ".env")
 
 
 def env_bool(name, default):
@@ -31,6 +33,7 @@ INSTALLED_APPS = [
     "apps.core",
     "apps.users",
     "apps.api",
+    "apps.medical",
     "his_mock",
 ]
 
@@ -139,7 +142,12 @@ MOCK_AUTH_DISABLED = env_bool("MOCK_AUTH_DISABLED", True)
 MOCK_LATENCY_MS = int(os.getenv("MOCK_LATENCY_MS", "0"))
 MOCK_FORCE_ERROR = env_bool("MOCK_FORCE_ERROR", False)
 MOCK_ERROR_STATUS = int(os.getenv("MOCK_ERROR_STATUS", "500"))
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY", "")
+OPENAI_MODEL = os.getenv("OPENAI_MODEL", "gpt-4.1-mini")
 
+CHAT_API_KEY = os.getenv("chat_api_key", "")
+CHAT_MODEL = os.getenv("CHAT_MODEL", "gpt-5.1")
+CHAT_API_TIMEOUT_SECONDS = int(os.getenv("CHAT_API_TIMEOUT_SECONDS", "60"))
 EMAIL_BACKEND = os.getenv(
     "DJANGO_EMAIL_BACKEND",
     "django.core.mail.backends.console.EmailBackend" if DEBUG else "django.core.mail.backends.smtp.EmailBackend",
