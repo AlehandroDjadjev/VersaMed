@@ -1,9 +1,9 @@
 from django.contrib.auth import authenticate, get_user_model
 from django.http import FileResponse
-from django.http import FileResponse
 from django.shortcuts import get_object_or_404
 from django.db.models import Q
 from django.db import IntegrityError
+from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
 from rest_framework.authtoken.models import Token
 from rest_framework.parsers import FormParser, JSONParser, MultiPartParser
@@ -13,6 +13,7 @@ from rest_framework import status
 from rest_framework.views import APIView
 
 from apps.core.models import DoctorProfile, LaboratoryResultAttachment, PatientProfile
+from apps.core.email_notifications import send_email_notification
 from apps.core.services import sync_user_from_mock_hospital
 from his_mock.client import MockHospitalAPIClient
 from .ai_vision_service import analyze_scan_with_ai
@@ -25,6 +26,16 @@ from .laboratory import (
     laboratory_result_data,
     validate_attachments,
 )
+from .notifications import CanSendEmailNotification, EmailNotificationSerializer
+
+
+class AnalyzeScanInputSerializer(serializers.Serializer):
+    patient_symptoms = serializers.CharField(
+        allow_blank=False,
+        trim_whitespace=True,
+        max_length=2000,
+        help_text="Patient-reported symptoms or complaint to include in the AI scan analysis.",
+    )
 
 
 def user_data(user):
@@ -180,6 +191,10 @@ class DashboardView(APIView):
                     for item in profile.immunizations.select_related("medical_institution")
                 ],
                 "hospitalizations": hospitalizations,
+                "laboratory_results": [
+                    laboratory_result_data(item)
+                    for item in profile.laboratory_results.prefetch_related("attachments")
+                ],
             },
         })
 
@@ -205,7 +220,7 @@ class LaboratoryResultCreateView(APIView):
     parser_classes = [MultiPartParser, FormParser, JSONParser]
 
     def post(self, request):
-        serializer = LaboratoryFileUploadSerializer(
+        serializer = LaboratoryResultInputSerializer(
             data=request.data,
             context={"request": request},
         )
@@ -233,13 +248,38 @@ class LaboratoryResultAttachmentDownloadView(APIView):
     def get(self, request, attachment_id):
         attachments = LaboratoryResultAttachment.objects.all()
         if not request.user.is_staff:
-            attachments = attachments.filter(laboratory_result__created_by=request.user)
+            allowed = Q(laboratory_result__created_by=request.user) | Q(
+                laboratory_result__patient__user=request.user
+            )
+            if request.user.role == "doctor" and hasattr(request.user, "doctor_profile"):
+                allowed |= Q(
+                    laboratory_result__patient__doctor_assignments__doctor=request.user.doctor_profile
+                )
+            attachments = attachments.filter(allowed).distinct()
         attachment = get_object_or_404(attachments, id=attachment_id)
         return FileResponse(
             attachment.file.open("rb"),
             as_attachment=True,
             filename=attachment.title,
         )
+
+
+class EmailNotificationCreateView(APIView):
+    permission_classes = [IsAuthenticated, CanSendEmailNotification]
+
+    def post(self, request):
+        serializer = EmailNotificationSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        result = send_email_notification(
+            user=request.user,
+            **serializer.validated_data,
+        )
+        if not result["success"]:
+            return Response(
+                {"success": False, "message": "Failed to send email."},
+                status=status.HTTP_502_BAD_GATEWAY,
+            )
+        return Response({"success": True, "message": "Email sent successfully."})
 
 
 def doctor_dashboard(user):
@@ -309,9 +349,12 @@ class AnalyzeScanView(APIView):
     permission_classes = []
 
     def post(self, request, scan_id):
+        serializer = AnalyzeScanInputSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        patient_symptoms = serializer.validated_data["patient_symptoms"]
         try:
             scan = get_scan(scan_id)
-            result = analyze_scan_with_ai(scan)
+            result = analyze_scan_with_ai(scan, patient_symptoms)
         except ScanNotFoundError as error:
             return Response({"error": str(error)}, status=404)
         except FileNotFoundError as error:
@@ -320,4 +363,4 @@ class AnalyzeScanView(APIView):
             return Response({"error": str(error)}, status=503)
         except Exception:
             return Response({"error": "AI scan analysis failed. Try again later."}, status=502)
-        return Response({"scan": scan, "aiResult": result})
+        return Response({"scan": scan, "patientSymptoms": patient_symptoms, "aiResult": result})

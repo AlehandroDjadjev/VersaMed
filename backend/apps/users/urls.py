@@ -2,6 +2,7 @@ from django.urls import re_path
 
 from .views import (
     CurrentUserView,
+    CsrfTokenView,
     DoctorPatientAssignmentView,
     DoctorPatientWorkspaceSubmissionView,
     DoctorPatientWorkspaceView,
@@ -15,6 +16,7 @@ from .views import (
 app_name = "users"
 
 urlpatterns = [
+    re_path(r"^csrf/?$", CsrfTokenView.as_view(), name="csrf"),
     re_path(r"^signup/patient/?$", PatientSignUpView.as_view(), name="signup-patient"),
     re_path(r"^signup/doctor/?$", DoctorSignUpView.as_view(), name="signup-doctor"),
     re_path(r"^login/?$", LoginView.as_view(), name="login"),

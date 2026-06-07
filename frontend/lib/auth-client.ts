@@ -286,7 +286,7 @@ function getBestErrorMessage(fieldErrors: FieldErrors, fallback: string) {
 }
 
 async function ensureCsrfCookie() {
-  await fetch(BACKEND_PREFIX, {
+  await fetch(`${BACKEND_PREFIX}/auth/csrf`, {
     method: "GET",
     cache: "no-store",
     credentials: "same-origin",
