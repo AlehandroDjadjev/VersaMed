@@ -3,8 +3,13 @@ from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+
+def env_bool(name, default):
+    return os.getenv(name, str(default)).lower() in {"1", "true", "yes", "on"}
+
+
 SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", "django-insecure-change-me")
-DEBUG = os.getenv("DJANGO_DEBUG", "true").lower() == "true"
+DEBUG = env_bool("DJANGO_DEBUG", True)
 ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "127.0.0.1,localhost").split(",")
 
 INSTALLED_APPS = [
@@ -19,9 +24,11 @@ INSTALLED_APPS = [
     "apps.core",
     "apps.users",
     "apps.api",
+    "his_mock",
 ]
 
 MIDDLEWARE = [
+    "his_mock.middleware.HisMockMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "corsheaders.middleware.CorsMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
@@ -84,3 +91,8 @@ STATIC_ROOT = BASE_DIR / "staticfiles"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 AUTH_USER_MODEL = "users.User"
 CORS_ALLOW_ALL_ORIGINS = DEBUG
+
+MOCK_AUTH_DISABLED = env_bool("MOCK_AUTH_DISABLED", True)
+MOCK_LATENCY_MS = int(os.getenv("MOCK_LATENCY_MS", "0"))
+MOCK_FORCE_ERROR = env_bool("MOCK_FORCE_ERROR", False)
+MOCK_ERROR_STATUS = int(os.getenv("MOCK_ERROR_STATUS", "500"))
