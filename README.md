@@ -166,6 +166,7 @@ private file attachments, or both:
 ```bash
 curl -X POST http://localhost:8000/api/laboratory/results/ \
   -H "Authorization: Token YOUR_TOKEN" \
+  -F "patient_id=1" \
   -F "laboratory_request=lab-request-123" \
   -F "laboratory_name=Example Laboratory" \
   -F "collected_at=2026-06-07T08:00:00Z" \
@@ -185,6 +186,12 @@ and staff can download an attachment through:
 ```text
 GET /api/laboratory/results/attachments/{attachment_id}/download/
 ```
+
+Every new laboratory result must include a `patient_id`. Patients may submit
+results for themselves, assigned doctors may submit results for their assigned
+patients, and admins or staff may submit results for any patient. The result,
+structured values, and attachment metadata are stored in the database. Uploaded
+file bytes remain in private file storage rather than inside the database.
 
 ## Email notifications
 

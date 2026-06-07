@@ -71,6 +71,13 @@ class LaboratoryResult(TimestampedModel):
         COMPLETED = "completed", "Completed"
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    patient = models.ForeignKey(
+        PatientProfile,
+        on_delete=models.CASCADE,
+        related_name="laboratory_results",
+        null=True,
+        blank=True,
+    )
     laboratory_request = models.CharField(max_length=128)
     laboratory_name = models.CharField(max_length=255)
     collected_at = models.DateTimeField()

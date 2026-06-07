@@ -5,10 +5,12 @@ from django.conf import settings
 from django.db import transaction
 from rest_framework import serializers
 
-from apps.core.models import LaboratoryResult, LaboratoryResultAttachment
+from apps.core.models import LaboratoryResult, LaboratoryResultAttachment, PatientProfile
+from apps.users.models import DoctorPatientAssignment, User
 
 
 class LaboratoryResultInputSerializer(serializers.Serializer):
+    patient_id = serializers.IntegerField()
     laboratory_request = serializers.CharField(max_length=128)
     laboratory_name = serializers.CharField(max_length=255)
     collected_at = serializers.DateTimeField()
@@ -30,7 +32,30 @@ class LaboratoryResultInputSerializer(serializers.Serializer):
     def validate(self, attrs):
         if attrs["reported_at"] < attrs["collected_at"]:
             raise serializers.ValidationError({"reported_at": "Cannot be before collected_at."})
+        attrs["patient"] = self._patient_for_user(attrs.pop("patient_id"))
         return attrs
+
+    def _patient_for_user(self, patient_id):
+        user = self.context["request"].user
+        patient = PatientProfile.objects.filter(pk=patient_id).select_related("user").first()
+        if patient is None:
+            raise serializers.ValidationError({"patient_id": "Patient not found."})
+        if user.is_staff or user.role == User.Role.ADMIN:
+            return patient
+        if user.role == User.Role.PATIENT and patient.user_id == user.id:
+            return patient
+        if (
+            user.role == User.Role.DOCTOR
+            and hasattr(user, "doctor_profile")
+            and DoctorPatientAssignment.objects.filter(
+                doctor=user.doctor_profile,
+                patient=patient,
+            ).exists()
+        ):
+            return patient
+        raise serializers.ValidationError(
+            {"patient_id": "You do not have permission to add results for this patient."}
+        )
 
 
 def attachment_type(upload):
@@ -85,6 +110,7 @@ def laboratory_result_data(result):
     attachment_count = len(attachments)
     return {
         "id": str(result.id),
+        "patient_id": result.patient_id,
         "status": result.status,
         "summary": (
             f"{value_count} structured value{'s' if value_count != 1 else ''} and "

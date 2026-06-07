@@ -180,6 +180,10 @@ class DashboardView(APIView):
                     for item in profile.immunizations.select_related("medical_institution")
                 ],
                 "hospitalizations": hospitalizations,
+                "laboratory_results": [
+                    laboratory_result_data(item)
+                    for item in profile.laboratory_results.prefetch_related("attachments")
+                ],
             },
         })
 
@@ -205,7 +209,10 @@ class LaboratoryResultCreateView(APIView):
     parser_classes = [MultiPartParser, FormParser, JSONParser]
 
     def post(self, request):
-        serializer = LaboratoryResultInputSerializer(data=request.data)
+        serializer = LaboratoryResultInputSerializer(
+            data=request.data,
+            context={"request": request},
+        )
         serializer.is_valid(raise_exception=True)
         uploads = request.FILES.getlist("attachments[]") or request.FILES.getlist("attachments")
         attachments = validate_attachments(uploads)
@@ -223,7 +230,14 @@ class LaboratoryResultAttachmentDownloadView(APIView):
     def get(self, request, attachment_id):
         attachments = LaboratoryResultAttachment.objects.all()
         if not request.user.is_staff:
-            attachments = attachments.filter(laboratory_result__created_by=request.user)
+            allowed = Q(laboratory_result__created_by=request.user) | Q(
+                laboratory_result__patient__user=request.user
+            )
+            if request.user.role == "doctor" and hasattr(request.user, "doctor_profile"):
+                allowed |= Q(
+                    laboratory_result__patient__doctor_assignments__doctor=request.user.doctor_profile
+                )
+            attachments = attachments.filter(allowed).distinct()
         attachment = get_object_or_404(attachments, id=attachment_id)
         return FileResponse(
             attachment.file.open("rb"),
