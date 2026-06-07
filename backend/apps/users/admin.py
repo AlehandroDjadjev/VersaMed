@@ -6,4 +6,19 @@ from .models import User
 
 @admin.register(User)
 class UserAdmin(BaseUserAdmin):
-    pass
+    list_display = ("username", "email", "role", "onboarding_completed", "is_active")
+    list_filter = ("role", "onboarding_completed", "is_active", "is_staff")
+    fieldsets = BaseUserAdmin.fieldsets + (
+        (
+            "VersaMed",
+            {
+                "fields": (
+                    "middle_name",
+                    "phone_number",
+                    "role",
+                    "onboarding_completed",
+                    "onboarding_completed_at",
+                )
+            },
+        ),
+    )
