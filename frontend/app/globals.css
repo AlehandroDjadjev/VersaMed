@@ -1,10 +1,6 @@
 @import "tailwindcss";
 
 :root {
-<<<<<<< HEAD
-  --background: #ffffff;
-  --foreground: #171717;
-=======
   --background: #edf6f3;
   --foreground: #10212a;
   --surface: rgba(255, 255, 255, 0.68);
@@ -14,29 +10,11 @@
   --accent: #0e736f;
   --accent-soft: #39c0b4;
   --danger: #be123c;
->>>>>>> ecb1ba21493d2b2f96082d24994e5efe45a02fd9
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-<<<<<<< HEAD
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
-=======
   --font-sans: var(--font-versa-sans);
   --font-display: var(--font-versa-display);
 }
@@ -453,5 +431,4 @@ input {
   .hero-video {
     transform: none;
   }
->>>>>>> ecb1ba21493d2b2f96082d24994e5efe45a02fd9
 }

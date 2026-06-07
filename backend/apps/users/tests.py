@@ -58,6 +58,12 @@ class AuthenticationFlowTests(TestCase):
         self.client.get(reverse("home"))
         return self.client.cookies["csrftoken"].value
 
+    def test_csrf_endpoint_sets_cookie(self):
+        response = self.client.get(reverse("users:csrf"))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertIn("csrftoken", self.client.cookies)
+
     def complete_login(self, username, password):
         challenge_response = self.client.post(
             reverse("users:login"),
