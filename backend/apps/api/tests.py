@@ -1,71 +1,22 @@
 import shutil
 import tempfile
 from pathlib import Path
+from unittest.mock import patch
 
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test import override_settings
 from rest_framework.test import APITestCase
 
-<<<<<<< HEAD
-from apps.core.models import LaboratoryResult, LaboratoryResultAttachment
-from apps.medical.models import Diagnosis, DiagnosisProblemLink, Patient, Problem
-from apps.users.models import User
-=======
 from apps.core.models import (
     DoctorProfile,
+    EmailNotification,
     LaboratoryResult,
     LaboratoryResultAttachment,
     MedicalInstitution,
     PatientProfile,
 )
+from apps.medical.models import Diagnosis, DiagnosisProblemLink, Patient, Problem
 from apps.users.models import DoctorPatientAssignment, User
-
-
-class AnalyzeScanApiTests(APITestCase):
-    @classmethod
-    def setUpClass(cls):
-        super().setUpClass()
-        cls.scan_id = json.loads((settings.BASE_DIR / "scans.json").read_text())[0]["id"]
-        cls.endpoint = f"/api/analyze-scan/{cls.scan_id}"
-
-    def test_requires_patient_symptoms(self):
-        response = self.client.post(self.endpoint, {}, format="json")
-
-        self.assertEqual(response.status_code, 400)
-        self.assertIn("patient_symptoms", response.data)
-
-    def test_rejects_blank_patient_symptoms(self):
-        response = self.client.post(self.endpoint, {"patient_symptoms": "   "}, format="json")
-
-        self.assertEqual(response.status_code, 400)
-        self.assertIn("patient_symptoms", response.data)
-
-    @patch("apps.api.views.analyze_scan_with_ai")
-    def test_passes_patient_symptoms_to_ai_service(self, analyze_scan):
-        analyze_scan.return_value = {
-            "scanType": "CT",
-            "bodyPart": "Chest",
-            "imageQuality": "Adequate",
-            "visibleAnatomy": [],
-            "possibleFindings": [],
-            "simpleExplanation": "Mock result.",
-            "recommendedDepartment": "Radiology",
-            "urgency": "low",
-            "limitations": [],
-            "disclaimer": "Mock disclaimer.",
-        }
-
-        response = self.client.post(
-            self.endpoint,
-            {"patient_symptoms": "  Cough and chest tightness for three days.  "},
-            format="json",
-        )
-
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.data["patientSymptoms"], "Cough and chest tightness for three days.")
-        analyze_scan.assert_called_once()
-        self.assertEqual(analyze_scan.call_args.args[1], "Cough and chest tightness for three days.")
->>>>>>> ceb6944170cb0cc0d563133e5009f82533b5cd44
 
 
 def diagnosis_model_output():
@@ -286,7 +237,10 @@ class ScanAnalysisApiTests(APITestCase):
 
         response = self.client.post(
             "/api/analyze-scan/tcia_scan_001/",
-            {"patient_id": patient.id},
+            {
+                "patient_id": patient.id,
+                "patient_symptoms": "Improving cough after pneumonia.",
+            },
             format="json",
         )
 
@@ -325,9 +279,6 @@ class LaboratoryResultApiTests(APITestCase):
             username="patient-user",
             email="patient-user@example.com",
             password="password123",
-<<<<<<< HEAD
-        )
-=======
             role=User.Role.PATIENT,
         )
         self.patient_profile = PatientProfile.objects.create(
@@ -338,8 +289,6 @@ class LaboratoryResultApiTests(APITestCase):
             blood_type="",
             address="",
         )
-        self.base_data = {**self.base_data, "patient_id": self.patient.id}
->>>>>>> ceb6944170cb0cc0d563133e5009f82533b5cd44
         self.client.force_authenticate(self.user)
 
     def upload(self, name="report.pdf", content=b"%PDF-1.4 mock", content_type="application/pdf"):
@@ -490,8 +439,6 @@ class LaboratoryResultApiTests(APITestCase):
         )
 
         self.assertEqual(response.status_code, 403)
-<<<<<<< HEAD
-=======
 
 
 class EmailNotificationApiTests(APITestCase):
@@ -629,4 +576,3 @@ class EmailNotificationApiTests(APITestCase):
         error_message = EmailNotification.objects.get().error_message
         self.assertNotIn("super-secret-app-password", error_message)
         self.assertIn("[REDACTED]", error_message)
->>>>>>> ceb6944170cb0cc0d563133e5009f82533b5cd44

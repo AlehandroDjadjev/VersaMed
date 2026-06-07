@@ -119,7 +119,6 @@ export function DoctorPatientsManager() {
 
   useEffect(() => {
     if (!selectedAssignmentId || !user || user.role !== "doctor") {
-      setWorkspace(null);
       return;
     }
 

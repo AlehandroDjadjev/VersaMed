@@ -65,6 +65,11 @@ urlpatterns = [
         LaboratoryResultAttachmentDownloadView.as_view(),
         name="laboratory-result-attachment-download",
     ),
+    *slash_compatible(
+        "notifications/email",
+        EmailNotificationCreateView.as_view(),
+        name="email-notification-create",
+    ),
 
     path("", include("apps.medical.urls")),
 ]

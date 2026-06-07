@@ -119,6 +119,7 @@ export function PatientRecords() {
 
   const immunizations = dashboard?.database.immunizations ?? [];
   const hospitalizations = dashboard?.database.hospitalizations ?? [];
+  const laboratoryResults = dashboard?.database.laboratory_results ?? [];
   const patient = dashboard?.patient;
   const apiStatus = dashboard?.mock_hospital_api;
 
@@ -226,6 +227,7 @@ export function PatientRecords() {
               <div className="mt-4 space-y-2 text-sm text-slate-600">
                 <Detail label="Immunizations" value={String(immunizations.length)} />
                 <Detail label="Hospitalizations" value={String(hospitalizations.length)} />
+                <Detail label="Lab and scan uploads" value={String(laboratoryResults.length)} />
                 <Detail
                   label="Epicrises"
                   value={String(hospitalizations.filter((item) => item.epicrisis).length)}
@@ -334,6 +336,59 @@ export function PatientRecords() {
                 <EmptyState text="No hospitalization records are currently synced for this patient." />
               )}
             </article>
+          </section>
+
+          <section className="glass-panel p-8 sm:p-10">
+            <div className="flex items-center justify-between gap-4">
+              <div>
+                <p className="text-xs uppercase tracking-[0.28em] text-slate-500">
+                  Lab results and scans
+                </p>
+                <h2 className="mt-3 text-3xl font-semibold tracking-tight text-slate-950">
+                  Stored diagnostic files
+                </h2>
+              </div>
+              <span className="chip">{laboratoryResults.length} records</span>
+            </div>
+
+            {laboratoryResults.length ? (
+              <div className="mt-8 grid gap-4 lg:grid-cols-2">
+                {laboratoryResults.map((result) => (
+                  <article
+                    key={result.id}
+                    className="rounded-[28px] border border-white/60 bg-white/72 p-6 shadow-[inset_0_1px_0_rgba(255,255,255,0.88)]"
+                  >
+                    <h3 className="text-lg font-semibold tracking-tight text-slate-950">
+                      {result.summary}
+                    </h3>
+                    <div className="mt-4 space-y-2 text-sm text-slate-600">
+                      {result.test_results.map((item, index) => (
+                        <Detail
+                          key={`${String(item.test_name ?? "result")}-${index}`}
+                          label={String(item.test_name ?? "Result")}
+                          value={`${String(item.value ?? "")} ${String(item.unit ?? "")}`.trim()}
+                        />
+                      ))}
+                    </div>
+                    {result.attachments.length ? (
+                      <div className="mt-5 flex flex-wrap gap-2">
+                        {result.attachments.map((attachment) => (
+                          <a
+                            key={attachment.id}
+                            href={`/backend/api/laboratory/results/attachments/${attachment.id}/download/`}
+                            className="secondary-button px-4 py-2 text-sm"
+                          >
+                            Open {attachment.title}
+                          </a>
+                        ))}
+                      </div>
+                    ) : null}
+                  </article>
+                ))}
+              </div>
+            ) : (
+              <EmptyState text="No laboratory results or scans are stored for this patient yet." />
+            )}
           </section>
         </>
       )}

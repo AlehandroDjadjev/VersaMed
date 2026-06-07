@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useEffect, useMemo, useState } from "react";
+import { startTransition, useEffect, useMemo, useState } from "react";
 
 import { useAuth } from "@/components/auth-provider";
 import type { SyncEnvelope } from "@/lib/auth-client";
@@ -36,9 +36,9 @@ export function PatientSyncResults() {
 
     try {
       const parsed = JSON.parse(raw) as SyncEnvelope;
-      setSyncResult(parsed);
+      startTransition(() => setSyncResult(parsed));
     } catch {
-      setSyncResult(null);
+      startTransition(() => setSyncResult(null));
     }
   }, [isAuthenticated, isLoading, router, user]);
 

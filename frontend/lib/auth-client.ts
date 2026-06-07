@@ -151,16 +151,6 @@ export type DoctorPatientWorkspace = {
   };
 };
 
-export type MedicalProblem = {
-  id: number;
-  title: string;
-  summary: string;
-  body_area: string;
-  keywords: string[];
-  created_at: string;
-  updated_at: string;
-};
-
 export type DiagnosisProblemLink = {
   id: number;
   problem: MedicalProblem;

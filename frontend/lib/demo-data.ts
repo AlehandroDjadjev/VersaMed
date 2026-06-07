@@ -17,18 +17,20 @@ export const demoAgents = [
 ];
 
 export const demoDoctor = {
-  username: "demo_doctor",
+  username: "doctor.elena",
   password: "DemoDoctor123!",
-  email: "doctor.demo@versamed.app",
+  email: "elena.georgieva@versamed.test",
   fullName: "Dr. Elena Stoyanova Georgieva",
   uin: "1234567890",
   specialty: "General Practice",
 };
 
 export const demoPatient = {
-  username: "demo_patient",
+  username: "patient.ivan",
   password: "DemoPatient123!",
+  email: "ivan.ivanov@versamed.test",
   fullName: "Ivan Petrov Ivanov",
   egn: "9001010000",
   birthDate: "1990-01-01",
+  coverage: "HIS history, labs, chest CT, diagnoses, tracked problem, AI run",
 };
