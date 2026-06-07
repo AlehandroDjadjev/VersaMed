@@ -1,0 +1,15 @@
+# Python
+backend/.venv/
+backend/db.sqlite3
+backend/**/__pycache__/
+backend/**/*.pyc
+
+# Flutter / Dart
+frontend/.dart_tool/
+frontend/build/
+
+# IDE / OS
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
